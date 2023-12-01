@@ -1,6 +1,6 @@
-package com.example.working.common.dto;
+package com.woke.working.common.dto;
 
-import com.example.working.common.constant.VaildateMessageConstant;
+import com.woke.working.common.constant.VaildateMessageConstant;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;

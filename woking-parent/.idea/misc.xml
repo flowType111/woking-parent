@@ -9,6 +9,10 @@
         <option value="$PROJECT_DIR$/working-user-manage/pom.xml" />
         <option value="$PROJECT_DIR$/working-api/pom.xml" />
         <option value="$PROJECT_DIR$/working-common/pom.xml" />
+        <option value="$PROJECT_DIR$/working-redis/pom.xml" />
+        <option value="$PROJECT_DIR$/working-utils/working-redis/pom.xml" />
+        <option value="$PROJECT_DIR$/working-utils/working-redis-starter/pom.xml" />
+        <option value="$PROJECT_DIR$/working-utils/working-web-starter/pom.xml" />
       </list>
     </option>
   </component>

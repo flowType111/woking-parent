@@ -32,7 +32,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.work</groupId>
+            <groupId>com.woke</groupId>
             <artifactId>working-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

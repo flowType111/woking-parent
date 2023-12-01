@@ -1,4 +1,4 @@
-package com.example.working.common.vo;
+package com.woke.working.common.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +21,7 @@ public class ResponseVo<T> {
     /**
      * 失败消息
      */
-    private String msg;
+    private Object msg;
 
     /**
      * 返回代码
@@ -68,7 +68,7 @@ public class ResponseVo<T> {
         return result;
     }
 
-    public static ResponseVo fail(Integer code, String msg) {
+    public static ResponseVo fail(Integer code, Object msg) {
         ResponseVo result = new ResponseVo();
         result.setSuccess(false);
         result.setCode(code);

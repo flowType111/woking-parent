@@ -1,7 +1,7 @@
 package com.woke.working.user.controller;
 
-import com.example.working.common.dto.UserLoginDTO;
-import com.example.working.common.vo.ResponseVo;
+import com.woke.working.common.dto.UserLoginDTO;
+import com.woke.working.common.vo.ResponseVo;
 import com.woke.working.api.user.UserLoginApi;
 import com.woke.working.user.service.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;

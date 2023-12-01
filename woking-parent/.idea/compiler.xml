@@ -7,13 +7,16 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="working-user-manage" />
+        <module name="working-web-starter" />
         <module name="working-gateway" />
         <module name="working-api" />
         <module name="working-common" />
+        <module name="working-redis-starter" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="woking-gateway" target="1.8" />
+      <module name="working-redis" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -23,7 +26,10 @@
       <module name="working-api" options="-parameters" />
       <module name="working-common" options="-parameters" />
       <module name="working-gateway" options="-parameters" />
+      <module name="working-redis" options="-parameters" />
+      <module name="working-redis-starter" options="-parameters" />
       <module name="working-user-manage" options="-parameters" />
+      <module name="working-web-starter" options="-parameters" />
     </option>
   </component>
 </project>

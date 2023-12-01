@@ -8,7 +8,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.work</groupId>
+    <groupId>com.woke</groupId>
     <artifactId>working-common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>working-common</name>
@@ -41,6 +41,7 @@
             <artifactId>tomcat-embed-core</artifactId>
             <scope>compile</scope>
         </dependency>
+
     </dependencies>
 
 </project>

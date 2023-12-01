@@ -1,13 +1,13 @@
 package com.woke.working.api.user;
 
-import com.woke.working.common.dto.UserLoginDTO;
+import com.woke.working.common.dto.UserDTO;
 import com.woke.working.common.vo.ResponseVo;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/user-service/login")
-public interface UserLoginApi {
+@RequestMapping("/user-service/account")
+public interface UserApi {
 
-    @PostMapping("/userLogin")
-    ResponseVo userLogin(UserLoginDTO userLoginDTO);
+    @PostMapping
+    ResponseVo add(UserDTO userDTO);
 }

@@ -1,4 +1,4 @@
-package com.example.working.common.constant;
+package com.woke.working.common.constant;
 
 public class VaildateMessageConstant {
 
