@@ -16,7 +16,14 @@ public enum BusinessMsgEnum {
 
     WORKING_USER_EXIST_CHILD_NODE(10005,"当前节点存在子节点不能删除"),
 
-    WORKING_USER_PERMISSION_EXIST(10002,"权限点code重复");
+    WORKING_USER_PERMISSION_EXIST(10002,"权限点code重复"),
+
+
+    WORKING_USER_ROLE_CODE_EXIST(20001,"角色code已存在"),
+
+    WORKING_USER_ROLE_NAME_EXIST(20002,"角色名称已存在"),
+
+    WORKING_USER_ROLE_NOT_EXIST(20003,"角色不存在");
 
     /**
      * 消息码
