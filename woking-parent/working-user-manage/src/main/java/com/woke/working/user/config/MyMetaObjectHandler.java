@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Slf4j
 @Component
-public abstract class MyMetaObjectHandler implements MetaObjectHandler {
+public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {

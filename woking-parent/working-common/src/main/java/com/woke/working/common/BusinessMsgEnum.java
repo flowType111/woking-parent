@@ -10,7 +10,13 @@ public enum BusinessMsgEnum {
     /**
      * user服务异常处理
      */
-    WORKING_USER_ADD_MENU_EXCEPTION(10001,"未查询到对应的父节点");
+    WORKING_USER_ADD_MENU_EXCEPTION(10001,"未查询到对应的父节点"),
+
+    WORKING_USER_DELETE_MENU_EXCEPTION(10003,"未查询到对应的节点"),
+
+    WORKING_USER_EXIST_CHILD_NODE(10005,"当前节点存在子节点不能删除"),
+
+    WORKING_USER_PERMISSION_EXIST(10002,"权限点code重复");
 
     /**
      * 消息码

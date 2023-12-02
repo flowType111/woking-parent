@@ -14,7 +14,7 @@ import java.util.Date;
  * 数据库模型设计时抽出所有通用字段，抽象为父类
  */
 @Data
-public abstract class BaseEntity implements Serializable {
+public class BaseEntity implements Serializable {
 
     /**
      * 创建时间

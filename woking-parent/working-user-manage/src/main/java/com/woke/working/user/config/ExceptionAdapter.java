@@ -25,6 +25,7 @@ public class ExceptionAdapter {
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     @ResponseBody
     public ResponseVo handleResourceNotFoundException(MethodArgumentNotValidException e) {
+        log.error("异常:{}", e);
         BindingResult bindingResult = e.getBindingResult();
         List<ObjectError> allErrors = bindingResult.getAllErrors();
         Map<String, String> errorMap = Maps.newHashMap();
@@ -38,6 +39,7 @@ public class ExceptionAdapter {
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public ResponseVo systemExceptionHandler(Exception exception, HttpServletRequest request) {
+        log.error("异常:{}", exception);
         return ResponseVo.fail(500, "系统异常");
     }
 
