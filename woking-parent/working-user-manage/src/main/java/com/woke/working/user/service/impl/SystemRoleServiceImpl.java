@@ -112,7 +112,8 @@ public class SystemRoleServiceImpl implements SystemRoleService {
             systemMenuTreeVo.setCheldrenList(groupMap.get(systemMenuTreeVo.getId()));
         });
         List<SystemMenuTreeVo> collect = selectRoleDetails.getSystemMenuTreeVoList().stream().filter(systemMenuTreeVo-> StringUtils.isEmpty(systemMenuTreeVo.getParentId())).collect(Collectors.toList());
-        return ResponseVo.success(collect);
+        selectRoleDetails.setSystemMenuTreeVoList(collect);
+        return ResponseVo.success(selectRoleDetails);
     }
 
 
