@@ -72,16 +72,27 @@ public class SystemRoleServiceImpl implements SystemRoleService {
         if (Objects.isNull(systemRole)) {
             throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_ROLE_NOT_EXIST);
         }
-        if (!systemRole.getRoleCode().equalsIgnoreCase(systemRoleDTO.getRoleCode()) ||
-                !systemRole.getRoleName().equalsIgnoreCase(systemRoleDTO.getRoleName())) {
-            determine(systemRoleDTO);
+        if (!systemRole.getRoleCode().equalsIgnoreCase(systemRoleDTO.getRoleCode())) {
+            List<SystemRole> systemCode = systemRoleDao.selectList(new LambdaQueryWrapper<SystemRole>()
+                    .eq(SystemRole::getStatus, StatusEnum.ENABLE.getCode())
+                    .eq(SystemRole::getRoleCode, systemRoleDTO.getRoleCode()));
+            if (!CollectionUtils.isEmpty(systemCode)) {
+                throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_ROLE_CODE_EXIST);
+            }
+        }
+        if (!systemRole.getRoleName().equalsIgnoreCase(systemRoleDTO.getRoleName())){
+            List<SystemRole> systemName = systemRoleDao.selectList(new LambdaQueryWrapper<SystemRole>()
+                    .eq(SystemRole::getStatus, StatusEnum.ENABLE.getCode())
+                    .eq(SystemRole::getRoleCode, systemRoleDTO.getRoleName()));
+            if (!CollectionUtils.isEmpty(systemName)) {
+                throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_ROLE_NAME_EXIST);
+            }
         }
         BeanUtils.copyProperties(systemRoleDTO, systemRole);
         systemRoleDao.updateById(systemRole);
 
         systemRoleMenuDao.delete(new LambdaQueryWrapper<SystemRoleMenu>()
                 .eq(SystemRoleMenu::getRoleId, systemRoleDTO.getId()));
-
         Optional.ofNullable(systemRoleDTO.getMenuList()).orElse(new ArrayList<>())
                 .stream().forEach(menuList -> {
                     SystemRoleMenu systemRoleMenu = new SystemRoleMenu();
@@ -119,13 +130,13 @@ public class SystemRoleServiceImpl implements SystemRoleService {
 
     private void determine(SystemRoleDTO systemRoleDTO) {
         List<SystemRole> systemCode = systemRoleDao.selectList(new LambdaQueryWrapper<SystemRole>()
-                .eq(SystemRole::getStatus, StatusEnum.ENABLE)
+                .eq(SystemRole::getStatus, StatusEnum.ENABLE.getCode())
                 .eq(SystemRole::getRoleCode, systemRoleDTO.getRoleCode()));
         if (!CollectionUtils.isEmpty(systemCode)) {
             throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_ROLE_CODE_EXIST);
         }
         List<SystemRole> systemName = systemRoleDao.selectList(new LambdaQueryWrapper<SystemRole>()
-                .eq(SystemRole::getStatus, StatusEnum.ENABLE)
+                .eq(SystemRole::getStatus, StatusEnum.ENABLE.getCode())
                 .eq(SystemRole::getRoleCode, systemRoleDTO.getRoleName()));
         if (!CollectionUtils.isEmpty(systemName)) {
             throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_ROLE_NAME_EXIST);

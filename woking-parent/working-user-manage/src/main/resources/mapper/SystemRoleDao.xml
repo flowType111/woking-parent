@@ -2,7 +2,7 @@
 <mapper namespace="com.woke.working.user.dao.SystemRoleDao">
 
     <sql id="searchCondition">
-        <if test="systemRolePageDTO.menuName!=null and systemRolePageDTO.menuName!=''">
+        <if test="systemRolePageDTO.roleName!=null and systemRolePageDTO.roleName!=''">
             and tm.role_name like concat('%',#{systemRolePageDTO.menuName},'%')
         </if>
         <if test="systemRolePageDTO.roleCode!=null and systemRolePageDTO.roleCode!=''">
@@ -34,6 +34,8 @@
             tr.status = 1
             <include refid="searchCondition"/>
         </where>
+        ORDER BY tr.create_time desc
+        LIMIT #{systemRolePageDTO.pageNum},#{systemRolePageDTO.pageSize}
     </select>
 
 

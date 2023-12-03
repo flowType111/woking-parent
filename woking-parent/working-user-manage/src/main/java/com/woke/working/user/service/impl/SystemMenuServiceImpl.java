@@ -70,7 +70,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
         }
         Long existCount = systemMenuDao.selectCount(new LambdaQueryWrapper<SystemMenu>()
                 .eq(SystemMenu::getParentId, id)
-                .eq(SystemMenu::getStatus, StatusEnum.ENABLE));
+                .eq(SystemMenu::getStatus, StatusEnum.ENABLE.getCode()));
         if (existCount > 0) {
             throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_EXIST_CHILD_NODE);
         }
