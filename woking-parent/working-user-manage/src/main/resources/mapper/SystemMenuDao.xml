@@ -1,0 +1,60 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woke.working.user.dao.SystemMenuDao">
+
+   <sql id="searchCondition">
+       <if test="systemMenuPageDTO.menuName!=null and systemMenuPageDTO.menuName!=''">
+           and tm.menu_name like concat('%',#{systemMenuPageDTO.menuName},'%')
+       </if>
+       <if test="systemMenuPageDTO.menuCode!=null and systemMenuPageDTO.menuCode!=''">
+           and tm.menu_code = #{systemMenuPageDTO.menuCode}
+       </if>
+       <if test="systemMenuPageDTO.nodeType!=null">
+           and tm.node_type = #{systemMenuPageDTO.nodeType}
+       </if>
+   </sql>
+
+   <select id="selectMenuCount" resultType="int">
+      SELECT
+         count(*)
+      FROM
+         tb_menu tm
+      <where>
+        tm.status = 1
+        <include refid="searchCondition"/>
+      </where>
+   </select>
+
+   <select id="selectMenuPage" resultType="com.woke.working.user.entity.SystemMenu">
+       SELECT
+           tm.id as id,
+           tm.menu_code as menuCode,
+           tm.menu_name as menuName,
+           tm.parent_id as parentId,
+           tm.node_type as nodeType,
+           tm.create_time as createTime,
+           tm.update_time as updateTime
+       FROM
+           tb_menu tm
+       <where>
+            tm.status = 1
+           <include refid="searchCondition"/>
+       </where>
+       ORDER BY tm.create_time desc
+       LIMIT #{systemMenuPageDTO.pageNum},#{systemMenuPageDTO.pageSize}
+   </select>
+
+    <select id="selectMenuTree" resultType="com.woke.working.common.vo.user.SystemMenuTreeVo">
+        SELECT
+            tm.id as id,
+            tm.menu_code as menuCode,
+            tm.menu_name as menuName,
+            tm.parent_id as parentId,
+            tm.node_type as nodeType,
+            tm.sort as sort,
+            tm.`level` as `level`
+        FROM
+            tb_menu tm
+        where
+            tm.status = 1
+    </select>
+</mapper>

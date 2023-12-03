@@ -1,13 +1,11 @@
 package com.woke.working.api.user;
 
-import com.woke.working.common.dto.SystemMenuDTO;
+import com.woke.working.common.dto.user.SystemMenuDTO;
+import com.woke.working.common.dto.user.SystemMenuPageDTO;
 import com.woke.working.common.vo.ResponseVo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.validation.Valid;
 
 @RequestMapping("/system/menu")
 public interface SystemMenuApi {
@@ -20,4 +18,10 @@ public interface SystemMenuApi {
 
     @PostMapping("/updateMenu")
     ResponseVo updateMenu(SystemMenuDTO systemMenuDTO);
+
+    @PostMapping("/selectMenuPage")
+    ResponseVo selectMenuPage(SystemMenuPageDTO systemMenuPageDTO);
+
+    @PostMapping("/selectMenu")
+    ResponseVo selectMenu();
 }

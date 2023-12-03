@@ -1,6 +1,6 @@
 package com.woke.working.user.controller;
 
-import com.woke.working.common.dto.UserLoginDTO;
+import com.woke.working.common.dto.user.UserLoginDTO;
 import com.woke.working.common.vo.ResponseVo;
 import com.woke.working.api.user.UserLoginApi;
 import com.woke.working.user.service.UserLoginService;

@@ -1,4 +1,4 @@
-package com.woke.working.common.dto;
+package com.woke.working.common.dto.user;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package com.woke.working.user.controller;
 
-import com.woke.working.common.dto.UserDTO;
+import com.woke.working.common.dto.user.UserDTO;
 import com.woke.working.common.vo.ResponseVo;
 import com.woke.working.api.user.UserApi;
 import org.springframework.web.bind.annotation.RequestBody;

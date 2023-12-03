@@ -1,10 +1,12 @@
 package com.woke.working.api.user;
 
-import com.woke.working.common.dto.SystemRoleDTO;
+import com.woke.working.common.dto.user.SystemRoleDTO;
+import com.woke.working.common.dto.user.SystemRolePageDTO;
 import com.woke.working.common.vo.ResponseVo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequestMapping("/system/role")
 public interface SystemRoleApi {
@@ -17,4 +19,10 @@ public interface SystemRoleApi {
 
     @PostMapping("/updateRole")
     ResponseVo updadteRole(SystemRoleDTO systemRoleDTO);
+
+    @PostMapping("/selectRolePage")
+    ResponseVo selectRolePage(SystemRolePageDTO systemRolePageDTO);
+
+    @GetMapping("/selectRoleDetails")
+    ResponseVo selectRoleDetails(String id);
 }

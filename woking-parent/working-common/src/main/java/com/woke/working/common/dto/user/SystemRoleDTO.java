@@ -1,9 +1,10 @@
-package com.woke.working.common.dto;
+package com.woke.working.common.dto.user;
 
 import com.woke.working.common.valid.ValidGroup;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 public class SystemRoleDTO {
@@ -16,4 +17,6 @@ public class SystemRoleDTO {
 
     @NotNull(message = "角色名称不能为空", groups = {ValidGroup.Insert.class})
     private String roleName;
+
+    private List<String> menuList;
 }

@@ -1,6 +1,7 @@
 package com.woke.working.user.controller;
 
-import com.woke.working.common.dto.SystemMenuDTO;
+import com.woke.working.common.dto.user.SystemMenuDTO;
+import com.woke.working.common.dto.user.SystemMenuPageDTO;
 import com.woke.working.common.valid.ValidGroup;
 import com.woke.working.common.vo.ResponseVo;
 import com.woke.working.api.user.SystemMenuApi;
@@ -33,5 +34,15 @@ public class SystemMenuController implements SystemMenuApi {
     @Override
     public ResponseVo updateMenu(@RequestBody @Validated({ValidGroup.Update.class}) SystemMenuDTO systemMenuDTO) {
         return systemMenuService.updateMenu(systemMenuDTO);
+    }
+
+    @Override
+    public ResponseVo selectMenuPage(@RequestBody SystemMenuPageDTO systemMenuPageDTO) {
+        return systemMenuService.selectMenuPage(systemMenuPageDTO);
+    }
+
+    @Override
+    public ResponseVo selectMenu() {
+        return systemMenuService.selectMenu();
     }
 }

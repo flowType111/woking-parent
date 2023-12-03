@@ -1,7 +1,8 @@
 package com.woke.working.user.controller;
 
 import com.woke.working.api.user.SystemRoleApi;
-import com.woke.working.common.dto.SystemRoleDTO;
+import com.woke.working.common.dto.user.SystemRoleDTO;
+import com.woke.working.common.dto.user.SystemRolePageDTO;
 import com.woke.working.common.valid.ValidGroup;
 import com.woke.working.common.vo.ResponseVo;
 import com.woke.working.user.service.SystemRoleService;
@@ -32,5 +33,15 @@ public class SystemRoleController implements SystemRoleApi {
     @Override
     public ResponseVo updadteRole(@RequestBody @Validated({ValidGroup.Update.class}) SystemRoleDTO systemRoleDTO) {
         return systemRoleService.updadteRole(systemRoleDTO);
+    }
+
+    @Override
+    public ResponseVo selectRolePage(@RequestBody SystemRolePageDTO systemRolePageDTO) {
+        return systemRoleService.selectRolePage(systemRolePageDTO);
+    }
+
+    @Override
+    public ResponseVo selectRoleDetails(@RequestParam("id") String id) {
+        return systemRoleService.selectRoleDetails(id);
     }
 }

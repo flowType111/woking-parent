@@ -1,6 +1,6 @@
 package com.woke.working.api.user;
 
-import com.woke.working.common.dto.UserDTO;
+import com.woke.working.common.dto.user.UserDTO;
 import com.woke.working.common.vo.ResponseVo;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

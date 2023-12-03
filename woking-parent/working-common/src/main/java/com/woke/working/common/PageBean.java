@@ -1,71 +1,35 @@
 package com.woke.working.common;
 
-/**
- * 分页工具类
- *
- */
-public class PageBean {
+import lombok.Data;
 
-    private int page = 1;// 页码
+import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
 
-    private int rows = 10;// 页大小
+@Data
+public class PageBean<T> implements Serializable {
 
-    private int total = 0;// 总记录数
-
-    private boolean pagination = true;// 是否分页
+    private int pageNum; //当前页数
+    private int pageSize; //每页显示数
+    private int totalPage; //总页数
+    private int totalRecord; //总的记录数
+    private List<T> data; //当前页面的数据集合
+    private int start;
+    private int end;
 
     public PageBean() {
-        super();
     }
 
-    public int getPage() {
-        return page;
-    }
+    public PageBean(int pageNum, int pageSize, int totalRecord, List<T> data) {
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
 
-    public void setPage(int page) {
-        this.page = page;
-    }
+        //计算总页数
+        this.totalPage=totalRecord%pageSize==0?(totalRecord/pageSize):(totalRecord/pageSize+1);
 
-    public int getRows() {
-        return rows;
+        //计算每页的起始下标
+        this.start=(pageNum-1)*pageSize;
+        this.end=this.start+pageSize;
+        this.data = data;
     }
-
-    public void setRows(int rows) {
-        this.rows = rows;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public void setTotal(String total) {
-        this.total = Integer.parseInt(total);
-    }
-
-    public boolean isPagination() {
-        return pagination;
-    }
-
-    public void setPagination(boolean pagination) {
-        this.pagination = pagination;
-    }
-
-    /**
-     * 获得起始记录的下标
-     *
-     * @return
-     */
-    public int getStartIndex() {
-        return (this.page - 1) * this.rows;
-    }
-
-    @Override
-    public String toString() {
-        return "PageBean [page=" + page + ", rows=" + rows + ", total=" + total + ", pagination=" + pagination + "]";
-    }
-
 }
