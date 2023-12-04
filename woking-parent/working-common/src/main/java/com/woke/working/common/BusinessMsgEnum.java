@@ -7,6 +7,16 @@ public enum BusinessMsgEnum {
     SERVICE_TIME_OUT(103, "服务调用超时！"),
     UNEXPECTED_EXCEPTION(500, "系统发生异常，请联系管理员！"),
 
+    AUTH_TOKEN_ERROR(500, "认证权限解析token失败"),
+
+    NO_AUTH(401, "未登录或登录已失效！"),
+
+    AUTHORITY_ERROR(402, "您的账号权限不足,请联系管理员！"),
+
+    MESSAGE_ENUM_ERROR(406, "异常枚举类型错误!"),
+
+    OTHER_LOGIN(401, "你的账号在其他地点登陆"),
+
     /**
      * user服务异常处理
      */
@@ -21,6 +31,16 @@ public enum BusinessMsgEnum {
     WORKING_USER_ACCOUNT_NO_EXIST(10006,"账号已经存在"),
 
     WORKING_USER_ACCOUNT_NO_NOT_EXIST(10006,"账号不存在"),
+
+    WORKING_USER_ANALYSIS_PASSWORD_ERROR(10007,"解析密码错误"),
+
+
+
+    WORKING_USER_PASSWORD_ERROR(10008,"密码输入错误"),
+
+    WORKING_USER_CHECK_CODE_INVALID(10009,"验证码不存在/或过期"),
+
+    WORKING_USER_CHECK_CODE_ERROR(10000,"验证码错误"),
 
     WORKING_USER_ROLE_CODE_EXIST(20001,"角色code已存在"),
 

@@ -15,4 +15,6 @@ public interface SystemMenuDao extends BaseMapper<SystemMenu> {
     List<SystemMenu> selectMenuPage(@Param("systemMenuPageDTO") SystemMenuPageDTO systemMenuPageDTO);
 
     List<SystemMenuTreeVo> selectMenuTree();
+
+    List<SystemMenu> selectUserRoleMeun(@Param("accountNo") String accountNo);
 }

@@ -31,7 +31,6 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     @Autowired
     private SystemUserDao systemUserDao;
-
     @Autowired
     private SystemUserRoleService systemUserRoleService;
     @Autowired

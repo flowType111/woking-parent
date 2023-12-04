@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients
+@EnableFeignClients(basePackages = {"com.woke.working.api.user.feign"})
 public class WorkingGatewayApplication {
 
     public static void main(String[] args) {

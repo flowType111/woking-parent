@@ -57,4 +57,20 @@
         where
             tm.status = 1
     </select>
+
+    <select id="selectUserRoleMeun" resultType="com.woke.working.user.entity.SystemMenu">
+        SELECT
+            DISTINCT tm.id as id,
+                     tm.menu_code as menuCode,
+                     tm.menu_name as menuName,
+                     tm.node_type as nodeType,
+                     tm.parent_id as parentId
+        FROM
+            tb_user tu
+                INNER JOIN tb_user_role tur ON tu.id = tur.user_id
+                INNER JOIN tb_role tr ON tur.role_id = tr.id
+                INNER JOIN tb_role_menu trm ON tr.id = trm.role_id
+                INNER JOIN tb_menu tm ON trm.menu_id = tm.id
+        where tu.account_no =#{accountNo}
+    </select>
 </mapper>

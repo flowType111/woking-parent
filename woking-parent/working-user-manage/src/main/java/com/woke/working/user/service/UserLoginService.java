@@ -5,4 +5,6 @@ import com.woke.working.common.dto.user.UserLoginDTO;
 public interface UserLoginService {
 
     String userLogin(UserLoginDTO userLoginDTO);
+
+    void userLogout();
 }
