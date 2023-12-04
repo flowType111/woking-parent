@@ -35,7 +35,6 @@ public enum BusinessMsgEnum {
     WORKING_USER_ANALYSIS_PASSWORD_ERROR(10007,"解析密码错误"),
 
 
-
     WORKING_USER_PASSWORD_ERROR(10008,"密码输入错误"),
 
     WORKING_USER_CHECK_CODE_INVALID(10009,"验证码不存在/或过期"),

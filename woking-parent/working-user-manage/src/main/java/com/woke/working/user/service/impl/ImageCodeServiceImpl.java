@@ -1,6 +1,8 @@
 package com.woke.working.user.service.impl;
 
 import com.wf.captcha.ArithmeticCaptcha;
+import com.wf.captcha.SpecCaptcha;
+import com.wf.captcha.base.Captcha;
 import com.woke.working.common.BusinessMsgEnum;
 import com.woke.working.common.constant.RedisKeyConstant;
 import com.woke.working.common.dto.user.CheckImageDTO;
@@ -25,20 +27,18 @@ public class ImageCodeServiceImpl implements ImageCodeService {
 
     @Override
     public ResponseVo<ImageCodeVo> getImageCode() {
-        // 算术类型
-        ArithmeticCaptcha captcha = new ArithmeticCaptcha(111, 36);
-        // 几位数运算，默认是两位
-        captcha.setLen(2);
+        SpecCaptcha specCaptcha = new SpecCaptcha(130, 48);
+        specCaptcha.setCharType(Captcha.TYPE_DEFAULT);//字母数字混合
         // 获取运算的结果
         String result = "";
         try {
-            result = new Double(Double.parseDouble(captcha.text())).intValue() + "";
+            result = specCaptcha.toBase64();
         } catch (Exception e) {
-            result = captcha.text();
+            throw new BusinessErrorException(BusinessMsgEnum.AUTH_TOKEN_ERROR);
         }
         //生成uuid做为验证码的key
         UUID key = UUID.randomUUID();
-        redisUtil.setString(RedisKeyConstant.VERIFY_CODE_PREFIX + key, result, 5 * 60L);
+        redisUtil.setString(RedisKeyConstant.VERIFY_CODE_PREFIX + key, specCaptcha.text(), 5 * 60L);
         return ResponseVo.success(new ImageCodeVo(key.toString() ,result));
     }
 

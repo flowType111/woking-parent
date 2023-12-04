@@ -10,6 +10,11 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/working-user?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    password: 88888888
 
 
 server:
@@ -18,6 +23,7 @@ server:
   tomcat:
     max-http-post-size: -1  #请求参数长度
 
+loginTime: 604800
 
 #数据库名称
 project:
@@ -58,3 +64,5 @@ spring:
 ribbon:
   eager-load:
     clients:
+
+

@@ -7,12 +7,12 @@ import com.woke.working.web.annotation.EnableWebUtil;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @MapperScan("com.woke.working.user.dao")
 @EnableUserInfoTransmitter
 @EnableRedis
-@EnableVerificationCode
 @EnableWebUtil
 public class WorkingUserManageApplication {
 

@@ -24,7 +24,11 @@ public class TransmitUserInfoFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         UserInfoContext.removeCurrentInfo();
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        this.initUserInfo((HttpServletRequest)servletRequest);
+        filterChain.doFilter(servletRequest, servletResponse);
+    }
+
+    private void initUserInfo(HttpServletRequest request) {
         String userJson = request.getHeader(UserConstant.USER_ACCOUNT_INFO);
         if (StringUtils.isNotBlank(userJson)) {
             try {
