@@ -1,0 +1,71 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woke.working.user.dao.SystemUserDao">
+
+    <sql id="searchCondition">
+        <if test="systemUserPageDTO.nikeName!=null and systemUserPageDTO.nikeName!=''">
+            and t.nick_name like concat('%',#{systemUserPageDTO.nikeName},'%')
+        </if>
+        <if test="systemUserPageDTO.accountNo!=null and systemUserPageDTO.accountNo!=''">
+            and t.account_no = #{systemUserPageDTO.accountNo}
+        </if>
+    </sql>
+
+    <select id="selectUserCount" resultType="int">
+        SELECT
+        count(*)
+        FROM
+        tb_user t
+        <where>
+            t.status = 1
+            <include refid="searchCondition"/>
+        </where>
+    </select>
+
+    <select id="selectUserPage" resultType="com.woke.working.user.entity.SystemUser">
+        SELECT
+            t.id as id,
+            t.account_no as accountNo,
+            t.`password` as password,
+            t.nick_name as nickName,
+            t.state as status,
+            t.create_user as createUser,
+            t.update_user as updateUser,
+            t.create_time as createTime,
+            t.update_time as updateTime
+        FROM
+            tb_user t
+        <where>
+            t.status = 1
+            <include refid="searchCondition"/>
+        </where>
+        ORDER BY t.create_time desc
+        LIMIT #{systemRolePageDTO.offSet},#{systemRolePageDTO.pageSize}
+    </select>
+
+    <resultMap id="userDetails" type="com.woke.working.common.vo.user.SystemUserRoleVo">
+        <id property="id" column="id"/>
+        <result property="accountNo" column="accountNo"/>
+        <result property="nickName" column="nickName"/>
+        <!-- 定义一对多关联 -->
+        <collection property="roleVoList" ofType="com.woke.working.common.vo.user.SystemRoleVo">
+            <id property="id" column="roleId"/>
+            <result property="roleCode" column="roleCode"/>
+            <result property="roleName" column="roleName"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectUserDetails" resultMap="userDetails">
+        SELECT
+            t.id as id,
+            t.account_no as accountNo,
+            t.nick_name as nickName,
+            tr.role_code as roleCode,
+            tr.role_name as roleName,
+            tr.id as roleId
+        FROM
+            tb_user t
+                LEFT JOIN tb_user_role tur ON t.id = tur.user_id
+                LEFT JOIN tb_role tr ON tur.role_id = tr.id
+        where t.id = #{id}
+    </select>
+</mapper>
