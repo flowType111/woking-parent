@@ -6,7 +6,7 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class UserLoginDTO {
+public class UserLoginDTO extends CheckImageDTO{
 
     @NotNull(message = VaildateMessageConstant.user.ACCOUNT_IS_NOT_NULL)
     private String accountNo;

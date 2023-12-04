@@ -1,5 +1,6 @@
 package com.woke.working.web.aspect;
 
+import com.woke.working.api.common.ImageCodeApi;
 import com.woke.working.api.common.feign.ImageCodeFeign;
 import com.woke.working.common.BusinessMsgEnum;
 import com.woke.working.common.dto.user.CheckImageDTO;
@@ -17,7 +18,7 @@ import org.springframework.core.annotation.Order;
 public class VerificationCodeAspect {
 
     @Autowired
-    private ImageCodeFeign imageCodeFeign;
+    private ImageCodeApi imageCodeApi;
 
     @Pointcut("@within(com.woke.working.common.annotation.VerificationCode) " +
             "|| @annotation(com.woke.working.common.annotation.VerificationCode)")
@@ -31,7 +32,7 @@ public class VerificationCodeAspect {
         for (Object arg : args) {
             if (arg instanceof CheckImageDTO) {
                 CheckImageDTO checkImageDTO = (CheckImageDTO) arg;
-                if (!imageCodeFeign.verifyCode(checkImageDTO)) {
+                if (!imageCodeApi.verifyCode(checkImageDTO)) {
                     throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_CHECK_CODE_ERROR);
                 }
             }

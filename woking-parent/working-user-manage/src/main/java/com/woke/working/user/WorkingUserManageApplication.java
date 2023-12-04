@@ -14,6 +14,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableUserInfoTransmitter
 @EnableRedis
 @EnableWebUtil
+@EnableVerificationCode
 public class WorkingUserManageApplication {
 
     public static void main(String[] args) {
