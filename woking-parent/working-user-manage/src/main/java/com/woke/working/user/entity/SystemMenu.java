@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.woke.working.user.config.BaseEntity;
+import com.woke.working.web.entity.BaseEntity;
 import lombok.Data;
 
 @Data

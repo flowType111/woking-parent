@@ -1,4 +1,4 @@
-package com.woke.working.user.exception;
+package com.woke.working.web.exception;
 
 import com.woke.working.common.BusinessMsgEnum;
 import lombok.Data;
