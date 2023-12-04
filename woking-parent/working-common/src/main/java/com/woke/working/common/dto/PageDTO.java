@@ -8,4 +8,9 @@ public class PageDTO {
     private Integer pageSize;
 
     private Integer pageNum;
+
+    private Integer offSet;
+    public int getOffSet() {
+        return (pageNum - 1) * pageSize;
+    }
 }

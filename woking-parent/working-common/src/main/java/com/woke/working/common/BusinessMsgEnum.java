@@ -18,6 +18,9 @@ public enum BusinessMsgEnum {
 
     WORKING_USER_PERMISSION_EXIST(10002,"权限点code重复"),
 
+    WORKING_USER_ACCOUNT_NO_EXIST(10006,"账号已经存在"),
+
+    WORKING_USER_ACCOUNT_NO_NOT_EXIST(10006,"账号不存在"),
 
     WORKING_USER_ROLE_CODE_EXIST(20001,"角色code已存在"),
 
