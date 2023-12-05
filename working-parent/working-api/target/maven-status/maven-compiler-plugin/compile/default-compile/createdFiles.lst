@@ -1,0 +1,9 @@
+com\woke\working\api\user\feign\UserAuthFeign.class
+com\woke\working\api\user\SystemRoleApi.class
+com\woke\working\api\user\UserAuthApi.class
+com\woke\working\api\common\feign\ImageCodeFeign.class
+com\woke\working\api\user\SystemUserApi.class
+com\woke\working\api\user\SystemMenuApi.class
+com\woke\working\api\common\ImageCodeApi.class
+com\woke\working\api\constant\FeignConstant.class
+com\woke\working\api\user\UserLoginApi.class

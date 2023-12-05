@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.3.RELEASE</version>
+        <relativePath/>
+    </parent>
+    <groupId>com.woke</groupId>
+    <artifactId>working-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>working-parent</name>
+    <packaging>pom</packaging>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <nacos.version>2.2.5.RELEASE</nacos.version>
+        <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
+    </properties>
+
+    <modules>
+        <module>working-gateway</module>
+        <module>working-user-manage</module>
+        <module>working-api</module>
+        <module>working-common</module>
+        <module>working-order-manage</module>
+    </modules>
+
+    <dependencies>
+        <!-- 使用log4j2 作为项目日志 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <exclusions> <!-- 去掉springboot自带的日志 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+            <version>1.18.20</version>
+        </dependency>
+    </dependencies>
+</project>
