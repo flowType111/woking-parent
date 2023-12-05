@@ -28,6 +28,8 @@
         <module>working-api</module>
         <module>working-common</module>
         <module>working-order-manage</module>
+        <module>working-utils/working-redis-starter</module>
+        <module>working-utils/working-web-starter</module>
     </modules>
 
     <dependencies>
