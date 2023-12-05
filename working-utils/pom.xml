@@ -6,12 +6,12 @@
 
     <parent>
         <groupId>com.woke</groupId>
-        <artifactId>woking-parent</artifactId>
+        <artifactId>working-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>cn.sffix.platform</groupId>
-    <artifactId>platform-utils</artifactId>
+    <groupId>com.woke</groupId>
+    <artifactId>working-utils</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <packaging>pom</packaging>
