@@ -17,6 +17,8 @@ public class SystemMenuDTO {
     @NotNull(message = "权限点code不能为空", groups = {ValidGroup.Insert.class})
     private String menuCode;
 
+    private String parentCode;
+
     private String parentId;
 
     @NotNull(message = "请选择权限点类型 1：菜单 2：页面 3：按钮", groups = {ValidGroup.Insert.class})

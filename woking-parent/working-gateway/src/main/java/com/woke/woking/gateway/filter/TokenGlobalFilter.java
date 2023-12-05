@@ -11,14 +11,17 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Base64Utils;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -30,22 +33,24 @@ public class TokenGlobalFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        //1、获取请求对象  ServerHttpRequest
+        // 1.获取请求参数
         ServerHttpRequest request = exchange.getRequest();
+        ServerHttpResponse response = exchange.getResponse();
         //2、获取请求的资源路径
         String path = request.getURI().getPath();
-        MultiValueMap<String,String> params = request.getQueryParams();
-        //2.获取参数中的authorization参数
-        String value = params.getFirst(UserConstant.TOKEN);
-        // 没有token直接执行
-        if (StringUtils.isEmpty(value)){
+        // 获取token
+        List<String> tokens = request.getHeaders().get(UserConstant.TOKEN);
+        if (CollectionUtils.isEmpty(tokens)){
             return chain.filter(exchange);
         }
+        //2.获取参数中的authorization参数
+        String value = tokens.get(0);
         ResponseVo responseVo = userAuthFeign.getAuthInfo(new UserTokenDTO(value));
         if (responseVo != null && responseVo.isSuccess()) {
             Map responseMap = (Map) responseVo.getData();
             try {
-                String message = new String(Base64Utils.encode(JSONObject.toJSONString(responseMap.get(UserConstant.USER_ACCOUNT)).
+                String msg = JSONObject.toJSONString(responseMap);
+                String message = new String(Base64Utils.encode(msg.
                         getBytes("utf-8")), "utf-8");
                 request = exchange.getRequest().mutate().header(UserConstant.USER_ACCOUNT_INFO, message).build();
             } catch (UnsupportedEncodingException e) {

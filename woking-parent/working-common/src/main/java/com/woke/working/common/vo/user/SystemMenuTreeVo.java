@@ -15,6 +15,8 @@ public class SystemMenuTreeVo {
 
     private String parentId;
 
+    private String parentCode;
+
     private Integer nodeType;
 
     private Integer sort;

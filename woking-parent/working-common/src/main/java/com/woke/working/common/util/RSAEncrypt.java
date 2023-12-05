@@ -64,4 +64,14 @@ public class RSAEncrypt {
         return encrypt(str, defaultPublicKey);
     }
 
+    public static void main(String[] args) {
+        try {
+            System.out.println(new RSAEncrypt().encryptDefault("123456"));
+//            System.out.println(new RSAEncrypt().decryptDefault("IiHdAUZ9pS566RmvtfKTI50L7XjqFZnkgB3JkA+g0nyzEd+9KxNUUm6sXGqAYQRpAb3+oz4vsFaNastqcdvpmOocGWKHfkujMxGBtHG3NA7hBA9S044lcFtHBu891cCQ0vUjyIyuyAJXgYXDE3t2JzDuyBhFxVMr/RWEso63fnw="));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

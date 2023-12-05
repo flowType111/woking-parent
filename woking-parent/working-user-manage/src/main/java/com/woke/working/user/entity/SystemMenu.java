@@ -20,6 +20,9 @@ public class SystemMenu extends BaseEntity {
     @TableField("menu_code")
     private String menuCode;
 
+    @TableField("parent_code")
+    private String parentCode;
+
     @TableField("parent_id")
     private String parentId;
 

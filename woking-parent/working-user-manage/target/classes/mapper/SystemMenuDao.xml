@@ -30,6 +30,7 @@
            tm.menu_code as menuCode,
            tm.menu_name as menuName,
            tm.parent_id as parentId,
+           tm.parent_code as parentCode,
            tm.node_type as nodeType,
            tm.create_time as createTime,
            tm.update_time as updateTime
@@ -50,6 +51,7 @@
             tm.menu_name as menuName,
             tm.parent_id as parentId,
             tm.node_type as nodeType,
+            tm.parent_code as parentCode,
             tm.sort as sort,
             tm.`level` as `level`
         FROM
@@ -64,7 +66,8 @@
                      tm.menu_code as menuCode,
                      tm.menu_name as menuName,
                      tm.node_type as nodeType,
-                     tm.parent_id as parentId
+                     tm.parent_id as parentId,
+                     tm.parent_code as parentCode
         FROM
             tb_user tu
                 INNER JOIN tb_user_role tur ON tu.id = tur.user_id

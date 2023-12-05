@@ -19,10 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,10 +43,11 @@ public class SystemMenuServiceImpl implements SystemMenuService {
             }
             int level = systemMenu.getLevel().intValue() + 1;
             SystemMenu treeVo = systemMenuList.stream().filter(systemMenuVo -> systemMenuVo.getMenuCode().equalsIgnoreCase(systemMenuDTO.getMenuCode())
-            && systemMenuVo.getLevel().equals(level)).findFirst().orElse(null);
+                    && systemMenuVo.getLevel().equals(level)).findFirst().orElse(null);
             if (Objects.nonNull(treeVo)) {
                 throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_PERMISSION_EXIST);
             }
+            addMeunVo.setParentCode(systemMenu.getParentCode());
             addMeunVo.setLevel(level);
         } else {
             SystemMenu systemMenu = systemMenuList.stream().filter(systemMenuVo -> systemMenuVo.getMenuCode().equalsIgnoreCase(systemMenuDTO.getMenuCode())).findFirst().orElse(null);
@@ -111,10 +109,10 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     public ResponseVo selectMenu() {
         List<SystemMenuTreeVo> systemMenuTreeVoList = systemMenuDao.selectMenuTree();
         Map<String, List<SystemMenuTreeVo>> groupMap = systemMenuTreeVoList.stream().collect(Collectors.groupingBy(x -> Optional.ofNullable(x.getParentId()).orElse("0")));
-        systemMenuTreeVoList.forEach(systemMenuTreeVo-> {
+        systemMenuTreeVoList.forEach(systemMenuTreeVo -> {
             systemMenuTreeVo.setCheldrenList(groupMap.get(systemMenuTreeVo.getId()));
         });
-        List<SystemMenuTreeVo> collect = systemMenuTreeVoList.stream().filter(systemMenuTreeVo-> StringUtils.isEmpty(systemMenuTreeVo.getParentId())).collect(Collectors.toList());
+        List<SystemMenuTreeVo> collect = systemMenuTreeVoList.stream().filter(systemMenuTreeVo -> StringUtils.isEmpty(systemMenuTreeVo.getParentId())).collect(Collectors.toList());
         return ResponseVo.success(collect);
     }
 }
