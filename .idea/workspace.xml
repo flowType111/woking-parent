@@ -19,12 +19,18 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="useMavenConfig" value="true" />
-        <option name="userSettingsFile" value="D:\tools\settings.xml" />
+        <option name="alwaysUpdateSnapshots" value="true" />
+        <option name="localRepository" value="D:\Users\tony\Documents\Apache\maven_repository" />
+        <option name="mavenHome" value="$PROJECT_DIR$/../workingTools/apache-maven-3.3.9" />
+        <option name="userSettingsFile" value="D:\workingTools\apache-maven-3.3.9\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7
+}]]></component>
   <component name="ProjectId" id="2Z7X2sCToYul58w14oh2xIwi0il" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -39,7 +45,8 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "MavenSettings"
+    "settings.editor.selected.configurable": "MavenSettings",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -51,6 +58,7 @@
       <option name="presentableId" value="Default" />
       <updated>1701773889730</updated>
       <workItem from="1701773891254" duration="347000" />
+      <workItem from="1701781888854" duration="70000" />
     </task>
     <task id="LOCAL-00001" summary="更改结构">
       <created>1701774156304</created>
