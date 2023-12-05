@@ -27,6 +27,7 @@
         <module>working-user-manage</module>
         <module>working-api</module>
         <module>working-common</module>
+        <module>working-order-manage</module>
     </modules>
 
     <dependencies>

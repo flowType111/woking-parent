@@ -9,9 +9,10 @@
         <outputRelativeToContentRoot value="true" />
         <module name="working-user-manage" />
         <module name="working-web-starter" />
+        <module name="working-common" />
+        <module name="working-order-manage" />
         <module name="working-gateway" />
         <module name="working-api" />
-        <module name="working-common" />
         <module name="working-redis-starter" />
       </profile>
     </annotationProcessing>
@@ -28,6 +29,7 @@
       <module name="working-api" options="-parameters" />
       <module name="working-common" options="-parameters" />
       <module name="working-gateway" options="-parameters" />
+      <module name="working-order-manage" options="-parameters" />
       <module name="working-redis" options="-parameters" />
       <module name="working-redis-starter" options="-parameters" />
       <module name="working-user-manage" options="-parameters" />

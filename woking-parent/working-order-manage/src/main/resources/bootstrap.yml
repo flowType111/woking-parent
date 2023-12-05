@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: working-order-manage
+  main:
+    allow-bean-definition-overriding: true
+server:
+  port: 8890
+  max-http-header-size: 4048576
+  tomcat:
+    max-http-post-size: -1  #请求参数长度
+---
+spring:
+  profiles: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        username: nacos
+        password: nacos
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yml
+        username: nacos
+        password: nacos
+ribbon:
+  eager-load:
+    clients:
+
+

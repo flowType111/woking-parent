@@ -9,6 +9,8 @@
     <file url="file://$PROJECT_DIR$/working-common/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/working-gateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/working-gateway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/working-order-manage/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/working-order-manage/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/working-user-manage/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/working-user-manage/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/working-utils/working-redis-starter/src/main/java" charset="UTF-8" />

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="MavenProjectsManager">
@@ -12,6 +13,7 @@
         <option value="$PROJECT_DIR$/working-utils/working-redis/pom.xml" />
         <option value="$PROJECT_DIR$/working-utils/working-redis-starter/pom.xml" />
         <option value="$PROJECT_DIR$/working-utils/working-web-starter/pom.xml" />
+        <option value="$PROJECT_DIR$/working-order-manage/pom.xml" />
       </list>
     </option>
   </component>
