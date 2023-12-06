@@ -1,6 +1,5 @@
 package com.woke.working.user.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.woke.working.api.common.ImageCodeApi;
 import com.woke.working.common.dto.user.CheckImageDTO;
 import com.woke.working.common.vo.ImageCodeVo;

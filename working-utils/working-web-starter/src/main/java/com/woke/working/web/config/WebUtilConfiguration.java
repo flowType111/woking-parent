@@ -2,6 +2,7 @@ package com.woke.working.web.config;
 
 import com.woke.working.web.aspect.JurisdictionAspect;
 import com.woke.working.web.exception.ExceptionAdapter;
+import com.woke.working.web.filter.RequestWrapperFilter;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,5 +50,10 @@ public class WebUtilConfiguration {
     @Bean
     public ExceptionAdapter exceptionAdapter() {
         return new ExceptionAdapter();
+    }
+
+    @Bean
+    public RequestWrapperFilter requestWrapperFilter() {
+        return new RequestWrapperFilter();
     }
 }

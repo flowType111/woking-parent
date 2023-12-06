@@ -6,7 +6,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
 server:
-  port: 8890
+  port: 8870
   max-http-header-size: 4048576
   tomcat:
     max-http-post-size: -1  #请求参数长度
