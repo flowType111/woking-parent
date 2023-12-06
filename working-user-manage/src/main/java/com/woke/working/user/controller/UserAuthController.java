@@ -17,7 +17,7 @@ public class UserAuthController implements UserAuthApi {
     private UserAuthService userAuthService;
 
     @Override
-    public ResponseVo getAuthInfo(@RequestBody @Valid UserTokenDTO userTokenDTO) {
+    public ResponseVo getAuthInfo(@RequestBody UserTokenDTO userTokenDTO) {
         return userAuthService.getAuthInfo(userTokenDTO);
     }
 }

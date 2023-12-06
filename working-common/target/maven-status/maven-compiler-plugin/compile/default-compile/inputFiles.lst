@@ -25,6 +25,7 @@ D:\working-parent\working-common\src\main\java\com\woke\working\common\dto\user\
 D:\working-parent\working-common\src\main\java\com\woke\working\common\PageBean.java
 D:\working-parent\working-common\src\main\java\com\woke\working\common\constant\AuthorityCodeConstant.java
 D:\working-parent\working-common\src\main\java\com\woke\working\common\dto\PageDTO.java
+D:\working-parent\working-common\src\main\java\com\woke\working\common\annotation\VerifySignature.java
 D:\working-parent\working-common\src\main\java\com\woke\working\common\annotation\VerificationCode.java
 D:\working-parent\working-common\src\main\java\com\woke\working\common\BusinessMsgEnum.java
 D:\working-parent\working-common\src\main\java\com\woke\working\common\dto\user\SystemRolePageDTO.java

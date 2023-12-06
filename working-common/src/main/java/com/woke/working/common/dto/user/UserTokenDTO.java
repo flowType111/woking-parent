@@ -11,6 +11,5 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class UserTokenDTO {
 
-    @NotNull(message = "登陆token不能为空")
     private String token;
 }
