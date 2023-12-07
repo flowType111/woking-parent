@@ -127,6 +127,13 @@ public class SystemRoleServiceImpl implements SystemRoleService {
         return ResponseVo.success(selectRoleDetails);
     }
 
+    @Override
+    public ResponseVo selectRoleAll() {
+        List<SystemRole> systemCode = systemRoleDao.selectList(new LambdaQueryWrapper<SystemRole>()
+                .eq(SystemRole::getStatus, StatusEnum.ENABLE.getCode()));
+        return ResponseVo.success(systemCode);
+    }
+
 
     private void determine(SystemRoleDTO systemRoleDTO) {
         List<SystemRole> systemCode = systemRoleDao.selectList(new LambdaQueryWrapper<SystemRole>()

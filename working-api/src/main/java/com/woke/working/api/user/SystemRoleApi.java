@@ -24,4 +24,7 @@ public interface SystemRoleApi {
 
     @GetMapping("/selectRoleDetails")
     ResponseVo selectRoleDetails(String id);
+
+    @PostMapping("/selectRoleAll")
+    ResponseVo selectRoleAll();
 }

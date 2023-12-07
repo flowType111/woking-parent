@@ -15,4 +15,6 @@ public interface SystemRoleService {
     ResponseVo selectRolePage(SystemRolePageDTO systemRolePageDTO);
 
     ResponseVo selectRoleDetails(String id);
+
+    ResponseVo selectRoleAll();
 }

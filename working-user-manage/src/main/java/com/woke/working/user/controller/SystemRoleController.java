@@ -51,4 +51,9 @@ public class SystemRoleController implements SystemRoleApi {
     public ResponseVo selectRoleDetails(@RequestParam("id") String id) {
         return systemRoleService.selectRoleDetails(id);
     }
+
+    @Override
+    public ResponseVo selectRoleAll() {
+        return systemRoleService.selectRoleAll();
+    }
 }
