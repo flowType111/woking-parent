@@ -11,6 +11,7 @@
     <artifactId>working-user-manage</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>working-user-manage</name>
+    <packaging>jar</packaging>
     <description>working-user-manage</description>
 
     <dependencies>

@@ -12,6 +12,7 @@
     <artifactId>working-web-manage</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>working-web-manage</name>
+    <packaging>jar</packaging>
     <description>working-web-manage</description>
 
     <dependencies>
