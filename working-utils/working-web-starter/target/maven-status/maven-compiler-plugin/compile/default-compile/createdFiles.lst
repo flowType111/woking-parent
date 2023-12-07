@@ -1,0 +1,16 @@
+com\woke\working\web\config\MyMetaObjectHandler.class
+com\woke\working\web\aspect\JurisdictionAspect.class
+com\woke\working\web\config\WebUtilConfiguration$WebAppConfigurer.class
+com\woke\working\web\aspect\VerificationCodeAspect.class
+com\woke\working\web\config\WebUtilConfiguration$ValidatorConfiguration.class
+com\woke\working\web\config\EnableUserInfoTransmitterAutoConfiguration.class
+com\woke\working\web\config\EnableVerificationAutoConfiguration.class
+com\woke\working\web\annotation\EnableVerificationCode.class
+com\woke\working\web\exception\BusinessErrorException.class
+com\woke\working\web\entity\BaseEntity.class
+com\woke\working\web\filter\TransmitUserInfoFilter.class
+com\woke\working\web\annotation\EnableUserInfoTransmitter.class
+com\woke\working\web\annotation\EnableWebUtil.class
+com\woke\working\web\config\WebUtilConfiguration.class
+com\woke\working\web\interceptor\TransmitUserInfoFeignClientInterceptor.class
+com\woke\working\web\exception\ExceptionAdapter.class

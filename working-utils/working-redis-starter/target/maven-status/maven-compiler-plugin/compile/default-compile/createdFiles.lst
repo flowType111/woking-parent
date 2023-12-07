@@ -1,0 +1,3 @@
+com\woke\working\redis\annotation\EnableRedis.class
+com\woke\working\redis\config\RedisConfiguration.class
+com\woke\working\redis\util\RedisUtil.class

@@ -21,6 +21,12 @@ spring:
             - Path=/order-api/**
           filters:
             - StripPrefix=1 # 使用过滤器
+        - id: working-web-manage
+          uri: lb://working-web-manage
+          predicates:
+            - Path=/web-api/**
+          filters:
+            - StripPrefix=1 # 使用过滤器
   application:
     name: working-gateway
   main:
