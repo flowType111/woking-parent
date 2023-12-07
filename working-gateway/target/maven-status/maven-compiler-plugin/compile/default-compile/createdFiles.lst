@@ -1,4 +1,0 @@
-com\woke\woking\gateway\filter\TokenGlobalFilter.class
-com\woke\woking\gateway\WorkingGatewayApplication.class
-com\woke\woking\gateway\config\CorsConfig.class
-com\woke\woking\gateway\config\FeignConfig.class

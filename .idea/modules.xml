@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/working-api/working-api.iml" filepath="$PROJECT_DIR$/working-api/working-api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/working-common/working-common.iml" filepath="$PROJECT_DIR$/working-common/working-common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/working-gateway/working-gateway.iml" filepath="$PROJECT_DIR$/working-gateway/working-gateway.iml" />
-      <module fileurl="file://$PROJECT_DIR$/working-order-manage/working-order-manage.iml" filepath="$PROJECT_DIR$/working-order-manage/working-order-manage.iml" />
       <module fileurl="file://$PROJECT_DIR$/working-parent.iml" filepath="$PROJECT_DIR$/working-parent.iml" />
-      <module fileurl="file://$PROJECT_DIR$/working-utils/working-redis-starter/working-redis-starter.iml" filepath="$PROJECT_DIR$/working-utils/working-redis-starter/working-redis-starter.iml" />
-      <module fileurl="file://$PROJECT_DIR$/working-user-manage/working-user-manage.iml" filepath="$PROJECT_DIR$/working-user-manage/working-user-manage.iml" />
-      <module fileurl="file://$PROJECT_DIR$/working-web-manage/working-web-manage.iml" filepath="$PROJECT_DIR$/working-web-manage/working-web-manage.iml" />
-      <module fileurl="file://$PROJECT_DIR$/working-utils/working-web-starter/working-web-starter.iml" filepath="$PROJECT_DIR$/working-utils/working-web-starter/working-web-starter.iml" />
     </modules>
   </component>
 </project>
