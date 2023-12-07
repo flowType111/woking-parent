@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="working-api" target="1.8" />
+      <module name="working-common" target="1.8" />
+      <module name="working-gateway" target="1.8" />
+      <module name="working-order-manage" target="1.8" />
+      <module name="working-parent" target="1.8" />
+      <module name="working-redis-starter" target="1.8" />
+      <module name="working-user-manage" target="1.8" />
+      <module name="working-web-manage" target="1.8" />
+      <module name="working-web-starter" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="working-api" options="-parameters" />
+      <module name="working-common" options="-parameters" />
+      <module name="working-gateway" options="-parameters" />
+      <module name="working-order-manage" options="-parameters" />
+      <module name="working-redis-starter" options="-parameters" />
+      <module name="working-user-manage" options="-parameters" />
+      <module name="working-web-manage" options="-parameters" />
+      <module name="working-web-starter" options="-parameters" />
+    </option>
+  </component>
+</project>
