@@ -32,7 +32,7 @@ public class PayChannelServiceImpl implements PayChannelService {
 
             // 组装参数
             Map<String,Object> paramsMap = new HashMap<>();
-            paramsMap.put("blockChannelDTO",jsonObject);
+            paramsMap.put("paramsMap",jsonObject);
             ThreadLocalUtil.setLocalVar(paramsMap);
 
             payChannelFactory.execute(jsonObject.getString("payType"));

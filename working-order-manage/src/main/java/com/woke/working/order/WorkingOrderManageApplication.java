@@ -1,6 +1,7 @@
 package com.woke.working.order;
 
 import com.woke.working.redis.annotation.EnableRedis;
+import com.woke.working.web.annotation.EnableMq;
 import com.woke.working.web.annotation.EnableUserInfoTransmitter;
 import com.woke.working.web.annotation.EnableWebUtil;
 import org.mybatis.spring.annotation.MapperScan;
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableUserInfoTransmitter
 @EnableRedis
 @EnableWebUtil
+@EnableMq
 public class WorkingOrderManageApplication {
 
     public static void main(String[] args) {
