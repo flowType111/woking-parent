@@ -1,7 +1,5 @@
 package com.woke.working.common.dto.web;
 
-import com.woke.working.common.enumeration.order.PayStatusEnum;
-import com.woke.working.common.enumeration.web.PayChannelEnum;
 import lombok.Builder;
 import lombok.Data;
 
@@ -15,7 +13,7 @@ public class PayOrderDTO {
 
     private BigDecimal orderAmount;
 
-    private PayStatusEnum orderStatus;
+    private Integer orderStatus;
 
-    private PayChannelEnum payChannelEnum;
+    private Integer payChannelEnum;
 }

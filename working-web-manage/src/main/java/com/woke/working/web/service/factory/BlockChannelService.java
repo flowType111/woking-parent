@@ -31,8 +31,8 @@ public class BlockChannelService extends PayChannelAbstractExecutor {
         String orderCode = OrderUtil.getOrderNumber();
         PayOrderDTO payOrderDTO = PayOrderDTO.builder()
                 .orderNo(orderCode)
-                .payChannelEnum(PayChannelEnum.BLOCK_CHANNEL)
-                .orderStatus(PayStatusEnum.OBLIGATION)
+                .payChannelEnum(Integer.parseInt(PayChannelEnum.BLOCK_CHANNEL.getPayType()))
+                .orderStatus(PayStatusEnum.OBLIGATION.getStatusCode())
                 .build();
         // 发送mq到订单服务
         mqSenderService.sendMessage(MqKeyConstant.MqExchange.exchange, true, MqKeyConstant.RoutingKey.routingKey, JSON.toJSONString(payOrderDTO));

@@ -25,8 +25,8 @@ public class PayOrder extends BaseEntity {
     private BigDecimal orderAmount;
 
     @TableField("order_status")
-    private PayStatusEnum orderStatus;
+    private Integer orderStatus;
 
     @TableField("order_pay_channel")
-    private PayChannelEnum payChannelEnum;
+    private Integer payChannelEnum;
 }
