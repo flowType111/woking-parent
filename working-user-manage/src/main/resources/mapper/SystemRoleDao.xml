@@ -35,7 +35,7 @@
             <include refid="searchCondition"/>
         </where>
         ORDER BY tr.create_time desc
-        LIMIT #{systemRolePageDTO.pageNum},#{systemRolePageDTO.pageSize}
+        LIMIT #{systemRolePageDTO.offSet},#{systemRolePageDTO.pageSize}
     </select>
 
 

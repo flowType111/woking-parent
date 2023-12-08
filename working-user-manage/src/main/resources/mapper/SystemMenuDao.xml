@@ -41,7 +41,7 @@
            <include refid="searchCondition"/>
        </where>
        ORDER BY tm.create_time desc
-       LIMIT #{systemMenuPageDTO.pageNum},#{systemMenuPageDTO.pageSize}
+       LIMIT #{systemMenuPageDTO.offSet},#{systemMenuPageDTO.pageSize}
    </select>
 
     <select id="selectMenuTree" resultType="com.woke.working.common.vo.user.SystemMenuTreeVo">

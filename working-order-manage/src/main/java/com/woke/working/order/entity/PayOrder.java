@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.woke.working.common.enumeration.order.PayStatusEnum;
-import com.woke.working.common.enumeration.web.PayChannelEnum;
 import com.woke.working.web.entity.BaseEntity;
 import lombok.Data;
 
