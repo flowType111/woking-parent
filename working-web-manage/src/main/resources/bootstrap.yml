@@ -1,3 +1,9 @@
+server:
+  port: 8860
+  max-http-header-size: 4048576
+  tomcat:
+    max-http-post-size: -1  #请求参数长度
+
 spring:
   profiles:
     active: dev
@@ -23,12 +29,10 @@ spring:
     port: 6379
     database: 0
     password: 88888888
+  rabbitmq:
+    port: 5672
+    host: 127.0.0.1
 
-server:
-  port: 8860
-  max-http-header-size: 4048576
-  tomcat:
-    max-http-post-size: -1  #请求参数长度
 #数据库名称
 project:
   database: mysql
