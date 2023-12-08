@@ -1,6 +1,7 @@
 package com.woke.working.order.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.woke.working.common.PageBean;
 import com.woke.working.common.dto.order.OrderPageDTO;
 import com.woke.working.common.dto.web.PayOrderDTO;
 import com.woke.working.common.vo.ResponseVo;
@@ -9,11 +10,17 @@ import com.woke.working.order.entity.PayOrder;
 import com.woke.working.order.service.PayOrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Slf4j
 public class PayOrderServiceImpl extends ServiceImpl<PayOrderDao, PayOrder> implements PayOrderService {
+
+    @Autowired
+    private PayOrderDao payOrderDao;
 
     /**
      * 生成支付订单
@@ -29,6 +36,12 @@ public class PayOrderServiceImpl extends ServiceImpl<PayOrderDao, PayOrder> impl
 
     @Override
     public ResponseVo selectOrderPage(OrderPageDTO orderPageDTO) {
-        return null;
+        int total = payOrderDao.selectOrderCount(orderPageDTO);
+        List<PayOrder> payOrderList = null;
+        if (total > 0) {
+            payOrderList = payOrderDao.selectOrderPage(orderPageDTO);
+        }
+        PageBean pageBean = new PageBean(orderPageDTO.getPageNum(), orderPageDTO.getPageSize(), total, payOrderList);
+        return ResponseVo.success(pageBean);
     }
 }
