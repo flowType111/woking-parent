@@ -42,6 +42,10 @@ public enum BusinessMsgEnum {
 
     WORKING_USER_ROLE_NOT_EXIST(20003, "角色不存在"),
 
+    WORKING_USER_PAY_CONFIG_EXIST(20004, "配置的支付类型已存在"),
+
+    WORKING_USER_PAY_CONFIG_NOT_EXIST(20005, "配置的支付类型不存在"),
+
     /**
      * web服务
      */
