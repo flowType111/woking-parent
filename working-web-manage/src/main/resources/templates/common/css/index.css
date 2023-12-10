@@ -1,0 +1,77 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.body {
+  width: 100%;
+  min-width: 375px;
+}
+.body > .selectBox {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+.body > .selectBox > .box {
+  width: 25%;
+  height: 80px;
+  box-sizing: border-box;
+  padding: 5px;
+  flex-direction: column;
+}
+.body > .selectBox > .box > .bank-box {
+  background-color: aliceblue;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+
+.body > .selectBox > .box > .bank-box > .img {
+  border: 1px solid #c05f5f;
+  width: 50%;
+  height: 50%;
+  background-color: #ccc;
+}
+
+.body > .selectBox > .box > .bank-box > p {
+  font-size: 10px;
+  color: #796f6f;
+}
+.body > .selectBox > .box > .bank-box > span {
+  color: #c05f5f;
+  font-size: 8px;
+}
+
+.body > .optionBox {
+  flex-direction: column;
+  padding: 0px 20px;
+}
+
+.body > .optionBox > .inputBox {
+  width: 100%;
+}
+.body > .optionBox > .inputBox > input {
+  width: 100%;
+  height: 40px;
+  border: none;
+  background-color: aliceblue;
+  outline: none;
+  border-radius: 10px;
+  text-indent: 10px;
+}
+
+.body > .optionBox > .subBox {
+  padding: 20px;
+}
+.body > .optionBox > .subBox > button {
+  width: 200px;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  background-color: rgb(99, 168, 229);
+}
