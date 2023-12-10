@@ -1,31 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>支付选择</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-image: url('bjt.png'); /* 替换为实际的背景图路径 */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+        }
+        #paymentOptions {
+            display: flex;
+            flex-wrap: wrap; /* 在需要时自动换行 */
+            justify-content: space-around;
+            margin: 20px;
+        }
+        .paymentOption {
+            margin: 10px;
+            flex: 0 0 calc(20% - 20px); /* 每行最多容纳 5 个支付方式 */
+        }
+        .paymentOption img {
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 100%;
+        }
+        .paymentOption img:hover {
+            transform: scale(1.1);
+            border-color: #3498db;
+        }
+        #paymentForm {
+            margin-top: 20px;
+            display: none;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .inputContainer {
+            margin-bottom: 16px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
 </head>
-<link rel="stylesheet" href="./common/css/index.css">
-<script src="./common/index.js"></script>
 <body>
-<div class="body">
-    <div class="selectBox">
-        <div class="box flex-center">
-            <div class="bank-box flex-center">
-                <img class="img" src="./WechatIMG132.jpg"/>
-                <p>JD卡密</p>
-            </div>
-        </div>
+<h1>选择支付方式</h1>
+<div id="paymentOptions">
+    <div class="paymentOption">
+        <img src="jd.png" alt="卡密锐换" onclick="handlePaymentClick('4')">
     </div>
-
-    <div class="optionBox flex-center">
-        <div class="inputBox">
-            <input type="text" placeholder="请输入100-1000000元"/>
-        </div>
-        <div class="subBox">
-            <button onclick="sendFun()">立即存款</button>
-        </div>
-    </div>
+    <!-- 添加其他支付方式的图片和对应的处理函数 -->
 </div>
+
+<div id="paymentForm">
+    <div id="alipayForm" class="inputContainer">
+        <label for="blockPassword">请输入卡密：</label>
+        <input type="text" id="blockPassword" name="blockPassword" required>
+    </div>
+    <!-- 添加其他支付方式的表单 -->
+    <button onclick="submitPayment()">提交</button>
+</div>
+
+<script>
+    function handlePaymentClick(paymentMethod) {
+        // 在这里添加处理支付方式的逻辑
+        // 显示支付表单
+        document.getElementById("paymentForm").style.display = "block";
+        // 隐藏所有支付方式的表单
+        document.querySelectorAll(".inputContainer").forEach(function(container) {
+            container.style.display = "none";
+        });
+        // 根据选择的支付方式显示相应的表单
+        if (paymentMethod === '4') {
+            document.getElementById("alipayForm").style.display = "block";
+        } else {
+            // 显示其他支付方式的表单
+        }
+    }
+
+    function submitPayment() {
+        // 在这里添加提交支付的逻辑
+        var payType = "";  // 用于存储选择的支付方式
+        var inputData = "";  // 用于存储输入框的数据
+
+        // 根据显示的表单来确定支付方式和获取相应的数据
+        if (document.getElementById("alipayForm").style.display === "block") {
+            payType = "4";
+            inputData = document.getElementById("blockPassword").value;
+        } else {
+            // 获取其他支付方式的数据
+        }
+
+        // 使用 Fetch API 发送 POST 请求
+        fetch('http://127.0.0.1:9091/web-api/pay/channel/submitPayWay', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                payType: payType,
+                blockPassword: inputData,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // 处理从后端返回的数据
+            console.log('Success:', data);
+            alert('Payment submitted successfully!');
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Error submitting payment. Please try again.');
+        });
+    }
+
+</script>
 </body>
 </html>

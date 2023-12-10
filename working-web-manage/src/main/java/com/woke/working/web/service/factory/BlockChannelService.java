@@ -26,7 +26,7 @@ public class BlockChannelService extends PayChannelAbstractExecutor {
 
     @Override
     public void execute() throws ParseException {
-        BlockChannelDTO blockChannelDTO = (BlockChannelDTO) ThreadLocalUtil.getLocalVar();
+        BlockChannelDTO blockChannelDTO = JSON.parseObject(JSON.toJSONString(ThreadLocalUtil.getLocalVar().get("paramsMap")), BlockChannelDTO.class);
         // 生成订单号
         String orderCode = OrderUtil.getOrderNumber();
         PayOrderDTO payOrderDTO = PayOrderDTO.builder()
