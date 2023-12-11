@@ -121,7 +121,7 @@
         });
 
         // 根据选择的支付方式显示相应的表单
-        if (paymentMethod === '4') {
+        if (paymentMethod.paymentMethod === '4') {
             document.getElementById('blockChannel').style.display = 'block';
         } else {
             // 显示其他支付方式的表单
@@ -170,9 +170,7 @@
         // 初始化页面时添加默认的支付方式
         //addPaymentOption({ paymentMethod: '4', name: '卡密锐换', imagePath: 'alipay_logo.png' });
         // 添加其他支付方式
-        data = JSON.parse(data);
-
-        data.forEach(function(paymentMethodData) {
+        data.data.forEach(function(paymentMethodData) {
             console.log(paymentMethodData)
             addPaymentOption(paymentMethodData);
         });
