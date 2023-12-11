@@ -2,16 +2,70 @@ body {
   font-family: Arial, sans-serif;
   text-align: center;
   margin: 20px;
+  background-image: url('../image/bjt.png'); /* 替换为实际的背景图路径 */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  background-color: #f5f5f5;
 }
-#paymentOptions {
+h1 {
+  color: #333;
+}
+#paymentOptionsContainer {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   margin: 20px;
+  overflow-x: auto; /* 允许水平滚动 */
 }
-#paymentOptions img {
+.paymentOption {
+  margin-right: 10px;
   cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+  flex: 0 0 auto; /* 让每个元素的宽度由其内容决定 */
 }
-#paymentOptions img:hover {
+.paymentOption img {
+  transition: transform 0.3s ease-in-out;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  width: 50px; /* 调整图标的大小 */
+  height: 50px;
+}
+.paymentOption img:hover {
   transform: scale(1.1);
+  border-color: #3498db;
+}
+#paymentForm {
+  margin-top: 20px;
+  display: none;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px; /* 调整表单的宽度 */
+}
+.inputContainer {
+  margin-bottom: 16px;
+}
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+}
+input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #2980b9;
 }
