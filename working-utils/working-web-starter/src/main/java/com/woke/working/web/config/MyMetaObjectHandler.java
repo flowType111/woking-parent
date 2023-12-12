@@ -1,23 +1,28 @@
 package com.woke.working.web.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.woke.working.common.bo.UserInfoBO;
+import com.woke.working.common.util.user.UserInfoContext;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.Objects;
 
 @Slf4j
-@Component
 public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
         this.setFieldValByName("createTime",new Date(),metaObject);
-        //this.setFieldValByName("creator",loginUser.getUser().getUserName(),metaObject);
         this.setFieldValByName("updateTime",new Date(),metaObject);
-        //this.setFieldValByName("updater",loginUser.getUser().getUserName(),metaObject);
+        UserInfoBO userInfoBO = UserInfoContext.getLoginUser();
+        if (Objects.nonNull(userInfoBO)) {
+            this.setFieldValByName("createUser",userInfoBO.getAccountNo(),metaObject);
+            this.setFieldValByName("updateUser",userInfoBO.getAccountNo(),metaObject);
+        }
     }
 
     @Override
@@ -28,11 +33,9 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
             setFieldValByName("updateTime", new Date(), metaObject);
         }
         // 当前登录用户不为空，更新人为空，则当前登录用户为更新人
-       /* Object modifier = getFieldValByName("updater", metaObject);
-        LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String userId = loginUser.getUser().getUserName();
-        if (Objects.nonNull(userId) && Objects.isNull(modifier)) {
-            setFieldValByName("updater", userId.toString(), metaObject);
-        }*/
+        UserInfoBO userInfoBO = UserInfoContext.getLoginUser();
+        if (Objects.nonNull(userInfoBO)) {
+            setFieldValByName("updateUser", userInfoBO.getAccountNo(), metaObject);
+        }
     }
 }

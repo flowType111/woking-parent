@@ -3,15 +3,14 @@ package com.woke.working.web.config;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.core.toolkit.GlobalConfigUtils;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.context.annotation.Bean;
 
 import javax.sql.DataSource;
 
-public class sqlSessionFactory {
+public class SqlSessionFactory {
 
     @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+    public org.apache.ibatis.session.SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         MybatisSqlSessionFactoryBean mybatisSqlSessionFactoryBean = new MybatisSqlSessionFactoryBean();
         //获取mybatis-plus全局配置
         GlobalConfig globalConfig = GlobalConfigUtils.defaults();
