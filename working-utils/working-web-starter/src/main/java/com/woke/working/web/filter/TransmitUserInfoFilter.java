@@ -23,8 +23,8 @@ public class TransmitUserInfoFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-         UserInfoContext.removeCurrentInfo();
-        this.initUserInfo((HttpServletRequest)servletRequest);
+        UserInfoContext.removeCurrentInfo();
+        this.initUserInfo((HttpServletRequest) servletRequest);
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
