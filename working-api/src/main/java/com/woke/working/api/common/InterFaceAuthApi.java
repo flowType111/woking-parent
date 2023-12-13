@@ -26,4 +26,7 @@ public interface InterFaceAuthApi {
 
     @PostMapping("/updateInterFaceAuth")
     ResponseVo updateInterFaceAuth(InterFaceAuthDTO interFaceAuthDTO);
+
+    @GetMapping("/selectInterFaceDetails")
+    ResponseVo selectInterFaceDetails(String id);
 }

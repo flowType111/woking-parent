@@ -15,4 +15,6 @@ public interface InterFaceAuthService extends IService<TbInterFaceAuth> {
     ResponseVo selectInterFaceAuth(InterFaceAuthPage interFaceAuthPage);
 
     ResponseVo updateInterFaceAuth(InterFaceAuthDTO interFaceAuthDTO);
+
+    ResponseVo selectInterFaceDetails(String id);
 }

@@ -37,4 +37,9 @@ public class InterFaceAuthController implements InterFaceAuthApi {
     public ResponseVo updateInterFaceAuth(@RequestBody @Validated({ValidGroup.Update.class}) InterFaceAuthDTO interFaceAuthDTO) {
         return interFaceAuthService.updateInterFaceAuth(interFaceAuthDTO);
     }
+
+    @Override
+    public ResponseVo selectInterFaceDetails(@RequestParam("id") String id) {
+        return interFaceAuthService.selectInterFaceDetails(id);
+    }
 }

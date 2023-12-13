@@ -114,4 +114,9 @@ public class InterFaceAuthServiceImpl extends ServiceImpl<InterFaceAuthDao, TbIn
         }
         return ResponseVo.success();
     }
+
+    @Override
+    public ResponseVo selectInterFaceDetails(String id) {
+        return ResponseVo.success(interFaceAuthDao.selectInterFaceDetails(id));
+    }
 }
