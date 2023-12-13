@@ -1,6 +1,8 @@
 package com.woke.working.user.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.woke.working.common.BusinessMsgEnum;
 import com.woke.working.common.PageBean;
 import com.woke.working.common.dto.user.SystemRoleDTO;
@@ -61,8 +63,8 @@ public class SystemRoleServiceImpl implements SystemRoleService {
         if (Objects.isNull(systemRole)) {
             throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_ROLE_NOT_EXIST);
         }
-        systemRole.setStatus(false);
-        return ResponseVo.success(systemRoleDao.updateById(systemRole));
+        systemRole.setStatus(true);
+        return ResponseVo.success(systemRoleDao.deleteById(systemRole));
     }
 
     @Override
@@ -105,13 +107,9 @@ public class SystemRoleServiceImpl implements SystemRoleService {
 
     @Override
     public ResponseVo selectRolePage(SystemRolePageDTO systemRolePageDTO) {
-        int total = systemRoleDao.selectRolePageCount(systemRolePageDTO);
-        List<SystemRole> systemRoles = null;
-        if (total > 0) {
-            systemRoles = systemRoleDao.selectRolePage(systemRolePageDTO);
-        }
-        PageBean pageBean = new PageBean(systemRolePageDTO.getPageNum(), systemRolePageDTO.getPageSize(), total, systemRoles);
-        return ResponseVo.success(pageBean);
+        Page<SystemRole> page = new Page<SystemRole>(systemRolePageDTO.getOffSet(), systemRolePageDTO.getPageSize());
+		IPage<SystemRole> pageList = systemRoleDao.selectRolePage(page, systemRolePageDTO);
+        return ResponseVo.success(pageList);
     }
 
     @Override
@@ -149,4 +147,57 @@ public class SystemRoleServiceImpl implements SystemRoleService {
             throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_ROLE_NAME_EXIST);
         }
     }
+
+	@Override
+	public ResponseVo checkRoleCode(String id, String roleCode) {
+		SystemRole role = null;
+		if(!StringUtils.isEmpty(id)) {
+			role = systemRoleDao.getRoleCodeById(id);
+		}
+		SystemRole newRole = systemRoleDao.getRoleNoTenant(roleCode);
+		if (newRole != null) {
+			if (!id.equals(newRole.getId()) || role == null) {
+				return ResponseVo.fail("角色编码已存在");
+			}
+		}
+		return ResponseVo.success(true);
+	}
+
+	@Override
+	public ResponseVo saveRolePermission(String roleId, String permissionIds, String lastPermissionIds) {
+		List<String> add = getDiff(lastPermissionIds,permissionIds);
+		systemRoleMenuDao.delete(new LambdaQueryWrapper<SystemRoleMenu>()
+                .eq(SystemRoleMenu::getRoleId, roleId));
+        Optional.ofNullable(add).orElse(new ArrayList<>())
+                .stream().forEach(menuList -> {
+                    SystemRoleMenu systemRoleMenu = new SystemRoleMenu();
+                    systemRoleMenu.setRoleId(roleId);
+                    systemRoleMenu.setMenuId(menuList);
+                    systemRoleMenuDao.insert(systemRoleMenu);
+                });
+		return ResponseVo.success();
+	}
+	
+	private List<String> getDiff(String main,String diff){
+		if(StringUtils.isEmpty(diff)) {
+			return null;
+		}
+		if(StringUtils.isEmpty(main)) {
+			return Arrays.asList(diff.split(","));
+		}
+		
+		String[] mainArr = main.split(",");
+		String[] diffArr = diff.split(",");
+		Map<String, Integer> map = new HashMap(5);
+		for (String string : mainArr) {
+			map.put(string, 1);
+		}
+		List<String> res = new ArrayList<String>();
+		for (String key : diffArr) {
+			if(!StringUtils.isEmpty(key) && !map.containsKey(key)) {
+				res.add(key);
+			}
+		}
+		return res;
+	}
 }

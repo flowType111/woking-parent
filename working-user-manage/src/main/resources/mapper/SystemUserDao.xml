@@ -10,24 +10,13 @@
         </if>
     </sql>
 
-    <select id="selectUserCount" resultType="int">
-        SELECT
-        count(*)
-        FROM
-        tb_user t
-        <where>
-            t.status = 1
-            <include refid="searchCondition"/>
-        </where>
-    </select>
-
     <select id="selectUserPage" resultType="com.woke.working.user.entity.SystemUser">
         SELECT
             t.id as id,
             t.account_no as accountNo,
             t.`password` as password,
             t.nick_name as nickName,
-            t.state as status,
+            t.status as status,
             t.create_user as createUser,
             t.update_user as updateUser,
             t.create_time as createTime,
@@ -39,7 +28,6 @@
             <include refid="searchCondition"/>
         </where>
         ORDER BY t.create_time desc
-        LIMIT #{systemRolePageDTO.offSet},#{systemRolePageDTO.pageSize}
     </select>
 
     <resultMap id="userDetails" type="com.woke.working.common.vo.user.SystemUserRoleVo">
@@ -67,5 +55,13 @@
                 LEFT JOIN tb_user_role tur ON t.id = tur.user_id
                 LEFT JOIN tb_role tr ON tur.role_id = tr.id
         where t.id = #{id}
+    </select>
+    <select id="getAccountNoTenant" resultType="com.woke.working.user.entity.SystemUser">
+        SELECT * from tb_user
+        WHERE account_no = #{roleCode} and status = 1
+    </select>
+    <select id="getAccountCodeById" resultType="com.woke.working.user.entity.SystemUser">
+        SELECT * from tb_user
+        WHERE id = #{id} and status = 1
     </select>
 </mapper>

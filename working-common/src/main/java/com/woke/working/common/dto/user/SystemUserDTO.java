@@ -21,4 +21,6 @@ public class SystemUserDTO {
     private String nickName;
 
     private List<String> roleList;
+    
+    private String selectedroles;
 }

@@ -1,5 +1,6 @@
 package com.woke.working.user.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.woke.working.api.user.SystemRoleApi;
 import com.woke.working.common.annotation.AuthorityLimit;
 import com.woke.working.common.constant.AuthorityCodeConstant;
@@ -23,25 +24,25 @@ public class SystemRoleController implements SystemRoleApi {
     @Autowired
     private SystemRoleService systemRoleService;
     @Override
-    @AuthorityLimit(AuthorityCodeConstant.SystemManageCatalog.SystemUserRoleManage.Button.add)
+  //  @AuthorityLimit(AuthorityCodeConstant.SystemManageCatalog.SystemUserRoleManage.Button.add)
     public ResponseVo addRole(@RequestBody @Validated({ValidGroup.Insert.class}) SystemRoleDTO systemRoleDTO) {
         return systemRoleService.addRole(systemRoleDTO);
     }
 
     @Override
-    @AuthorityLimit(AuthorityCodeConstant.SystemManageCatalog.SystemUserRoleManage.Button.delete)
+   // @AuthorityLimit(AuthorityCodeConstant.SystemManageCatalog.SystemUserRoleManage.Button.delete)
     public ResponseVo deleteRole(@RequestParam("id") @Valid @NotNull(message = "请选择要删除的角色") String id) {
         return systemRoleService.deleteRole(id);
     }
 
     @Override
-    @AuthorityLimit(AuthorityCodeConstant.SystemManageCatalog.SystemUserRoleManage.Button.update)
+   // @AuthorityLimit(AuthorityCodeConstant.SystemManageCatalog.SystemUserRoleManage.Button.update)
     public ResponseVo updadteRole(@RequestBody @Validated({ValidGroup.Update.class}) SystemRoleDTO systemRoleDTO) {
         return systemRoleService.updadteRole(systemRoleDTO);
     }
 
     @Override
-    @AuthorityLimit(AuthorityCodeConstant.SystemManageCatalog.SystemUserRoleManage.Button.select)
+    //@AuthorityLimit(AuthorityCodeConstant.SystemManageCatalog.SystemUserRoleManage.Button.select)
     public ResponseVo selectRolePage(@RequestBody SystemRolePageDTO systemRolePageDTO) {
         return systemRoleService.selectRolePage(systemRolePageDTO);
     }
@@ -56,4 +57,17 @@ public class SystemRoleController implements SystemRoleApi {
     public ResponseVo selectRoleAll() {
         return systemRoleService.selectRoleAll();
     }
+
+	@Override
+	public ResponseVo checkRoleCode(String id, String roleCode) {
+		return systemRoleService.checkRoleCode(id,roleCode);
+	}
+
+	@Override
+	public ResponseVo saveRolePermission(JSONObject json) {
+		String roleId = json.getString("roleId");
+		String permissionIds = json.getString("permissionIds");
+		String lastPermissionIds = json.getString("lastpermissionIds");
+		return systemRoleService.saveRolePermission(roleId,permissionIds,lastPermissionIds);
+	}
 }

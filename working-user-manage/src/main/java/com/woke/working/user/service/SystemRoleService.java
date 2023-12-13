@@ -17,4 +17,8 @@ public interface SystemRoleService {
     ResponseVo selectRoleDetails(String id);
 
     ResponseVo selectRoleAll();
+
+	ResponseVo checkRoleCode(String id, String roleCode);
+
+	ResponseVo saveRolePermission(String roleId, String permissionIds, String lastPermissionIds);
 }

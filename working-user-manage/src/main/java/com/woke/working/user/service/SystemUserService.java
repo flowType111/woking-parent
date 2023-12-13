@@ -20,4 +20,8 @@ public interface SystemUserService {
 
     ResponseVo selectUserDetails(String id);
 
+	ResponseVo checkAccountNo(String id, String name);
+
+	ResponseVo queryUserRole(String userid);
+
 }

@@ -76,4 +76,63 @@
                 INNER JOIN tb_menu tm ON trm.menu_id = tm.id
         where tu.account_no =#{accountNo}
     </select>
+
+    <select id="queryByUserById" parameterType="Object"  resultType="com.woke.working.common.vo.user.SysPermission">
+        SELECT <include refid="baseInfo"/>
+        FROM  sys_permission p
+        WHERE (exists(
+                select a.id from tb_role_menu a
+                join tb_role b on a.role_id = b.id
+                join tb_user_role c on c.role_id = b.id
+                join tb_user d on d.id = c.user_id
+                where p.id = a.menu_id AND d.id = #{userId,jdbcType=VARCHAR}
+            )
+            or (p.url like '%:code' and p.url like '/online%' and p.hidden = 1)
+            or (p.url like '%:id' and p.url like '/online%' and p.hidden = 1)
+            or p.url = '/online')
+        and p.del_flag = 0
+    </select>
+    <select id="findList" parameterType="Object" resultType="com.woke.working.common.vo.user.SysPermission">
+        SELECT <include refid="baseInfo"/>
+        FROM  sys_permission p
+        WHERE p.del_flag = 0
+        <if test="menuType != null">
+            and p.menu_type = #{menuType}
+        </if>
+    </select>
+    <sql id="baseInfo">
+        p.id,
+        p.parent_id as parentId,
+        p.name,
+        p.url,
+        p.component,
+        p.is_route as route,
+        p.component_name as componentName,
+        p.redirect,
+        p.menu_type as menuType,
+        p.perms,
+        p.perms_type as permsType,
+        p.sort_no as sortNo,
+        p.always_show as alwaysShow,
+        p.icon,
+        p.is_leaf as leaf,
+        p.keep_alive as keepAlive,
+        p.hidden,
+        p.hide_tab as hideTab,
+        p.description,
+        p.create_by as createBy,
+        p.create_time as createTime,
+        p.update_by as updateBy,
+        p.update_time as updateTime,
+        p.del_flag as delFlag,
+        p.rule_flag as ruleFlag,
+        p.status,
+        p.internal_or_external as internalOrExternal
+    </sql>
+    <select id="findRoleMenuList" parameterType="Object" resultType="java.lang.String">
+        SELECT p.menu_id
+        FROM  tb_role_menu p
+        WHERE 
+            p.role_id = #{roleId}
+    </select>
 </mapper>

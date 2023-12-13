@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
@@ -52,4 +53,24 @@ public class SystemMenuController implements SystemMenuApi {
     public ResponseVo selectMenu() {
         return systemMenuService.selectMenu();
     }
+
+	@Override
+	public ResponseVo getPermCode() {
+		return systemMenuService.getPermCode();
+	}
+
+	@Override
+	public ResponseVo getUserPermissionByToken(HttpServletRequest request) {
+		return systemMenuService.getUserPermissionByToken(request);
+	}
+
+	@Override
+	public ResponseVo queryTreeList() {
+		return systemMenuService.queryTreeList();
+	}
+
+	@Override
+	public ResponseVo queryRolePermission(String roleId) {
+		return systemMenuService.queryRolePermission(roleId);
+	}
 }

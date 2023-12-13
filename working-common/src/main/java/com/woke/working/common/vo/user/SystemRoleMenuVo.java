@@ -14,6 +14,8 @@ public class SystemRoleMenuVo {
     private String roleCode;
 
     private String roleName;
+    
+    private String menuId;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
