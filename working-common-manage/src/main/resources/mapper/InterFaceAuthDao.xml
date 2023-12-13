@@ -1,0 +1,27 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woke.working.common.dao.InterFaceAuthDao">
+
+    <select id="selectInterFaceAuthCount" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            tb_interface_auth t
+        <where>
+            <if test="interFaceAuthPage.accessKey!=null and interFaceAuthPage.accessKey!=''">
+                and t.access_key = #{interFaceAuthPage.accessKey}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectInterFaceAuth" resultType="com.woke.working.common.entity.TbInterFaceAuth">
+        SELECT
+        *
+        FROM
+        tb_interface_auth t
+        <where>
+            <if test="interFaceAuthPage.accessKey!=null and interFaceAuthPage.accessKey!=''">
+                and t.access_key = #{interFaceAuthPage.accessKey}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -24,6 +24,8 @@ server:
 #RSA加密
 rsa:
   key:
+    defaultPublicKey:
+    defaultPrivateKey:
 
 #文件上传
 file:
