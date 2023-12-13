@@ -47,9 +47,7 @@ public class InterFaceAuthServiceImpl extends ServiceImpl<InterFaceAuthDao, TbIn
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseVo addInterFaceAuth(InterFaceAuthDTO interFaceAuthDTO) {
-        TbInterFaceAuth tbInterFaceAuth = this.getOne(new LambdaQueryWrapper<TbInterFaceAuth>()
-                .eq(TbInterFaceAuth::getAccessKey, interFaceAuthDTO.getAccessKey())
-                .eq(TbInterFaceAuth::getStatus, StatusEnum.ENABLE.getCode()));
+        TbInterFaceAuth tbInterFaceAuth = this.getOne(new LambdaQueryWrapper<TbInterFaceAuth>().eq(TbInterFaceAuth::getAccessKey, interFaceAuthDTO.getAccessKey()).eq(TbInterFaceAuth::getStatus, StatusEnum.ENABLE.getCode()));
         if (Objects.nonNull(tbInterFaceAuth)) {
             throw new BusinessErrorException(BusinessMsgEnum.WORKING_COMMON_INTERFACE_AUTH_ACCESS_KEY_EXIST);
         }
@@ -63,10 +61,10 @@ public class InterFaceAuthServiceImpl extends ServiceImpl<InterFaceAuthDao, TbIn
         this.save(tbInterFaceAuth);
         List<TbInterFaceConfig> tbInterFaceConfigList = new ArrayList<>();
         TbInterFaceAuth finalTbInterFaceAuth = tbInterFaceAuth;
-        Optional.ofNullable(interFaceAuthDTO.getOpenApiList()).orElse(new ArrayList<>()).stream().forEach(openList->{
+        Optional.ofNullable(interFaceAuthDTO.getOpenApiList()).orElse(new ArrayList<>()).stream().forEach(openList -> {
             TbInterFaceConfig tbInterFaceConfig = new TbInterFaceConfig();
             tbInterFaceConfig.setInterfaceAuthId(finalTbInterFaceAuth.getId());
-            tbInterFaceConfig.setOpenInterFaceId(openList);
+            tbInterFaceConfig.setOpenInterFaceId(openList.getInterfaceCode());
             tbInterFaceConfigList.add(tbInterFaceConfig);
         });
         interFaceAuthConfigService.saveBatch(tbInterFaceConfigList);
@@ -82,8 +80,7 @@ public class InterFaceAuthServiceImpl extends ServiceImpl<InterFaceAuthDao, TbIn
         }
         if ("delete".equalsIgnoreCase(type)) {
             this.removeById(tbInterFaceAuth);
-            interFaceAuthConfigService.remove(new LambdaQueryWrapper<TbInterFaceConfig>()
-                    .eq(TbInterFaceConfig::getInterfaceAuthId,tbInterFaceAuth.getId()));
+            interFaceAuthConfigService.remove(new LambdaQueryWrapper<TbInterFaceConfig>().eq(TbInterFaceConfig::getInterfaceAuthId, tbInterFaceAuth.getId()));
         } else {
             tbInterFaceAuth.setEnable(!tbInterFaceAuth.getEnable());
             this.updateById(tbInterFaceAuth);
@@ -100,5 +97,21 @@ public class InterFaceAuthServiceImpl extends ServiceImpl<InterFaceAuthDao, TbIn
         }
         PageBean pageBean = new PageBean(interFaceAuthPage.getPageNum(), interFaceAuthPage.getPageSize(), total, tbInterFaceAuthList);
         return ResponseVo.success(pageBean);
+    }
+
+    @Override
+    public ResponseVo updateInterFaceAuth(InterFaceAuthDTO interFaceAuthDTO) {
+        if (!CollectionUtils.isEmpty(interFaceAuthDTO.getOpenApiList())) {
+            interFaceAuthConfigService.remove(new LambdaQueryWrapper<TbInterFaceConfig>().eq(TbInterFaceConfig::getInterfaceAuthId, interFaceAuthDTO.getId()));
+            List<TbInterFaceConfig> tbInterFaceConfigList = new ArrayList<>();
+            Optional.ofNullable(interFaceAuthDTO.getOpenApiList()).orElse(new ArrayList<>()).stream().forEach(openList -> {
+                TbInterFaceConfig tbInterFaceConfig = new TbInterFaceConfig();
+                tbInterFaceConfig.setInterfaceAuthId(interFaceAuthDTO.getId());
+                tbInterFaceConfig.setOpenInterFaceId(openList.getInterfaceCode());
+                tbInterFaceConfigList.add(tbInterFaceConfig);
+            });
+            interFaceAuthConfigService.saveBatch(tbInterFaceConfigList);
+        }
+        return ResponseVo.success();
     }
 }

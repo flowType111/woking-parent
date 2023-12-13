@@ -8,6 +8,7 @@ import com.woke.working.common.dto.common.OpenInterFaceDTO;
 import com.woke.working.common.dto.common.OpenInterFacePage;
 import com.woke.working.common.entity.TbInterFaceAuth;
 import com.woke.working.common.entity.TbOpenInterFace;
+import com.woke.working.common.enumeration.StatusEnum;
 import com.woke.working.common.service.OpenInterFaceService;
 import com.woke.working.common.vo.ResponseVo;
 import com.woke.working.web.exception.BusinessErrorException;
@@ -78,5 +79,12 @@ public class OpenInterFaceServiceImpl implements OpenInterFaceService {
         }
         PageBean pageBean = new PageBean(openInterFacePage.getPageNum(), openInterFacePage.getPageSize(), total, tbOpenInterFaces);
         return ResponseVo.success(pageBean);
+    }
+
+    @Override
+    public ResponseVo selectAll() {
+        List<TbOpenInterFace> tbOpenInterFaces = openInterFaceDao.selectList(new LambdaQueryWrapper<TbOpenInterFace>()
+                .eq(TbOpenInterFace::getStatus, StatusEnum.ENABLE.getCode()));
+        return ResponseVo.success(tbOpenInterFaces);
     }
 }

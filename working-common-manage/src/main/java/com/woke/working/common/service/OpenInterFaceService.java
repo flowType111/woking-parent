@@ -13,4 +13,6 @@ public interface OpenInterFaceService {
     ResponseVo updateOpenApi(OpenInterFaceDTO openInterFaceDTO);
 
     ResponseVo selectOpenApi(OpenInterFacePage openInterFacePage);
+
+    ResponseVo selectAll();
 }

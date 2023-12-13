@@ -4,13 +4,13 @@ import com.woke.working.api.common.InterFaceAuthApi;
 import com.woke.working.common.dto.common.InterFaceAuthDTO;
 import com.woke.working.common.dto.common.InterFaceAuthPage;
 import com.woke.working.common.service.InterFaceAuthService;
+import com.woke.working.common.valid.ValidGroup;
 import com.woke.working.common.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
 
 @RestController
 public class InterFaceAuthController implements InterFaceAuthApi {
@@ -19,7 +19,7 @@ public class InterFaceAuthController implements InterFaceAuthApi {
     private InterFaceAuthService interFaceAuthService;
 
     @Override
-    public ResponseVo addInterFaceAuth(@RequestBody @Valid InterFaceAuthDTO interFaceAuthDTO) {
+    public ResponseVo addInterFaceAuth(@RequestBody @Validated({ValidGroup.Insert.class}) InterFaceAuthDTO interFaceAuthDTO) {
         return interFaceAuthService.addInterFaceAuth(interFaceAuthDTO);
     }
 
@@ -31,5 +31,10 @@ public class InterFaceAuthController implements InterFaceAuthApi {
     @Override
     public ResponseVo selectInterFaceAuth(@RequestBody InterFaceAuthPage interFaceAuthPage) {
         return interFaceAuthService.selectInterFaceAuth(interFaceAuthPage);
+    }
+
+    @Override
+    public ResponseVo updateInterFaceAuth(@RequestBody @Validated({ValidGroup.Update.class}) InterFaceAuthDTO interFaceAuthDTO) {
+        return interFaceAuthService.updateInterFaceAuth(interFaceAuthDTO);
     }
 }

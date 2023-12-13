@@ -21,4 +21,7 @@ public interface OpenInterFaceApi {
 
     @PostMapping("/selectOpenApi")
     ResponseVo selectOpenApi(OpenInterFacePage openInterFacePage);
+
+    @PostMapping("/selectAll")
+    ResponseVo selectAll();
 }

@@ -37,4 +37,9 @@ public class OpenInterFaceController implements OpenInterFaceApi {
     public ResponseVo selectOpenApi(OpenInterFacePage openInterFacePage) {
         return openInterFaceService.selectOpenApi(openInterFacePage);
     }
+
+    @Override
+    public ResponseVo selectAll() {
+        return openInterFaceService.selectAll();
+    }
 }
