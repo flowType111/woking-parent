@@ -97,17 +97,16 @@ public class SystemUserServiceImpl implements SystemUserService {
         }
         BeanUtils.copyProperties(systemUserDTO, systemUser);
         systemUserDao.updateById(systemUser);
-        if (!CollectionUtils.isEmpty(systemUserDTO.getRoleList())) {
-            systemUserRoleService.remove(new LambdaQueryWrapper<SystemUserRole>()
+        if (!StringUtils.isEmpty(systemUserDTO.getSelectedroles())) {
+        	systemUserRoleService.remove(new LambdaQueryWrapper<SystemUserRole>()
                     .eq(SystemUserRole::getUserId, systemUser.getId()));
-            List<SystemUserRole> systemUserRoleList = new ArrayList<>();
-            systemUserDTO.getRoleList().stream().forEach(userRoleVo -> {
-                SystemUserRole systemUserRole = new SystemUserRole();
-                systemUserRole.setUserId(systemUser.getAccountNo());
-                systemUserRole.setRoleId(userRoleVo);
-                systemUserRoleList.add(systemUserRole);
-            });
-            systemUserRoleService.saveBatch(systemUserRoleList);
+        	String [] roles = systemUserDTO.getSelectedroles().split(",");
+        	for (String string : roles) {
+        		SystemUserRole systemUserRole = new SystemUserRole();
+                systemUserRole.setUserId(systemUser.getId());
+                systemUserRole.setRoleId(string);
+                systemUserRoleService.save(systemUserRole);
+			}
         }
         return ResponseVo.success();
     }
