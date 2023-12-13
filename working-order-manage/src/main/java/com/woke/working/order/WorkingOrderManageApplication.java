@@ -1,5 +1,6 @@
 package com.woke.working.order;
 
+import com.woke.working.db.config.annotation.EnableDBField;
 import com.woke.working.redis.annotation.EnableRedis;
 import com.woke.working.web.annotation.EnableMq;
 import com.woke.working.web.annotation.EnableUserInfoTransmitter;
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.Bean;
 @EnableRedis
 @EnableWebUtil
 @EnableMq
+@EnableDBField
 public class WorkingOrderManageApplication {
 
     public static void main(String[] args) {

@@ -1,5 +1,6 @@
 package com.woke.working.user;
 
+import com.woke.working.db.config.annotation.EnableDBField;
 import com.woke.working.redis.annotation.EnableRedis;
 import com.woke.working.web.annotation.EnableUserInfoTransmitter;
 import com.woke.working.web.annotation.EnableVerificationCode;
@@ -15,6 +16,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableRedis
 @EnableWebUtil
 @EnableVerificationCode
+@EnableDBField
 @EnableFeignClients(basePackages = {"com.woke.working.api.common.feign"})
 public class WorkingUserManageApplication {
 

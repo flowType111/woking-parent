@@ -9,6 +9,12 @@ spring:
     hidden-method:
       filter:
         enabled: true
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    password: 88888888
+
 server:
   port: 8860
   max-http-header-size: 4048576
