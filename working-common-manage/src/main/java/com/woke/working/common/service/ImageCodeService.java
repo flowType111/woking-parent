@@ -1,4 +1,4 @@
-package com.woke.working.user.service;
+package com.woke.working.common.service;
 
 import com.woke.working.common.dto.user.CheckImageDTO;
 import com.woke.working.common.vo.ImageCodeVo;

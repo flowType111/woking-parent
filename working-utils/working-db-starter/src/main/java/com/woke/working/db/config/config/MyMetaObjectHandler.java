@@ -1,16 +1,17 @@
-package com.woke.working.web.config;
+package com.woke.working.db.config.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.woke.working.common.bo.UserInfoBO;
 import com.woke.working.common.util.user.UserInfoContext;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.Objects;
 
+@Component
 @Slf4j
 public class MyMetaObjectHandler implements MetaObjectHandler {
 

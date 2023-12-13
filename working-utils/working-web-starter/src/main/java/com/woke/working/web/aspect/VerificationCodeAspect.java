@@ -18,7 +18,7 @@ import org.springframework.core.annotation.Order;
 public class VerificationCodeAspect {
 
     @Autowired
-    private ImageCodeApi imageCodeApi;
+    private ImageCodeFeign imageCodeFeign;
 
     @Pointcut("@within(com.woke.working.common.annotation.VerificationCode) " +
             "|| @annotation(com.woke.working.common.annotation.VerificationCode)")
@@ -32,7 +32,7 @@ public class VerificationCodeAspect {
         for (Object arg : args) {
             if (arg instanceof CheckImageDTO) {
                 CheckImageDTO checkImageDTO = (CheckImageDTO) arg;
-                if (!imageCodeApi.verifyCode(checkImageDTO)) {
+                if (!imageCodeFeign.verifyCode(checkImageDTO)) {
                     throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_CHECK_CODE_ERROR);
                 }
             }

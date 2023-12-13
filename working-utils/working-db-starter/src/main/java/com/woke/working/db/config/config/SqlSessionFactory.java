@@ -1,12 +1,15 @@
-package com.woke.working.web.config;
+package com.woke.working.db.config.config;
 
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.core.toolkit.GlobalConfigUtils;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 
+@Component
 public class SqlSessionFactory {
 
     @Bean

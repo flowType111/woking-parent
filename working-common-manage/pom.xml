@@ -8,13 +8,18 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <groupId>com.woke</groupId>
-    <artifactId>working-user-manage</artifactId>
+    <artifactId>working-common-manage</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>working-user-manage</name>
-    <packaging>jar</packaging>
-    <description>working-user-manage</description>
+    <name>working-common-manage</name>
+    <description>working-common-manage</description>
 
     <dependencies>
+        <dependency>
+            <groupId>com.woke</groupId>
+            <artifactId>working-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
@@ -27,25 +32,6 @@
 
         <dependency>
             <groupId>com.woke</groupId>
-            <artifactId>working-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.79</version>
-        </dependency>
-
-       <dependency>
-            <groupId>com.woke</groupId>
-            <artifactId>working-redis-starter</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.woke</groupId>
             <artifactId>working-web-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
@@ -53,7 +39,7 @@
 
         <dependency>
             <groupId>com.woke</groupId>
-            <artifactId>working-db-starter</artifactId>
+            <artifactId>working-redis-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

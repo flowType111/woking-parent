@@ -56,14 +56,4 @@ public class WebUtilConfiguration {
     public RequestWrapperFilter requestWrapperFilter() {
         return new RequestWrapperFilter();
     }
-
-    @Bean
-    public SqlSessionFactory sqlSessionFactory(){
-        return new SqlSessionFactory();
-    }
-
-    @Bean
-    public MyMetaObjectHandler myMetaObjectHandler(){
-        return new MyMetaObjectHandler();
-    }
 }

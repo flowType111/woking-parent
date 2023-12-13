@@ -15,6 +15,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableRedis
 @EnableWebUtil
 @EnableVerificationCode
+@EnableFeignClients(basePackages = {"com.woke.working.api.common.feign"})
 public class WorkingUserManageApplication {
 
     public static void main(String[] args) {

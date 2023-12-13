@@ -49,7 +49,16 @@ public enum BusinessMsgEnum {
     /**
      * web服务
      */
-    WORKING_WEB_PAY_CHANNEL_ERROR(30001, "选择渠道失败");
+    WORKING_WEB_PAY_CHANNEL_ERROR(30001, "选择渠道失败"),
+
+    /**
+     * common服务
+     */
+    WORKING_COMMON_IMAGE_NAME_LENGTH(40001, "图片文件名过长，最大长度为80字符"),
+
+    WORKING_COMMON_IMAGE_FORMAT(40002, "图片文件格式错误，允许上传jpg,jpeg,png,gif格式"),
+
+    WORKING_COMMON_IMAGE_MAX(40003, "图片文件过大，最大限制为1MB");
 
     /**
      * 消息码

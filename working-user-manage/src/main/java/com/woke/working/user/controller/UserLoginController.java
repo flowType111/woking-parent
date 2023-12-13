@@ -27,6 +27,7 @@ public class UserLoginController implements UserLoginApi {
 
     @Override
     public ResponseVo userLogout(HttpServletResponse response) {
-        return null;
+        userLoginService.userLogout();
+        return ResponseVo.success();
     }
 }

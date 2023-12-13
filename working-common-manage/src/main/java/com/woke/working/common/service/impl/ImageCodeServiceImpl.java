@@ -1,15 +1,14 @@
-package com.woke.working.user.service.impl;
+package com.woke.working.common.service.impl;
 
-import com.wf.captcha.ArithmeticCaptcha;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.base.Captcha;
 import com.woke.working.common.BusinessMsgEnum;
 import com.woke.working.common.constant.RedisKeyConstant;
 import com.woke.working.common.dto.user.CheckImageDTO;
+import com.woke.working.common.service.ImageCodeService;
 import com.woke.working.common.vo.ImageCodeVo;
 import com.woke.working.common.vo.ResponseVo;
 import com.woke.working.redis.util.RedisUtil;
-import com.woke.working.user.service.ImageCodeService;
 import com.woke.working.web.exception.BusinessErrorException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

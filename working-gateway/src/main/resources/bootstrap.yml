@@ -27,6 +27,12 @@ spring:
             - Path=/web-api/**
           filters:
             - StripPrefix=1 # 使用过滤器
+        - id: working-common-manage
+          uri: lb://working-common-manage
+          predicates:
+            - Path=/common-api/**
+          filters:
+            - StripPrefix=1 # 使用过滤器
   application:
     name: working-gateway
   main:

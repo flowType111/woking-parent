@@ -1,4 +1,4 @@
-package com.woke.working.web.entity;
+package com.woke.working.db.config.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
