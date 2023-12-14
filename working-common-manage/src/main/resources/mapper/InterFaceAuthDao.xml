@@ -1,0 +1,58 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woke.working.common.dao.InterFaceAuthDao">
+
+    <select id="selectInterFaceAuthCount" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            tb_interface_auth t
+        <where>
+            <if test="interFaceAuthPage.accessKey!=null and interFaceAuthPage.accessKey!=''">
+                and t.access_key = #{interFaceAuthPage.accessKey}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectInterFaceAuth" resultType="com.woke.working.common.entity.TbInterFaceAuth">
+        SELECT
+        *
+        FROM
+        tb_interface_auth t
+        <where>
+            <if test="interFaceAuthPage.accessKey!=null and interFaceAuthPage.accessKey!=''">
+                and t.access_key = #{interFaceAuthPage.accessKey}
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="detailsMap" type="com.woke.working.common.vo.common.InterFaceVo">
+        <id property="id" column="id"/>
+        <result property="accessKey" column="accessKey"/>
+        <result property="encryptionKey" column="encryptionKey"/>
+        <!-- 定义一对多关联 -->
+        <collection property="interFaceConfigVos" ofType="com.woke.working.common.vo.common.InterFaceConfigVo">
+            <id property="id" column="openId"/>
+            <result property="interFaceCode" column="interFaceCode"/>
+            <result property="interFaceName" column="interFaceName"/>
+            <result property="interFaceDescribe" column="interFaceDescribe"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectInterFaceDetails" resultMap="detailsMap">
+        SELECT
+            tia.id as id,
+            tia.access_key as accessKey,
+            ipi.id as openId,
+            ipi.interface_code as interFaceCode,
+            ipi.interface_name as interFaceName,
+            ipi.interface_describe as interFaceDescribe
+        FROM
+            tb_interface_auth tia
+                INNER JOIN tb_interface_config tic ON tia.id = tic.interface_auth_id
+                INNER JOIN tb_open_interface ipi ON tic.open_interface_id = ipi.id
+        where
+            tia.`status` = 1
+          and tia.`enable` = 1
+          and tia.id = #{id}
+    </select>
+</mapper>

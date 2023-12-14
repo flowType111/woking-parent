@@ -1,0 +1,41 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woke.working.common.dao.OpenInterFaceDao">
+
+    <select id="selectOpenApiCount" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            tb_open_interface t
+        <where>
+            <if test="openInterFacePage.interFaceCode!=null and openInterFacePage.interFaceCode!=''">
+                and t.interface_code = #{openInterFacePage.interFaceCode}
+            </if>
+            <if test="openInterFacePage.interFaceName!=null and openInterFacePage.interFaceName!=''">
+                and t.interface_name like concat('%',#{openInterFacePage.interFaceName},'%')
+            </if>
+            <if test="openInterFacePage.interFaceDescribe!=null and openInterFacePage.interFaceDescribe!=''">
+                and t.interface_describe like concat('%',#{openInterFacePage.interFaceDescribe},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectOpenApi" resultType="com.woke.working.common.entity.TbOpenInterFace">
+        SELECT
+        *
+        FROM
+        tb_open_interface t
+        <where>
+            <if test="openInterFacePage.interFaceCode!=null and openInterFacePage.interFaceCode!=''">
+                and t.interface_code = #{openInterFacePage.interFaceCode}
+            </if>
+            <if test="openInterFacePage.interFaceName!=null and openInterFacePage.interFaceName!=''">
+                and t.interface_name like concat('%',#{openInterFacePage.interFaceName},'%')
+            </if>
+            <if test="openInterFacePage.interFaceDescribe!=null and openInterFacePage.interFaceDescribe!=''">
+                and t.interface_describe like concat('%',#{openInterFacePage.interFaceDescribe},'%')
+            </if>
+        </where>
+        ORDER BY t.create_time
+        LIMIT #{openInterFacePage.offSet},#{openInterFacePage.pageSize}
+    </select>
+</mapper>

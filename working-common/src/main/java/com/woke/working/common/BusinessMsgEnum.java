@@ -13,6 +13,20 @@ public enum BusinessMsgEnum {
     OTHER_LOGIN(401, "你的账号在其他地点登陆"),
 
     /**
+     *
+     * 外部接口处理
+     *
+     */
+    INTERFACE_AUTH_ACCOUNT_NOT_EXIST(00001,"账号不存在白名单"),
+
+    INTERFACE_AUTH_ACCOUNT_DISABLE(00002,"白名单账号已被禁用"),
+
+    INTERFACE_AUTH_ANALYSIS_PASSWORD(00003,"解析encryptionKey失败"),
+
+    INTERFACE_AUTH_PASSWORD_ERROR(0004,"encryptionKey错误"),
+
+
+    /**
      * user服务异常处理
      */
     WORKING_USER_ADD_MENU_EXCEPTION(10001, "未查询到对应的父节点"),
@@ -58,7 +72,17 @@ public enum BusinessMsgEnum {
 
     WORKING_COMMON_IMAGE_FORMAT(40002, "图片文件格式错误，允许上传jpg,jpeg,png,gif格式"),
 
-    WORKING_COMMON_IMAGE_MAX(40003, "图片文件过大，最大限制为1MB");
+    WORKING_COMMON_IMAGE_MAX(40003, "图片文件过大，最大限制为1MB"),
+
+    WORKING_COMMON_INTERFACE_AUTH_ACCESS_KEY_EXIST(40004,"白名单账号已存在"),
+
+    WORKING_COMMON_INTERFACE_AUTH_ACCESS_KEY_NOT_EXIST(40005,"白名单账号不存在"),
+
+    WORKING_COMMON_INTERFACE_AUTH_CONFIG_EXIST(40006,"白名单账号已配置当前接口code"),
+
+    WORKING_COMMON_OPEN_INTERFACE_API_EXIST(40007,"对外接口code已存在"),
+
+    WORKING_COMMON_OPEN_INTERFACE_API_NOT_EXIST(40008,"对外接口code不存在");;
 
     /**
      * 消息码
