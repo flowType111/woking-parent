@@ -2,14 +2,13 @@ package com.woke.working.user.controller;
 
 import com.woke.working.common.annotation.AuthorityLimit;
 import com.woke.working.common.constant.AuthorityCodeConstant;
-import com.woke.working.common.dto.user.SystemMenuDTO;
+import com.woke.working.common.dto.user.SysPermissionDTO;
 import com.woke.working.common.dto.user.SystemMenuPageDTO;
-import com.woke.working.common.valid.ValidGroup;
 import com.woke.working.common.vo.ResponseVo;
 import com.woke.working.api.user.SystemMenuApi;
+import com.woke.working.user.entity.SysPermission;
 import com.woke.working.user.service.SystemMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
 @RestController
 public class SystemMenuController implements SystemMenuApi {
@@ -26,9 +24,9 @@ public class SystemMenuController implements SystemMenuApi {
     private SystemMenuService systemMenuService;
 
     @Override
-    @AuthorityLimit(AuthorityCodeConstant.SystemManageCatalog.SystemUserRoleMenuManage.Button.add)
-    public ResponseVo addMenu(@RequestBody @Validated({ValidGroup.Insert.class}) SystemMenuDTO systemMenuDTO) {
-        return systemMenuService.addMenu(systemMenuDTO);
+   // @AuthorityLimit(AuthorityCodeConstant.SystemManageCatalog.SystemUserRoleMenuManage.Button.add)
+    public ResponseVo addMenu(SysPermissionDTO permission) {
+        return systemMenuService.addPermission(permission);
     }
 
     @Override
@@ -38,13 +36,13 @@ public class SystemMenuController implements SystemMenuApi {
     }
 
     @Override
-    @AuthorityLimit(AuthorityCodeConstant.SystemManageCatalog.SystemUserRoleMenuManage.Button.update)
-    public ResponseVo updateMenu(@RequestBody @Validated({ValidGroup.Update.class}) SystemMenuDTO systemMenuDTO) {
-        return systemMenuService.updateMenu(systemMenuDTO);
+    //@AuthorityLimit(AuthorityCodeConstant.SystemManageCatalog.SystemUserRoleMenuManage.Button.update)
+    public ResponseVo updateMenu(SysPermissionDTO permission) {
+        return systemMenuService.updatePermission(permission);
     }
 
     @Override
-    @AuthorityLimit(AuthorityCodeConstant.SystemManageCatalog.SystemUserRoleMenuManage.Button.select)
+   // @AuthorityLimit(AuthorityCodeConstant.SystemManageCatalog.SystemUserRoleMenuManage.Button.select)
     public ResponseVo selectMenuPage(@RequestBody SystemMenuPageDTO systemMenuPageDTO) {
         return systemMenuService.selectMenuPage(systemMenuPageDTO);
     }
@@ -72,5 +70,10 @@ public class SystemMenuController implements SystemMenuApi {
 	@Override
 	public ResponseVo queryRolePermission(String roleId) {
 		return systemMenuService.queryRolePermission(roleId);
+	}
+
+	@Override
+	public ResponseVo checkPermDuplication(String id, String url, Boolean alwaysShow) {
+		return systemMenuService.checkPermDuplication(id, url, alwaysShow);
 	}
 }
