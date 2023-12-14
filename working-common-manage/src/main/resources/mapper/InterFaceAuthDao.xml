@@ -42,7 +42,6 @@
         SELECT
             tia.id as id,
             tia.access_key as accessKey,
-            tia.encryption_key as encryptionKey,
             ipi.id as openId,
             ipi.interface_code as interFaceCode,
             ipi.interface_name as interFaceName,

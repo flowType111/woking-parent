@@ -11,7 +11,5 @@ public class InterFaceVo {
 
     private String accessKey;
 
-    private String encryptionKey;
-
     private List<InterFaceConfigVo> interFaceConfigVos;
 }
