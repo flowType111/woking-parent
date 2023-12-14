@@ -41,7 +41,7 @@ public class OpenInterFaceServiceImpl implements OpenInterFaceService {
     private void extracted(OpenInterFaceDTO openInterFaceDTO) {
         TbOpenInterFace tbOpenInterFace = openInterFaceDao.selectOne(new LambdaQueryWrapper<TbOpenInterFace>()
                 .eq(TbOpenInterFace::getInterFaceCode, openInterFaceDTO.getInterFaceCode()));
-        if (Objects.nonNull(tbOpenInterFace)){
+        if (Objects.nonNull(tbOpenInterFace)) {
             throw new BusinessErrorException(BusinessMsgEnum.WORKING_COMMON_OPEN_INTERFACE_API_EXIST);
         }
     }
@@ -49,7 +49,7 @@ public class OpenInterFaceServiceImpl implements OpenInterFaceService {
     @Override
     public ResponseVo deleteOpenApi(String id) {
         TbOpenInterFace tbOpenInterFace = openInterFaceDao.selectById(id);
-        if (Objects.isNull(tbOpenInterFace)){
+        if (Objects.isNull(tbOpenInterFace)) {
             throw new BusinessErrorException(BusinessMsgEnum.WORKING_COMMON_OPEN_INTERFACE_API_NOT_EXIST);
         }
         openInterFaceDao.deleteById(tbOpenInterFace);
@@ -59,10 +59,10 @@ public class OpenInterFaceServiceImpl implements OpenInterFaceService {
     @Override
     public ResponseVo updateOpenApi(OpenInterFaceDTO openInterFaceDTO) {
         TbOpenInterFace tbOpenInterFace = openInterFaceDao.selectById(openInterFaceDTO.getId());
-        if (Objects.isNull(tbOpenInterFace)){
+        if (Objects.isNull(tbOpenInterFace)) {
             throw new BusinessErrorException(BusinessMsgEnum.WORKING_COMMON_OPEN_INTERFACE_API_NOT_EXIST);
         }
-        if (!openInterFaceDTO.getInterFaceCode().equalsIgnoreCase(tbOpenInterFace.getInterFaceCode())){
+        if (!openInterFaceDTO.getInterFaceCode().equalsIgnoreCase(tbOpenInterFace.getInterFaceCode())) {
             extracted(openInterFaceDTO);
         }
         BeanUtils.copyProperties(openInterFaceDTO, tbOpenInterFace);
@@ -74,7 +74,7 @@ public class OpenInterFaceServiceImpl implements OpenInterFaceService {
     public ResponseVo selectOpenApi(OpenInterFacePage openInterFacePage) {
         int total = openInterFaceDao.selectOpenApiCount(openInterFacePage);
         List<TbOpenInterFace> tbOpenInterFaces = null;
-        if (!CollectionUtils.isEmpty(tbOpenInterFaces)) {
+        if (total > 0) {
             tbOpenInterFaces = openInterFaceDao.selectOpenApi(openInterFacePage);
         }
         PageBean pageBean = new PageBean(openInterFacePage.getPageNum(), openInterFacePage.getPageSize(), total, tbOpenInterFaces);
