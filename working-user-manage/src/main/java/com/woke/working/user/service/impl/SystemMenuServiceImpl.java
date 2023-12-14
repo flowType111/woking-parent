@@ -39,99 +39,103 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class SystemMenuServiceImpl implements SystemMenuService {
 
-    @Autowired
-    private SystemMenuDao systemMenuDao;
-    
-    @Autowired
-    private SystemPermissionDao systemPermissionDao;
+	@Autowired
+	private SystemMenuDao systemMenuDao;
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public ResponseVo addMenu(SystemMenuDTO systemMenuDTO) {
-        List<SystemMenu> systemMenuList = systemMenuDao.selectList(new LambdaQueryWrapper<SystemMenu>()
-                .eq(SystemMenu::getStatus, StatusEnum.ENABLE.getCode()));
-        SystemMenu addMeunVo = new SystemMenu();
-        // 如果上级为空默认为1层级
-        if (!StringUtils.isEmpty(systemMenuDTO.getParentId())) {
-            SystemMenu systemMenu = systemMenuList.stream().filter(systemMenuVo -> systemMenuVo.getId().equalsIgnoreCase(systemMenuDTO.getParentId())).findFirst().orElse(null);
-            if (Objects.isNull(systemMenu)) {
-                throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_ADD_MENU_EXCEPTION);
-            }
-            int level = systemMenu.getLevel().intValue() + 1;
-            SystemMenu treeVo = systemMenuList.stream().filter(systemMenuVo -> systemMenuVo.getMenuCode().equalsIgnoreCase(systemMenuDTO.getMenuCode())
-                    && systemMenuVo.getLevel().equals(level)).findFirst().orElse(null);
-            if (Objects.nonNull(treeVo)) {
-                throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_PERMISSION_EXIST);
-            }
-            addMeunVo.setParentCode(systemMenu.getParentCode());
-            addMeunVo.setLevel(level);
-        } else {
-            SystemMenu systemMenu = systemMenuList.stream().filter(systemMenuVo -> systemMenuVo.getMenuCode().equalsIgnoreCase(systemMenuDTO.getMenuCode())).findFirst().orElse(null);
-            if (Objects.nonNull(systemMenu)) {
-                throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_PERMISSION_EXIST);
-            }
-        }
-        BeanUtils.copyProperties(systemMenuDTO, addMeunVo);
-        return ResponseVo.success(systemMenuDao.insert(addMeunVo));
-    }
+	@Autowired
+	private SystemPermissionDao systemPermissionDao;
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public ResponseVo deleteMenu(String id) {
-        SystemMenu systemMenu = Optional.ofNullable(systemMenuDao.selectById(id)).orElse(new SystemMenu());
-        if (Objects.isNull(systemMenu)) {
-            throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_DELETE_MENU_EXCEPTION);
-        }
-        Long existCount = systemMenuDao.selectCount(new LambdaQueryWrapper<SystemMenu>()
-                .eq(SystemMenu::getParentId, id)
-                .eq(SystemMenu::getStatus, StatusEnum.ENABLE.getCode()));
-        if (existCount > 0) {
-            throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_EXIST_CHILD_NODE);
-        }
-        systemMenu.setStatus(false);
-        return ResponseVo.success(systemMenuDao.updateById(systemMenu));
-    }
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public ResponseVo addMenu(SystemMenuDTO systemMenuDTO) {
+		List<SystemMenu> systemMenuList = systemMenuDao.selectList(
+				new LambdaQueryWrapper<SystemMenu>().eq(SystemMenu::getStatus, StatusEnum.ENABLE.getCode()));
+		SystemMenu addMeunVo = new SystemMenu();
+		// 如果上级为空默认为1层级
+		if (!StringUtils.isEmpty(systemMenuDTO.getParentId())) {
+			SystemMenu systemMenu = systemMenuList.stream()
+					.filter(systemMenuVo -> systemMenuVo.getId().equalsIgnoreCase(systemMenuDTO.getParentId()))
+					.findFirst().orElse(null);
+			if (Objects.isNull(systemMenu)) {
+				throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_ADD_MENU_EXCEPTION);
+			}
+			int level = systemMenu.getLevel().intValue() + 1;
+			SystemMenu treeVo = systemMenuList.stream()
+					.filter(systemMenuVo -> systemMenuVo.getMenuCode().equalsIgnoreCase(systemMenuDTO.getMenuCode())
+							&& systemMenuVo.getLevel().equals(level))
+					.findFirst().orElse(null);
+			if (Objects.nonNull(treeVo)) {
+				throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_PERMISSION_EXIST);
+			}
+			addMeunVo.setParentCode(systemMenu.getParentCode());
+			addMeunVo.setLevel(level);
+		} else {
+			SystemMenu systemMenu = systemMenuList.stream()
+					.filter(systemMenuVo -> systemMenuVo.getMenuCode().equalsIgnoreCase(systemMenuDTO.getMenuCode()))
+					.findFirst().orElse(null);
+			if (Objects.nonNull(systemMenu)) {
+				throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_PERMISSION_EXIST);
+			}
+		}
+		BeanUtils.copyProperties(systemMenuDTO, addMeunVo);
+		return ResponseVo.success(systemMenuDao.insert(addMeunVo));
+	}
 
-    @Override
-    public ResponseVo updateMenu(SystemMenuDTO systemMenuDTO) {
-        SystemMenu systemMenu = systemMenuDao.selectOne(new LambdaQueryWrapper<SystemMenu>()
-                .eq(SystemMenu::getId, systemMenuDTO.getId())
-                .eq(SystemMenu::getStatus, StatusEnum.ENABLE.getCode()));
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public ResponseVo deleteMenu(String id) {
+		SystemMenu systemMenu = Optional.ofNullable(systemMenuDao.selectById(id)).orElse(new SystemMenu());
+		if (Objects.isNull(systemMenu)) {
+			throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_DELETE_MENU_EXCEPTION);
+		}
+		Long existCount = systemMenuDao.selectCount(new LambdaQueryWrapper<SystemMenu>().eq(SystemMenu::getParentId, id)
+				.eq(SystemMenu::getStatus, StatusEnum.ENABLE.getCode()));
+		if (existCount > 0) {
+			throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_EXIST_CHILD_NODE);
+		}
+		systemMenu.setStatus(false);
+		return ResponseVo.success(systemMenuDao.updateById(systemMenu));
+	}
 
-        if (!systemMenuDTO.getMenuCode().equalsIgnoreCase(systemMenu.getMenuCode())) {
-            Long existCount = systemMenuDao.selectCount(new LambdaQueryWrapper<SystemMenu>()
-                    .eq(SystemMenu::getStatus, StatusEnum.ENABLE.getCode())
-                    .eq(SystemMenu::getMenuCode, systemMenuDTO.getMenuCode()));
-            if (existCount > 0) {
-                throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_PERMISSION_EXIST);
-            }
-        }
-        BeanUtils.copyProperties(systemMenuDTO, systemMenu);
-        return ResponseVo.success(systemMenuDao.updateById(systemMenu));
-    }
+	@Override
+	public ResponseVo updateMenu(SystemMenuDTO systemMenuDTO) {
+		SystemMenu systemMenu = systemMenuDao.selectOne(new LambdaQueryWrapper<SystemMenu>()
+				.eq(SystemMenu::getId, systemMenuDTO.getId()).eq(SystemMenu::getStatus, StatusEnum.ENABLE.getCode()));
 
-    @Override
-    public ResponseVo selectMenuPage(SystemMenuPageDTO systemMenuPageDTO) {
-    	
+		if (!systemMenuDTO.getMenuCode().equalsIgnoreCase(systemMenu.getMenuCode())) {
+			Long existCount = systemMenuDao.selectCount(
+					new LambdaQueryWrapper<SystemMenu>().eq(SystemMenu::getStatus, StatusEnum.ENABLE.getCode())
+							.eq(SystemMenu::getMenuCode, systemMenuDTO.getMenuCode()));
+			if (existCount > 0) {
+				throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_PERMISSION_EXIST);
+			}
+		}
+		BeanUtils.copyProperties(systemMenuDTO, systemMenu);
+		return ResponseVo.success(systemMenuDao.updateById(systemMenu));
+	}
+
+	@Override
+	public ResponseVo selectMenuPage(SystemMenuPageDTO systemMenuPageDTO) {
+
 		List<SysPermission> list = systemMenuDao.selectMenu(systemMenuPageDTO);
 		List<SysPermissionTree> treeList = new ArrayList<>();
 
-		//如果有菜单名查询条件，则平铺数据 不做上下级
-		if(!StringUtils.isEmpty(systemMenuPageDTO.getMenuName())){
-			if(list!=null && list.size()>0){
+		// 如果有菜单名查询条件，则平铺数据 不做上下级
+		if (!StringUtils.isEmpty(systemMenuPageDTO.getMenuName())) {
+			if (list != null && list.size() > 0) {
 				treeList = list.stream().map(e -> {
 					e.setLeaf(true);
 					return new SysPermissionTree(e);
 				}).collect(Collectors.toList());
 			}
-		}else{
+		} else {
 			getTreeList(treeList, list, null);
 		}
-		
-        return ResponseVo.success(treeList);
-    }
-    
-    private void getTreeList(List<SysPermissionTree> treeList, List<SysPermission> metaList, SysPermissionTree temp) {
+
+		return ResponseVo.success(treeList);
+	}
+
+	private void getTreeList(List<SysPermissionTree> treeList, List<SysPermission> metaList, SysPermissionTree temp) {
 		for (SysPermission permission : metaList) {
 			String tempPid = permission.getParentId();
 			SysPermissionTree tree = new SysPermissionTree(permission);
@@ -150,26 +154,29 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 		}
 	}
 
-    @Override
-    public ResponseVo selectMenu() {
-        List<SystemMenuTreeVo> systemMenuTreeVoList = systemMenuDao.selectMenuTree();
-        Map<String, List<SystemMenuTreeVo>> groupMap = systemMenuTreeVoList.stream().collect(Collectors.groupingBy(x -> Optional.ofNullable(x.getParentId()).orElse("0")));
-        systemMenuTreeVoList.forEach(systemMenuTreeVo -> {
-            systemMenuTreeVo.setCheldrenList(groupMap.get(systemMenuTreeVo.getId()));
-        });
-        List<SystemMenuTreeVo> collect = systemMenuTreeVoList.stream().filter(systemMenuTreeVo -> StringUtils.isEmpty(systemMenuTreeVo.getParentId())).collect(Collectors.toList());
-        return ResponseVo.success(collect);
-    }
+	@Override
+	public ResponseVo selectMenu() {
+		List<SystemMenuTreeVo> systemMenuTreeVoList = systemMenuDao.selectMenuTree();
+		Map<String, List<SystemMenuTreeVo>> groupMap = systemMenuTreeVoList.stream()
+				.collect(Collectors.groupingBy(x -> Optional.ofNullable(x.getParentId()).orElse("0")));
+		systemMenuTreeVoList.forEach(systemMenuTreeVo -> {
+			systemMenuTreeVo.setCheldrenList(groupMap.get(systemMenuTreeVo.getId()));
+		});
+		List<SystemMenuTreeVo> collect = systemMenuTreeVoList.stream()
+				.filter(systemMenuTreeVo -> StringUtils.isEmpty(systemMenuTreeVo.getParentId()))
+				.collect(Collectors.toList());
+		return ResponseVo.success(collect);
+	}
 
 	@Override
 	public ResponseVo getPermCode() {
 		// 获取当前用户的权限集合
 		List<SysPermission> metaList = systemMenuDao.queryByUserById("a21364c311631aba5c41f90d25361bec");
-        // 按钮权限（用户拥有的权限集合）
-        List<String> codeList = metaList.stream()
-                .filter((permission) -> 2 == permission.getMenuType() && "1".equals(permission.getStatus()))
-                .collect(ArrayList::new, (list, permission) -> list.add(permission.getPerms()), ArrayList::addAll);
-        //
+		// 按钮权限（用户拥有的权限集合）
+		List<String> codeList = metaList.stream()
+				.filter((permission) -> 2 == permission.getMenuType() && "1".equals(permission.getStatus()))
+				.collect(ArrayList::new, (list, permission) -> list.add(permission.getPerms()), ArrayList::addAll);
+		//
 		JSONArray authArray = new JSONArray();
 		this.getAuthJsonArray(authArray, metaList);
 		// 查询所有的权限
@@ -177,41 +184,42 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 		JSONArray allAuthArray = new JSONArray();
 		this.getAllAuthJsonArray(allAuthArray, allAuthList);
 		JSONObject result = new JSONObject();
-        // 所拥有的权限编码
+		// 所拥有的权限编码
 		result.put("codeList", codeList);
-		//按钮权限（用户拥有的权限集合）
+		// 按钮权限（用户拥有的权限集合）
 		result.put("auth", authArray);
-		//全部权限配置集合（按钮权限，访问权限）
+		// 全部权限配置集合（按钮权限，访问权限）
 		result.put("allAuth", allAuthArray);
 		result.put("sysSafeMode", true);
 		return ResponseVo.success(result);
 	}
-	
+
 	/**
-	  *  获取权限JSON数组
+	 * 获取权限JSON数组
+	 * 
 	 * @param jsonArray
 	 * @param allList
 	 */
-	private void getAllAuthJsonArray(JSONArray jsonArray,List<SysPermission> allList) {
+	private void getAllAuthJsonArray(JSONArray jsonArray, List<SysPermission> allList) {
 		JSONObject json = null;
 		for (SysPermission permission : allList) {
 			json = new JSONObject();
 			json.put("action", permission.getPerms());
 			json.put("status", permission.getStatus());
-			//1显示2禁用
+			// 1显示2禁用
 			json.put("type", permission.getPermsType());
 			json.put("describe", permission.getName());
 			jsonArray.add(json);
 		}
 	}
-	
-	private void getAuthJsonArray(JSONArray jsonArray,List<SysPermission> metaList) {
+
+	private void getAuthJsonArray(JSONArray jsonArray, List<SysPermission> metaList) {
 		for (SysPermission permission : metaList) {
-			if(permission.getMenuType()==null) {
+			if (permission.getMenuType() == null) {
 				continue;
 			}
 			JSONObject json = null;
-			if(permission.getMenuType()== 2 && "1".equals(permission.getStatus())) {
+			if (permission.getMenuType() == 2 && "1".equals(permission.getStatus())) {
 				json = new JSONObject();
 				json.put("action", permission.getPerms());
 				json.put("type", permission.getPermsType());
@@ -220,9 +228,10 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 			}
 		}
 	}
-	
+
 	/**
-	  *  获取菜单JSON数组
+	 * 获取菜单JSON数组
+	 * 
 	 * @param jsonArray
 	 * @param metaList
 	 * @param parentJson
@@ -234,7 +243,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 			}
 			String tempPid = permission.getParentId();
 			JSONObject json = getPermissionJsonObject(permission);
-			if(json==null) {
+			if (json == null) {
 				continue;
 			}
 			if (parentJson == null && StringUtils.isEmpty(tempPid)) {
@@ -242,7 +251,8 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 				if (!permission.isLeaf()) {
 					getPermissionJsonArray(jsonArray, metaList, json);
 				}
-			} else if (parentJson != null && !StringUtils.isEmpty(tempPid) && tempPid.equals(parentJson.getString("id"))) {
+			} else if (parentJson != null && !StringUtils.isEmpty(tempPid)
+					&& tempPid.equals(parentJson.getString("id"))) {
 				// 类型( 0：一级菜单 1：子菜单 2：按钮 )
 				if (permission.getMenuType() == 2) {
 					JSONObject metaJson = parentJson.getJSONObject("meta");
@@ -271,24 +281,25 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 
 		}
 	}
-	
+
 	/**
 	 * 根据菜单配置生成路由json
+	 * 
 	 * @param permission
 	 * @return
 	 */
-		private JSONObject getPermissionJsonObject(SysPermission permission) {
+	private JSONObject getPermissionJsonObject(SysPermission permission) {
 		JSONObject json = new JSONObject();
 		// 类型(0：一级菜单 1：子菜单 2：按钮)
 		if (permission.getMenuType() == 2) {
 			return null;
-		} else if (permission.getMenuType() == 0|| permission.getMenuType() == 1) {
+		} else if (permission.getMenuType() == 0 || permission.getMenuType() == 1) {
 			json.put("id", permission.getId());
 			if (permission.isRoute()) {
-                //表示生成路由
+				// 表示生成路由
 				json.put("route", "1");
 			} else {
-                //表示不生成路由
+				// 表示不生成路由
 				json.put("route", "0");
 			}
 
@@ -309,8 +320,8 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 			// 是否隐藏路由，默认都是显示的
 			if (permission.isHidden()) {
 				json.put("hidden", true);
-                //vue3版本兼容代码
-                meta.put("hideMenu",true);
+				// vue3版本兼容代码
+				meta.put("hideMenu", true);
 			}
 			// 聚合路由
 			if (permission.isAlwaysShow()) {
@@ -324,23 +335,24 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 				meta.put("keepAlive", false);
 			}
 
-			/*update_begin author:wuxianquan date:20190908 for:往菜单信息里添加外链菜单打开方式 */
-			//外链菜单打开方式
+			/* update_begin author:wuxianquan date:20190908 for:往菜单信息里添加外链菜单打开方式 */
+			// 外链菜单打开方式
 			if (permission.isInternalOrExternal()) {
 				meta.put("internalOrExternal", true);
 			} else {
 				meta.put("internalOrExternal", false);
 			}
-			/* update_end author:wuxianquan date:20190908 for: 往菜单信息里添加外链菜单打开方式*/
+			/* update_end author:wuxianquan date:20190908 for: 往菜单信息里添加外链菜单打开方式 */
 
 			meta.put("title", permission.getName());
 
-			//update-begin--Author:scott  Date:20201015 for：路由缓存问题，关闭了tab页时再打开就不刷新 #842
+			// update-begin--Author:scott Date:20201015 for：路由缓存问题，关闭了tab页时再打开就不刷新 #842
 			String component = permission.getComponent();
-			if(!StringUtils.isEmpty(permission.getComponentName()) || !StringUtils.isEmpty(component)){
-				meta.put("componentName", this.getString(permission.getComponentName(),component.substring(component.lastIndexOf("/")+1)));
+			if (!StringUtils.isEmpty(permission.getComponentName()) || !StringUtils.isEmpty(component)) {
+				meta.put("componentName", this.getString(permission.getComponentName(),
+						component.substring(component.lastIndexOf("/") + 1)));
 			}
-			//update-end--Author:scott  Date:20201015 for：路由缓存问题，关闭了tab页时再打开就不刷新 #842
+			// update-end--Author:scott Date:20201015 for：路由缓存问题，关闭了tab页时再打开就不刷新 #842
 
 			if (StringUtils.isEmpty(permission.getParentId())) {
 				// 一级菜单跳转地址
@@ -356,23 +368,24 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 			if (isWwwHttpUrl(permission.getUrl())) {
 				meta.put("url", permission.getUrl());
 			}
-			// update-begin--Author:sunjianlei  Date:20210918 for：新增适配vue3项目的隐藏tab功能
+			// update-begin--Author:sunjianlei Date:20210918 for：新增适配vue3项目的隐藏tab功能
 			if (permission.isHideTab()) {
 				meta.put("hideTab", true);
 			}
-			// update-end--Author:sunjianlei  Date:20210918 for：新增适配vue3项目的隐藏tab功能
+			// update-end--Author:sunjianlei Date:20210918 for：新增适配vue3项目的隐藏tab功能
 			json.put("meta", meta);
 		}
 
 		return json;
 	}
-	
+
 	public static String getString(String s, String defval) {
 		if (StringUtils.isEmpty(s)) {
 			return (defval);
 		}
 		return (s.trim());
 	}
+
 	/**
 	 * 判断是否外网URL 例如： http://localhost:8080/jeecg-boot/swagger-ui.html#/ 支持特殊格式： {{
 	 * window._CONFIG['domianURL'] }}/druid/ {{ JS代码片段 }}，前台解析会自动执行JS代码片段
@@ -380,13 +393,13 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 	 * @return
 	 */
 	private boolean isWwwHttpUrl(String url) {
-        boolean flag = url != null && (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("{{"));
-        if (flag) {
+		boolean flag = url != null && (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("{{"));
+		if (flag) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	/**
 	 * 通过URL生成路由name（去掉URL前缀斜杠，替换内容中的斜杠‘/’为-） 举例： URL = /isystem/role RouteName =
 	 * isystem-role
@@ -412,57 +425,60 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 	public ResponseVo getUserPermissionByToken(HttpServletRequest request) {
 
 		List<SysPermission> metaList = systemMenuDao.queryByUserById("a21364c311631aba5c41f90d25361bec");
-		
+
 		JSONObject json = new JSONObject();
 		JSONArray menujsonArray = new JSONArray();
 		this.getPermissionJsonArray(menujsonArray, metaList, null);
-		//一级菜单下的子菜单全部是隐藏路由，则一级菜单不显示
+		// 一级菜单下的子菜单全部是隐藏路由，则一级菜单不显示
 		this.handleFirstLevelMenuHidden(menujsonArray);
 
 		JSONArray authjsonArray = new JSONArray();
 		this.getAuthJsonArray(authjsonArray, metaList);
-		//查询所有的权限
+		// 查询所有的权限
 		JSONArray allauthjsonArray = new JSONArray();
 		List<SysPermission> allAuthList = systemMenuDao.findList(2);
 		this.getAllAuthJsonArray(allauthjsonArray, allAuthList);
-		//路由菜单
+		// 路由菜单
 		json.put("menu", menujsonArray);
-		//按钮权限（用户拥有的权限集合）
+		// 按钮权限（用户拥有的权限集合）
 		json.put("auth", authjsonArray);
-		//全部权限配置集合（按钮权限，访问权限）
+		// 全部权限配置集合（按钮权限，访问权限）
 		json.put("allAuth", allauthjsonArray);
 		json.put("sysSafeMode", true);
 		return ResponseVo.success(json);
 	}
-	
+
 	/**
 	 * 一级菜单的子菜单全部是隐藏路由，则一级菜单不显示
+	 * 
 	 * @param jsonArray
 	 */
 	private void handleFirstLevelMenuHidden(JSONArray jsonArray) {
 		jsonArray = jsonArray.stream().map(obj -> {
 			JSONObject returnObj = new JSONObject();
-			JSONObject jsonObj = (JSONObject)obj;
-			if(jsonObj.containsKey("children")){
+			JSONObject jsonObj = (JSONObject) obj;
+			if (jsonObj.containsKey("children")) {
 				JSONArray childrens = jsonObj.getJSONArray("children");
-                childrens = childrens.stream().filter(arrObj -> !"true".equals(((JSONObject) arrObj).getString("hidden"))).collect(Collectors.toCollection(JSONArray::new));
-                if(childrens==null || childrens.size()==0){
-                    jsonObj.put("hidden",true);
+				childrens = childrens.stream()
+						.filter(arrObj -> !"true".equals(((JSONObject) arrObj).getString("hidden")))
+						.collect(Collectors.toCollection(JSONArray::new));
+				if (childrens == null || childrens.size() == 0) {
+					jsonObj.put("hidden", true);
 
-                    //vue3版本兼容代码
-                    JSONObject meta = new JSONObject();
-                    meta.put("hideMenu",true);
-                    jsonObj.put("meta", meta);
-                }
+					// vue3版本兼容代码
+					JSONObject meta = new JSONObject();
+					meta.put("hideMenu", true);
+					jsonObj.put("meta", meta);
+				}
 			}
 			return returnObj;
 		}).collect(Collectors.toCollection(JSONArray::new));
 	}
-	
-	public static boolean hasIndexPage(List<SysPermission> metaList){
+
+	public static boolean hasIndexPage(List<SysPermission> metaList) {
 		boolean hasIndexMenu = false;
 		for (SysPermission sysPermission : metaList) {
-			if("首页".equals(sysPermission.getName())) {
+			if ("首页".equals(sysPermission.getName())) {
 				hasIndexMenu = true;
 				break;
 			}
@@ -473,36 +489,37 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 	@Override
 	public ResponseVo queryTreeList() {
 		List<String> ids = new ArrayList<>();
-			List<SysPermission> list = systemMenuDao.findList(null);
-			for(SysPermission sysPer : list) {
-				ids.add(sysPer.getId());
-			}
-			List<TreeModel> treeList = new ArrayList<>();
-			getTreeModelList(treeList, list, null);
-			Map<String,Object> resMap = new HashMap(5);
-            //全部树节点数据
-			resMap.put("treeList", treeList);
-            //全部树ids
-			resMap.put("ids", ids);
+		List<SysPermission> list = systemMenuDao.findList(null);
+		for (SysPermission sysPer : list) {
+			ids.add(sysPer.getId());
+		}
+		List<TreeModel> treeList = new ArrayList<>();
+		getTreeModelList(treeList, list, null);
+		Map<String, Object> resMap = new HashMap(5);
+		// 全部树节点数据
+		resMap.put("treeList", treeList);
+		// 全部树ids
+		resMap.put("ids", ids);
 		return ResponseVo.success(resMap);
 	}
-	
-	private void getTreeModelList(List<TreeModel> treeList,List<SysPermission> metaList,TreeModel temp) {
+
+	private void getTreeModelList(List<TreeModel> treeList, List<SysPermission> metaList, TreeModel temp) {
 		for (SysPermission permission : metaList) {
 			String tempPid = permission.getParentId();
-			TreeModel tree = new TreeModel(permission.getId(), tempPid, permission.getName(),permission.getRuleFlag(), permission.isLeaf());
-			if(temp==null && StringUtils.isEmpty(tempPid)) {
+			TreeModel tree = new TreeModel(permission.getId(), tempPid, permission.getName(), permission.getRuleFlag(),
+					permission.isLeaf());
+			if (temp == null && StringUtils.isEmpty(tempPid)) {
 				treeList.add(tree);
-				if(!tree.getIsLeaf()) {
+				if (!tree.getIsLeaf()) {
 					getTreeModelList(treeList, metaList, tree);
 				}
-			}else if(temp!=null && tempPid!=null && tempPid.equals(temp.getKey())){
+			} else if (temp != null && tempPid != null && tempPid.equals(temp.getKey())) {
 				temp.getChildren().add(tree);
-				if(!tree.getIsLeaf()) {
+				if (!tree.getIsLeaf()) {
 					getTreeModelList(treeList, metaList, tree);
 				}
 			}
-			
+
 		}
 	}
 
@@ -515,7 +532,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 	@Override
 	public ResponseVo checkPermDuplication(String id, String url, Boolean alwaysShow) {
 		SysPermission role = null;
-		if(!StringUtils.isEmpty(id)) {
+		if (!StringUtils.isEmpty(id)) {
 			role = systemMenuDao.getPermissionUrlById(id);
 		}
 		SysPermission newRole = systemMenuDao.getPermissionUrlTenant(url);
@@ -526,18 +543,19 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 		}
 		return ResponseVo.success(true);
 	}
+
 	@Override
 	public ResponseVo addPermission(SysPermissionDTO sysPermissionDTO) {
 		SysPermission sysPermission = new SysPermission();
 		BeanUtils.copyProperties(sysPermissionDTO, sysPermission);
-		//判断是否是一级菜单，是的话清空父菜单
-		if(sysPermission.getMenuType() == 0) {
+		// 判断是否是一级菜单，是的话清空父菜单
+		if (sysPermission.getMenuType() == 0) {
 			sysPermission.setParentId(null);
 		}
-		//----------------------------------------------------------------------
+		// ----------------------------------------------------------------------
 		String pid = sysPermission.getParentId();
-		if(!StringUtils.isEmpty(pid)) {
-			//设置父节点不为叶子节点
+		if (!StringUtils.isEmpty(pid)) {
+			// 设置父节点不为叶子节点
 			this.systemMenuDao.setMenuLeaf(pid, 0);
 		}
 		sysPermission.setCreateTime(new Date());
