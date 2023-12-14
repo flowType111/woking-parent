@@ -3,18 +3,23 @@ package com.woke.working.user.service.impl;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.woke.working.common.BusinessMsgEnum;
 import com.woke.working.common.PageBean;
+import com.woke.working.common.dto.user.SysPermissionDTO;
 import com.woke.working.common.dto.user.SystemMenuDTO;
 import com.woke.working.common.dto.user.SystemMenuPageDTO;
 import com.woke.working.common.enumeration.StatusEnum;
 import com.woke.working.common.vo.ResponseVo;
-import com.woke.working.common.vo.user.SysPermission;
 import com.woke.working.common.vo.user.SystemMenuTreeVo;
-import com.woke.working.common.vo.user.SystemRoleMenuVo;
-import com.woke.working.common.vo.user.TreeModel;
 import com.woke.working.user.dao.SystemMenuDao;
+import com.woke.working.user.dao.SystemPermissionDao;
+import com.woke.working.user.entity.SysPermission;
+import com.woke.working.user.entity.SysPermissionTree;
 import com.woke.working.user.entity.SystemMenu;
+import com.woke.working.user.entity.TreeModel;
 import com.woke.working.user.service.SystemMenuService;
 import com.woke.working.user.util.Md5Util;
 import com.woke.working.web.exception.BusinessErrorException;
@@ -36,6 +41,9 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 
     @Autowired
     private SystemMenuDao systemMenuDao;
+    
+    @Autowired
+    private SystemPermissionDao systemPermissionDao;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -104,14 +112,43 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 
     @Override
     public ResponseVo selectMenuPage(SystemMenuPageDTO systemMenuPageDTO) {
-        int totalRecord = systemMenuDao.selectMenuCount(systemMenuPageDTO);
-        List<SystemMenu> systemMenuList = null;
-        if (totalRecord > 0) {
-            systemMenuList = systemMenuDao.selectMenuPage(systemMenuPageDTO);
-        }
-        PageBean pageBean = new PageBean(systemMenuPageDTO.getPageNum(), systemMenuPageDTO.getPageSize(), totalRecord, systemMenuList);
-        return ResponseVo.success(pageBean);
+    	
+		List<SysPermission> list = systemMenuDao.selectMenu(systemMenuPageDTO);
+		List<SysPermissionTree> treeList = new ArrayList<>();
+
+		//如果有菜单名查询条件，则平铺数据 不做上下级
+		if(!StringUtils.isEmpty(systemMenuPageDTO.getMenuName())){
+			if(list!=null && list.size()>0){
+				treeList = list.stream().map(e -> {
+					e.setLeaf(true);
+					return new SysPermissionTree(e);
+				}).collect(Collectors.toList());
+			}
+		}else{
+			getTreeList(treeList, list, null);
+		}
+		
+        return ResponseVo.success(treeList);
     }
+    
+    private void getTreeList(List<SysPermissionTree> treeList, List<SysPermission> metaList, SysPermissionTree temp) {
+		for (SysPermission permission : metaList) {
+			String tempPid = permission.getParentId();
+			SysPermissionTree tree = new SysPermissionTree(permission);
+			if (temp == null && StringUtils.isEmpty(tempPid)) {
+				treeList.add(tree);
+				if (!tree.isLeaf()) {
+					getTreeList(treeList, metaList, tree);
+				}
+			} else if (temp != null && tempPid != null && tempPid.equals(temp.getId())) {
+				temp.getChildren().add(tree);
+				if (!tree.isLeaf()) {
+					getTreeList(treeList, metaList, tree);
+				}
+			}
+
+		}
+	}
 
     @Override
     public ResponseVo selectMenu() {
@@ -473,5 +510,85 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 	public ResponseVo queryRolePermission(String roleId) {
 		List<String> list = systemMenuDao.findRoleMenuList(roleId);
 		return ResponseVo.success(list);
+	}
+
+	@Override
+	public ResponseVo checkPermDuplication(String id, String url, Boolean alwaysShow) {
+		SysPermission role = null;
+		if(!StringUtils.isEmpty(id)) {
+			role = systemMenuDao.getPermissionUrlById(id);
+		}
+		SysPermission newRole = systemMenuDao.getPermissionUrlTenant(url);
+		if (newRole != null) {
+			if (!newRole.getId().equals(id) || role == null) {
+				return ResponseVo.fail("访问路径已存在");
+			}
+		}
+		return ResponseVo.success(true);
+	}
+	@Override
+	public ResponseVo addPermission(SysPermissionDTO sysPermissionDTO) {
+		SysPermission sysPermission = new SysPermission();
+		BeanUtils.copyProperties(sysPermissionDTO, sysPermission);
+		//判断是否是一级菜单，是的话清空父菜单
+		if(sysPermission.getMenuType() == 0) {
+			sysPermission.setParentId(null);
+		}
+		//----------------------------------------------------------------------
+		String pid = sysPermission.getParentId();
+		if(!StringUtils.isEmpty(pid)) {
+			//设置父节点不为叶子节点
+			this.systemMenuDao.setMenuLeaf(pid, 0);
+		}
+		sysPermission.setCreateTime(new Date());
+		sysPermission.setDelFlag(0);
+		sysPermission.setLeaf(true);
+		systemPermissionDao.insert(sysPermission);
+		return ResponseVo.success(true);
+	}
+
+	@Override
+	public ResponseVo updatePermission(SysPermissionDTO sysPermissionDTO) {
+		SysPermission p = systemPermissionDao.selectById(sysPermissionDTO.getId());
+		SysPermission sysPermission = new SysPermission();
+		BeanUtils.copyProperties(sysPermissionDTO, sysPermission);
+		// TODO 该节点判断是否还有子节点
+		if (p == null) {
+			// throw new JeecgBootException("未找到菜单信息");
+		} else {
+			sysPermission.setUpdateTime(new Date());
+			// ----------------------------------------------------------------------
+			// Step1.判断是否是一级菜单，是的话清空父菜单ID
+			if (sysPermission.getMenuType() == 0) {
+				sysPermission.setParentId("");
+			}
+			// Step2.判断菜单下级是否有菜单，无则设置为叶子节点
+			Long count = systemPermissionDao.selectCount(
+					new QueryWrapper<SysPermission>().lambda().eq(SysPermission::getParentId, sysPermission.getId()));
+			if (count == 0) {
+				sysPermission.setLeaf(true);
+			}
+			// ----------------------------------------------------------------------
+			systemPermissionDao.updateById(sysPermission);
+
+			// 如果当前菜单的父菜单变了，则需要修改新父菜单和老父菜单的，叶子节点状态
+			String pid = sysPermission.getParentId();
+			boolean flag = (!StringUtils.isEmpty(pid) && !pid.equals(p.getParentId()))
+					|| StringUtils.isEmpty(pid) && !StringUtils.isEmpty(p.getParentId());
+			if (flag) {
+				// a.设置新的父菜单不为叶子节点
+				this.systemMenuDao.setMenuLeaf(pid, 0);
+				// b.判断老的菜单下是否还有其他子菜单，没有的话则设置为叶子节点
+				Long cc = systemPermissionDao.selectCount(
+						new QueryWrapper<SysPermission>().lambda().eq(SysPermission::getParentId, p.getParentId()));
+				if (cc == 0) {
+					if (!StringUtils.isEmpty(p.getParentId())) {
+						this.systemMenuDao.setMenuLeaf(p.getParentId(), 1);
+					}
+				}
+
+			}
+		}
+		return ResponseVo.success();
 	}
 }

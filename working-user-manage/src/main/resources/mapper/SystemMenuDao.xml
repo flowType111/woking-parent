@@ -6,42 +6,23 @@
            and tm.menu_name like concat('%',#{systemMenuPageDTO.menuName},'%')
        </if>
        <if test="systemMenuPageDTO.menuCode!=null and systemMenuPageDTO.menuCode!=''">
-           and tm.menu_code = #{systemMenuPageDTO.menuCode}
+           and p.menu_code = #{systemMenuPageDTO.menuCode}
        </if>
        <if test="systemMenuPageDTO.nodeType!=null">
-           and tm.node_type = #{systemMenuPageDTO.nodeType}
+           and p.node_type = #{systemMenuPageDTO.nodeType}
        </if>
    </sql>
 
-   <select id="selectMenuCount" resultType="int">
-      SELECT
-         count(*)
-      FROM
-         tb_menu tm
-      <where>
-        tm.status = 1
-        <include refid="searchCondition"/>
-      </where>
-   </select>
-
-   <select id="selectMenuPage" resultType="com.woke.working.user.entity.SystemMenu">
+   <select id="selectMenu" resultType="com.woke.working.user.entity.SysPermission">
        SELECT
-           tm.id as id,
-           tm.menu_code as menuCode,
-           tm.menu_name as menuName,
-           tm.parent_id as parentId,
-           tm.parent_code as parentCode,
-           tm.node_type as nodeType,
-           tm.create_time as createTime,
-           tm.update_time as updateTime
+           <include refid="baseInfo"/>
        FROM
-           tb_menu tm
+           sys_permission p
        <where>
-            tm.status = 1
+            p.del_flag = 0
            <include refid="searchCondition"/>
        </where>
-       ORDER BY tm.create_time desc
-       LIMIT #{systemMenuPageDTO.offSet},#{systemMenuPageDTO.pageSize}
+       ORDER BY p.sort_no
    </select>
 
     <select id="selectMenuTree" resultType="com.woke.working.common.vo.user.SystemMenuTreeVo">
@@ -77,7 +58,7 @@
         where tu.account_no =#{accountNo}
     </select>
 
-    <select id="queryByUserById" parameterType="Object"  resultType="com.woke.working.common.vo.user.SysPermission">
+    <select id="queryByUserById" parameterType="Object"  resultType="com.woke.working.user.entity.SysPermission">
         SELECT <include refid="baseInfo"/>
         FROM  sys_permission p
         WHERE (exists(
@@ -92,7 +73,7 @@
             or p.url = '/online')
         and p.del_flag = 0
     </select>
-    <select id="findList" parameterType="Object" resultType="com.woke.working.common.vo.user.SysPermission">
+    <select id="findList" parameterType="Object" resultType="com.woke.working.user.entity.SysPermission">
         SELECT <include refid="baseInfo"/>
         FROM  sys_permission p
         WHERE p.del_flag = 0
@@ -135,4 +116,16 @@
         WHERE 
             p.role_id = #{roleId}
     </select>
+
+    <select id="getPermissionUrlTenant" resultType="com.woke.working.user.entity.SysPermission">
+        SELECT * from sys_permission
+        WHERE url = #{roleCode} and del_flag = 0
+    </select>
+    <select id="getPermissionUrlById" resultType="com.woke.working.user.entity.SysPermission">
+        SELECT * from sys_permission
+        WHERE id = #{id} and del_flag = 0
+    </select>
+    <update id="setMenuLeaf">
+        update sys_permission set is_leaf=#{leaf} where id = #{id}
+    </update>
 </mapper>

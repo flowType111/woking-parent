@@ -156,7 +156,7 @@ public class SystemRoleServiceImpl implements SystemRoleService {
 		}
 		SystemRole newRole = systemRoleDao.getRoleNoTenant(roleCode);
 		if (newRole != null) {
-			if (!id.equals(newRole.getId()) || role == null) {
+			if (!newRole.getId().equals(id) || role == null) {
 				return ResponseVo.fail("角色编码已存在");
 			}
 		}

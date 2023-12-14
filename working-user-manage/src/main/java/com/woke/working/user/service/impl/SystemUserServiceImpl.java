@@ -131,7 +131,7 @@ public class SystemUserServiceImpl implements SystemUserService {
 		}
 		SystemUser newRole = systemUserDao.getAccountNoTenant(name);
 		if (newRole != null) {
-			if (!id.equals(newRole.getId()) || role == null) {
+			if (!newRole.getId().equals(id) || role == null) {
 				return ResponseVo.fail("用户账号已存在");
 			}
 		}
