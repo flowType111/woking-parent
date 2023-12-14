@@ -13,6 +13,20 @@ public enum BusinessMsgEnum {
     OTHER_LOGIN(401, "你的账号在其他地点登陆"),
 
     /**
+     *
+     * 外部接口处理
+     *
+     */
+    INTERFACE_AUTH_ACCOUNT_NOT_EXIST(00001,"账号不存在白名单"),
+
+    INTERFACE_AUTH_ACCOUNT_DISABLE(00002,"白名单账号已被禁用"),
+
+    INTERFACE_AUTH_ANALYSIS_PASSWORD(00003,"解析encryptionKey失败"),
+
+    INTERFACE_AUTH_PASSWORD_ERROR(0004,"encryptionKey错误"),
+
+
+    /**
      * user服务异常处理
      */
     WORKING_USER_ADD_MENU_EXCEPTION(10001, "未查询到对应的父节点"),

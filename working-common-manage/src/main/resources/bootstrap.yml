@@ -59,6 +59,9 @@ file:
     domain: D:/working/file
     prefix: /working/file
 
+#签名token过期时间
+expiresTime: 259200
+
 ---
 spring:
   profiles: dev

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.woke.working.common.BusinessMsgEnum;
 import com.woke.working.common.PageBean;
+import com.woke.working.common.constant.common.BaseSlaConstant;
 import com.woke.working.common.dao.InterFaceAuthConfigDao;
 import com.woke.working.common.dao.InterFaceAuthDao;
 import com.woke.working.common.dto.common.InterFaceAuthDTO;
@@ -13,6 +14,7 @@ import com.woke.working.common.entity.TbInterFaceConfig;
 import com.woke.working.common.enumeration.StatusEnum;
 import com.woke.working.common.service.InterFaceAuthConfigService;
 import com.woke.working.common.service.InterFaceAuthService;
+import com.woke.working.common.util.Base64Util;
 import com.woke.working.common.util.RSAEncrypt;
 import com.woke.working.common.vo.ResponseVo;
 import com.woke.working.web.exception.BusinessErrorException;
@@ -31,16 +33,8 @@ import java.util.Optional;
 @Service
 @Slf4j
 public class InterFaceAuthServiceImpl extends ServiceImpl<InterFaceAuthDao, TbInterFaceAuth> implements InterFaceAuthService {
-
-    @Autowired
-    private RSAEncrypt rsaEncrypt;
-
     @Autowired
     private InterFaceAuthDao interFaceAuthDao;
-
-    @Autowired
-    private InterFaceAuthConfigDao interFaceAuthConfigDao;
-
     @Autowired
     private InterFaceAuthConfigService interFaceAuthConfigService;
 
@@ -54,7 +48,9 @@ public class InterFaceAuthServiceImpl extends ServiceImpl<InterFaceAuthDao, TbIn
         tbInterFaceAuth = new TbInterFaceAuth();
         BeanUtils.copyProperties(interFaceAuthDTO, tbInterFaceAuth);
         try {
-            tbInterFaceAuth.setEncryptionKey(rsaEncrypt.encryptDefault(interFaceAuthDTO.getEncryptionKey()));
+            StringBuffer stringBuffer = new StringBuffer();
+            stringBuffer.append(BaseSlaConstant.sla).append(interFaceAuthDTO.getEncryptionKey());
+            tbInterFaceAuth.setEncryptionKey(Base64Util.encode(stringBuffer.toString().getBytes()));
         } catch (Exception e) {
             throw new BusinessErrorException(BusinessMsgEnum.UNEXPECTED_EXCEPTION);
         }
