@@ -559,7 +559,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 			SysPermission role = systemMenuDao.getPermissionUrlById(pid);
 			StringBuffer stringBuffer = new StringBuffer();
 			stringBuffer.append(role.getMenuCode()).append(":").append(sysPermissionDTO.getMenuCode());
-			sysPermissionDTO.setMenuCode(stringBuffer.toString());
+			sysPermission.setMenuCode(stringBuffer.toString());
 			// 设置父节点不为叶子节点
 			this.systemMenuDao.setMenuLeaf(pid, 0);
 		}
