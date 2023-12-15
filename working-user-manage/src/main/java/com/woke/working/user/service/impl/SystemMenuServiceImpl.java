@@ -555,6 +555,11 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 		// ----------------------------------------------------------------------
 		String pid = sysPermission.getParentId();
 		if (!StringUtils.isEmpty(pid)) {
+			// 有父节点需要查询父节点的menuCode
+			SysPermission role = systemMenuDao.getPermissionUrlById(pid);
+			StringBuffer stringBuffer = new StringBuffer();
+			stringBuffer.append(role.getMenuCode()).append(":").append(sysPermissionDTO.getMenuCode());
+			sysPermissionDTO.setMenuCode(stringBuffer.toString());
 			// 设置父节点不为叶子节点
 			this.systemMenuDao.setMenuLeaf(pid, 0);
 		}
@@ -570,10 +575,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 		SysPermission p = systemPermissionDao.selectById(sysPermissionDTO.getId());
 		SysPermission sysPermission = new SysPermission();
 		BeanUtils.copyProperties(sysPermissionDTO, sysPermission);
-		// TODO 该节点判断是否还有子节点
-		if (p == null) {
-			// throw new JeecgBootException("未找到菜单信息");
-		} else {
+		if (Objects.nonNull(p)){
 			sysPermission.setUpdateTime(new Date());
 			// ----------------------------------------------------------------------
 			// Step1.判断是否是一级菜单，是的话清空父菜单ID
@@ -586,9 +588,6 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 			if (count == 0) {
 				sysPermission.setLeaf(true);
 			}
-			// ----------------------------------------------------------------------
-			systemPermissionDao.updateById(sysPermission);
-
 			// 如果当前菜单的父菜单变了，则需要修改新父菜单和老父菜单的，叶子节点状态
 			String pid = sysPermission.getParentId();
 			boolean flag = (!StringUtils.isEmpty(pid) && !pid.equals(p.getParentId()))
@@ -596,6 +595,15 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 			if (flag) {
 				// a.设置新的父菜单不为叶子节点
 				this.systemMenuDao.setMenuLeaf(pid, 0);
+				// 如果当前父菜单更换就需要变化code
+				SysPermission role = systemMenuDao.getPermissionUrlById(pid);
+
+				// 获取当前更改的菜单权限code
+				String[] value = sysPermission.getMenuCode().split(":");
+				StringBuffer stringBuffer = new StringBuffer();
+				stringBuffer.append(role.getMenuCode()).append(":").append(value[value.length-1]);
+				sysPermission.setMenuCode(stringBuffer.toString());
+
 				// b.判断老的菜单下是否还有其他子菜单，没有的话则设置为叶子节点
 				Long cc = systemPermissionDao.selectCount(
 						new QueryWrapper<SysPermission>().lambda().eq(SysPermission::getParentId, p.getParentId()));
@@ -604,8 +612,8 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 						this.systemMenuDao.setMenuLeaf(p.getParentId(), 1);
 					}
 				}
-
 			}
+			systemPermissionDao.updateById(sysPermission);
 		}
 		return ResponseVo.success();
 	}

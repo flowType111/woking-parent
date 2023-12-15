@@ -21,6 +21,13 @@ public class SysPermissionDTO implements Serializable {
 	private String parentId;
 
 	/**
+	 *
+	 * 权限code
+	 *
+	 */
+	private String menuCode;
+
+	/**
 	 * 菜单名称
 	 */
 	private String name;
