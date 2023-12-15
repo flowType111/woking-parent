@@ -81,9 +81,8 @@ public class UserLoginServiceImpl implements UserLoginService {
         userInfoBO.setNickName(systemUser.getNickName());
         userInfoBO.setLoginTimeMillis(loginTimeMillis);
         userInfoBO.setToken(token);
-        List<SystemMenu> systemMenuList = systemMenuDao.selectUserRoleMeun(systemUser.getAccountNo());
-        List<String> menuCode = Optional.ofNullable(systemMenuList).orElse(new ArrayList<>()).stream().map(SystemMenu::getMenuCode).collect(Collectors.toList());
-        userInfoBO.setJurisdictionCodeList(menuCode);
+        List<String> systemMenuList = systemMenuDao.selectUserRoleMeun(systemUser.getAccountNo());
+        userInfoBO.setJurisdictionCodeList(systemMenuList);
         redisUtil.setObject(UserConstant.USER_ACCOUNT_PREFIX + userLoginDTO.getAccountNo(), userInfoBO, loginTime);
         return token;
     }
