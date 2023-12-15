@@ -157,11 +157,9 @@ public class SysPermission implements Serializable {
 	@TableField("always_show")
     private boolean alwaysShow;
 
-	/*update_begin author:wuxianquan date:20190908 for:实体增加字段 */
     /** 外链菜单打开方式 0/内部打开 1/外部打开 */
 	@TableField("internal_or_external")
     private boolean internalOrExternal;
-	/*update_end author:wuxianquan date:20190908 for:实体增加字段 */
 
     public SysPermission() {
     	

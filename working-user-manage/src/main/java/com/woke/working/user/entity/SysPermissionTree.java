@@ -143,7 +143,6 @@ public class SysPermissionTree implements Serializable {
 	 * 是否隐藏Tab: 0否,1是（默认值0）
 	 */
 	private boolean hideTab;
-	/*update_end author:liusq date:20230601 for:【issues/4986】model增加hideTab字段 */
 
 	public SysPermissionTree() {
 	}
