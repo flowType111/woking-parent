@@ -5,6 +5,7 @@ import com.woke.working.common.dto.order.OrderPageDTO;
 import com.woke.working.common.vo.ResponseVo;
 import com.woke.working.order.service.PayOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -15,7 +16,7 @@ public class PayOrderController implements PayOrderApi {
     private PayOrderService payOrderService;
 
     @Override
-    public ResponseVo selectOrderPage(OrderPageDTO orderPageDTO) {
+    public ResponseVo selectOrderPage(@RequestBody OrderPageDTO orderPageDTO) {
         return payOrderService.selectOrderPage(orderPageDTO);
     }
 }
