@@ -1,6 +1,7 @@
 package com.woke.working.order.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.woke.working.common.dto.order.OrderPageDTO;
 import com.woke.working.order.entity.PayOrder;
 import org.apache.ibatis.annotations.Param;
@@ -11,5 +12,5 @@ public interface PayOrderDao extends BaseMapper<PayOrder> {
 
     int selectOrderCount(@Param("orderPageDTO") OrderPageDTO orderPageDTO);
 
-    List<PayOrder> selectOrderPage(@Param("orderPageDTO") OrderPageDTO orderPageDTO);
+    Page<PayOrder> selectOrderPage(@Param("page") Page<OrderPageDTO> page, @Param("orderPageDTO") OrderPageDTO orderPageDTO);
 }

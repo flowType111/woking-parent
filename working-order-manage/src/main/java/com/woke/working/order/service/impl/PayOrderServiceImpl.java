@@ -1,5 +1,6 @@
 package com.woke.working.order.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.woke.working.common.PageBean;
 import com.woke.working.common.dto.order.OrderPageDTO;
@@ -36,12 +37,8 @@ public class PayOrderServiceImpl extends ServiceImpl<PayOrderDao, PayOrder> impl
 
     @Override
     public ResponseVo selectOrderPage(OrderPageDTO orderPageDTO) {
-        int total = payOrderDao.selectOrderCount(orderPageDTO);
-        List<PayOrder> payOrderList = null;
-        if (total > 0) {
-            payOrderList = payOrderDao.selectOrderPage(orderPageDTO);
-        }
-        PageBean pageBean = new PageBean(orderPageDTO.getPageNum(), orderPageDTO.getPageSize(), total, payOrderList);
-        return ResponseVo.success(pageBean);
+        Page<OrderPageDTO> page = new Page<OrderPageDTO>(orderPageDTO.getOffSet(), orderPageDTO.getPageSize());
+        Page<PayOrder> pageList = payOrderDao.selectOrderPage(page, orderPageDTO);
+        return ResponseVo.success(pageList);
     }
 }
