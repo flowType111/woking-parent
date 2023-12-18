@@ -1,5 +1,5 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.woke.working.common.dao.InterFaceAuthDao">
+<mapper namespace="com.woke.working.pubilc.dao.InterFaceAuthDao">
 
     <select id="selectInterFaceAuthCount" resultType="int">
         SELECT
@@ -13,7 +13,7 @@
         </where>
     </select>
 
-    <select id="selectInterFaceAuth" resultType="com.woke.working.common.entity.TbInterFaceAuth">
+    <select id="selectInterFaceAuth" resultType="com.woke.working.pubilc.entity.TbInterFaceAuth">
         SELECT
         *
         FROM

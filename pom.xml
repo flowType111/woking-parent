@@ -23,11 +23,11 @@
     </properties>
 
     <modules>
+        <module>working-common</module>
+        <module>working-api</module>
         <module>working-gateway</module>
         <module>working-user-manage</module>
         <module>working-common-manage</module>
-        <module>working-api</module>
-        <module>working-common</module>
         <module>working-order-manage</module>
         <module>working-web-manage</module>
         <module>working-utils/working-redis-starter</module>
@@ -66,6 +66,16 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                    <mainClass>none</mainClass>
+                    <classifier>exec</classifier>
+                </configuration>
             </plugin>
         </plugins>
     </build>

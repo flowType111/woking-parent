@@ -1,5 +1,5 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.woke.working.common.dao.OpenInterFaceDao">
+<mapper namespace="com.woke.working.pubilc.dao.OpenInterFaceDao">
 
     <select id="selectOpenApiCount" resultType="int">
         SELECT
@@ -19,7 +19,7 @@
         </where>
     </select>
 
-    <select id="selectOpenApi" resultType="com.woke.working.common.entity.TbOpenInterFace">
+    <select id="selectOpenApi" resultType="com.woke.working.pubilc.entity.TbOpenInterFace">
         SELECT
         *
         FROM
