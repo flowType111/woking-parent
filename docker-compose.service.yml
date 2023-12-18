@@ -1,4 +1,4 @@
-version: '3'
+version: '3.2'
 services:
   working-gateway:
     container_name: working-gateway
