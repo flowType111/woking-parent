@@ -1,4 +1,4 @@
-package com.woke.woking.gateway;
+package com.woke.working.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

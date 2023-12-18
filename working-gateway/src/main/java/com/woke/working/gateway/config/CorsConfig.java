@@ -1,4 +1,4 @@
-package com.woke.woking.gateway.config;
+package com.woke.working.gateway.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

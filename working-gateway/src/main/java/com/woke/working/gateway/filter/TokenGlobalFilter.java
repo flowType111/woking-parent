@@ -1,4 +1,4 @@
-package com.woke.woking.gateway.filter;
+package com.woke.working.gateway.filter;
 
 import com.alibaba.fastjson.JSONObject;
 import com.woke.working.api.user.feign.UserAuthFeign;

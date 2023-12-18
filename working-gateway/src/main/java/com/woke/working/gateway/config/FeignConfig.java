@@ -1,4 +1,4 @@
-package com.woke.woking.gateway.config;
+package com.woke.working.gateway.config;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
