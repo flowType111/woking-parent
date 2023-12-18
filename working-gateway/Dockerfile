@@ -5,10 +5,10 @@ FROM openjdk:8-jdk-alpine
 WORKDIR /app
 
 # 将 jar 包添加到工作目录，比如 target/yuoj-backend-user-service-0.0.1-SNAPSHOT.jar
-ADD target/working-user-manage-0.0.1-SNAPSHOT-exec.jar .
+ADD target/working-gateway-0.0.1-SNAPSHOT-exec.jar .
 
 # 暴露端口
-EXPOSE 8890
+EXPOSE 9091
 
 # 启动命令
-ENTRYPOINT ["java","-jar","/app/working-user-manage-0.0.1-SNAPSHOT-exec.jar","--spring.profiles.active=prod"]
+ENTRYPOINT ["java","-jar","/app/working-gateway-0.0.1-SNAPSHOT-exec.jar","--spring.profiles.active=prod"]
