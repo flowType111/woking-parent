@@ -12,6 +12,7 @@
     <artifactId>working-common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>working-common</name>
+    <packaging>jar</packaging>
     <description>working-common</description>
 
     <dependencies>
@@ -34,12 +35,6 @@
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-core</artifactId>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>
