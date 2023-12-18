@@ -1,0 +1,68 @@
+version: '3'
+services:
+  working-gateway:
+    container_name: working-gateway
+    build: # 服务的 Docker 构建文件位置
+      context: ./working-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "9091:9091"
+    networks:
+      - mynetwork
+
+  working-common-manage:
+    container_name: working-common-manage
+    build:
+      context: ./working-common-manage
+      dockerfile: Dockerfile
+    ports:
+      - "8850:8850"
+    networks:
+      - mynetwork
+    depends_on: # 本服务依赖的服务，控制启动先后顺序
+      - working-gateway
+
+  working-user-manage:
+    container_name: working-user-manage
+    build:
+      context: ./working-user-manage
+      dockerfile: Dockerfile
+    ports:
+      - "8890:8890"
+    networks:
+      - mynetwork
+    depends_on:
+      - working-common-manage
+      - working-gateway
+
+  working-web-manage:
+    container_name: working-web-manage
+    build:
+      context: ./working-web-manage
+      dockerfile: Dockerfile
+    ports:
+      - "8860:8860"
+    networks:
+      - mynetwork
+    depends_on:
+      - working-common-manage
+      - working-gateway
+      - working-user-manage
+
+  working-order-manage:
+    container_name: working-order-manage
+    build:
+      context: ./working-order-manage
+      dockerfile: Dockerfile
+    ports:
+      - "8870:8870"
+    networks:
+      - mynetwork
+    depends_on:
+      - working-common-manage
+      - working-gateway
+      - working-user-manage
+
+# 网络，不定义的话就是默认网络
+networks:
+  mynetwork:
