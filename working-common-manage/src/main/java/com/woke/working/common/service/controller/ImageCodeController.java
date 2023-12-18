@@ -24,7 +24,7 @@ public class ImageCodeController implements ImageCodeApi {
     }
 
     @Override
-    public Boolean verifyCode(@RequestBody @Valid CheckImageDTO checkImageDTO) {
+    public ResponseVo verifyCode(@RequestBody @Valid CheckImageDTO checkImageDTO) {
         return imageCodeService.verifyCode(checkImageDTO);
     }
 }

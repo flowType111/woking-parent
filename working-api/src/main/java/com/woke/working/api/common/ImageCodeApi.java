@@ -14,5 +14,5 @@ public interface ImageCodeApi {
     ResponseVo<ImageCodeVo> getImageCode();
 
     @PostMapping("/verifyCode")
-    Boolean verifyCode(CheckImageDTO checkImageDTO);
+    ResponseVo verifyCode(CheckImageDTO checkImageDTO);
 }

@@ -4,6 +4,7 @@ import com.woke.working.api.common.ImageCodeApi;
 import com.woke.working.api.common.feign.ImageCodeFeign;
 import com.woke.working.common.BusinessMsgEnum;
 import com.woke.working.common.dto.user.CheckImageDTO;
+import com.woke.working.common.vo.ResponseVo;
 import com.woke.working.web.exception.BusinessErrorException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -32,7 +33,8 @@ public class VerificationCodeAspect {
         for (Object arg : args) {
             if (arg instanceof CheckImageDTO) {
                 CheckImageDTO checkImageDTO = (CheckImageDTO) arg;
-                if (!imageCodeFeign.verifyCode(checkImageDTO)) {
+                ResponseVo responseVo = imageCodeFeign.verifyCode(checkImageDTO);
+                if (!Boolean.getBoolean(String.valueOf(responseVo.getData()))) {
                     throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_CHECK_CODE_ERROR);
                 }
             }

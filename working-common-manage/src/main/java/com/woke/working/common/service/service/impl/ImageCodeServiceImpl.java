@@ -42,7 +42,7 @@ public class ImageCodeServiceImpl implements ImageCodeService {
     }
 
     @Override
-    public Boolean verifyCode(CheckImageDTO checkImageDTO) {
+    public ResponseVo<Boolean> verifyCode(CheckImageDTO checkImageDTO) {
         String checkCode = redisUtil.getString(RedisKeyConstant.VERIFY_CODE_PREFIX + checkImageDTO.getRandomCode());
         if (StringUtils.isEmpty(checkCode)) {
             throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_CHECK_CODE_INVALID);
@@ -51,6 +51,6 @@ public class ImageCodeServiceImpl implements ImageCodeService {
             throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_CHECK_CODE_ERROR);
         }
         redisUtil.delete(RedisKeyConstant.VERIFY_CODE_PREFIX + checkImageDTO.getRandomCode());
-        return true;
+        return ResponseVo.success(true);
     }
 }

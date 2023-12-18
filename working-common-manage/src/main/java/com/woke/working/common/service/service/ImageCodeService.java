@@ -8,5 +8,5 @@ public interface ImageCodeService {
 
     ResponseVo<ImageCodeVo> getImageCode();
 
-    Boolean verifyCode(CheckImageDTO checkImageDTO);
+    ResponseVo verifyCode(CheckImageDTO checkImageDTO);
 }
