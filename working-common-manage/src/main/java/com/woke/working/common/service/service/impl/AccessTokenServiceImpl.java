@@ -30,9 +30,6 @@ public class AccessTokenServiceImpl implements AccessTokenService {
     private InterFaceAuthDao interFaceAuthDao;
 
     @Autowired
-    private RSAEncrypt rsaEncrypt;
-
-    @Autowired
     private RedisUtil redisUtil;
 
 

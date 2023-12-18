@@ -9,7 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.woke.working.common.dao")
+@MapperScan("com.woke.working.common.service.dao")
 @EnableUserInfoTransmitter
 @EnableRedis
 @EnableWebUtil

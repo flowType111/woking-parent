@@ -75,6 +75,7 @@
                     </excludes>
                     <mainClass>none</mainClass>
                     <classifier>exec</classifier>
+                    <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
                 </configuration>
             </plugin>
         </plugins>
