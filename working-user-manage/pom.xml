@@ -77,6 +77,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.woke.working.user.WorkingUserManageApplication</mainClass>
+                </configuration>
                 <executions>
                     <execution>
                         <id>repackage</id>
