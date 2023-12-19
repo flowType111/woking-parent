@@ -1,16 +1,17 @@
-package com.woke.working.user.service.impl;
+package com.woke.working.common.service.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.woke.working.common.BusinessMsgEnum;
 import com.woke.working.common.PageBean;
 import com.woke.working.common.dto.user.PayConfigDTO;
 import com.woke.working.common.dto.user.PayConfigPageDTO;
 import com.woke.working.common.enumeration.StatusEnum;
+import com.woke.working.common.service.dao.PayConfigDao;
+import com.woke.working.common.service.entity.PayConfig;
+import com.woke.working.common.service.service.PayConfigService;
 import com.woke.working.common.vo.ResponseVo;
-import com.woke.working.user.dao.PayConfigDao;
-import com.woke.working.user.entity.PayConfig;
-import com.woke.working.user.service.PayConfigService;
 import com.woke.working.web.exception.BusinessErrorException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -69,13 +70,9 @@ public class PayConfigServiceImpl extends ServiceImpl<PayConfigDao, PayConfig> i
 
     @Override
     public ResponseVo selectPayConfig(PayConfigPageDTO payConfigPageDTO) {
-        int total = payConfigDao.selectPayConfig(payConfigPageDTO);
-        List<PayConfig> payConfigList = null;
-        if (total > 0) {
-            payConfigList = payConfigDao.selectPayConfigPage(payConfigPageDTO);
-        }
-        PageBean pageBean = new PageBean(payConfigPageDTO.getPageNum(), payConfigPageDTO.getPageSize(), total, payConfigList);
-        return ResponseVo.success(pageBean);
+        Page<PayConfig> page = new Page<PayConfig>(payConfigPageDTO.getOffSet(), payConfigPageDTO.getPageSize());
+        Page<PayConfig> payConfigPage = payConfigDao.selectPayConfigPage(page,payConfigPageDTO);
+        return ResponseVo.success(payConfigPage);
     }
 
     @Override

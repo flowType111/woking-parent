@@ -1,4 +1,4 @@
-package com.woke.working.user.entity;
+package com.woke.working.common.service.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

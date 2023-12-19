@@ -1,4 +1,4 @@
-package com.woke.working.api.user;
+package com.woke.working.api.common;
 
 import com.woke.working.common.dto.user.PayConfigDTO;
 import com.woke.working.common.dto.user.PayConfigPageDTO;
