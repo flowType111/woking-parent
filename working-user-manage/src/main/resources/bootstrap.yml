@@ -12,7 +12,7 @@ server:
     max-http-post-size: -1  #请求参数长度
 ---
 spring:
-  profiles: prod
+  profiles: dev
   cloud:
     nacos:
       discovery:
@@ -24,8 +24,17 @@ spring:
         file-extension: yml
         username: nacos
         password: nacos
-ribbon:
-  eager-load:
-    clients:
-
-
+---
+spring:
+  profiles: prod
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 154.92.19.9:8848
+        username: nacos
+        password: nacos
+      config:
+        server-addr: 154.92.19.9:8848
+        file-extension: yml
+        username: nacos
+        password: nacos

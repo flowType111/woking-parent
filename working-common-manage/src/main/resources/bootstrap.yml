@@ -5,63 +5,11 @@ spring:
     name: working-common-manage
   main:
     allow-bean-definition-overriding: true
-  mvc:
-    hidden-method:
-      filter:
-        enabled: true
-  # 配置数据源信息
-  datasource:
-    # 配置连接数据库信息
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://139.159.204.251:13306/working-common?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&rewriteBatchedStatements=true
-    username: root
-    password: r8D0MHuQZJajmdly
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    database: 0
-    password: 88888888
-
 server:
   port: 8850
   max-http-header-size: 4048576
   tomcat:
     max-http-post-size: -1  #请求参数长度
-
-#数据库名称
-project:
-  database: mysql
-
-#mybatis-plus配置
-mybatis-plus:
-  configuration:
-    #sql日志打印
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    #开启驼峰命名匹配
-    map-underscore-to-camel-case: true
-    #mapper文件
-  mapper-locations: classpath:mapper/${project.database}/**/*.xml,classpath:mapper/*.xml
-  #数据库实体类的包全路径，方便在mapper.xml中不许使用实体类的全路径，写类名就行（不区分大小写）
-  type-aliases-package: com.zhuang.mp.entity
-  global-config:
-    db-config:
-      #逻辑删除
-      logic-delete-value: 0
-      logic-not-delete-value: 1
-      logic-delete-field: deleted
-
-#RSA加密
-
-#文件上传
-file:
-  image:
-    path: D:/working/file
-    domain: D:/working/file
-    prefix: /working/file
-
-#签名token过期时间
-expiresTime: 259200
-
 ---
 spring:
   profiles: dev
@@ -76,8 +24,18 @@ spring:
         file-extension: yml
         username: nacos
         password: nacos
-ribbon:
-  eager-load:
-    clients:
-
+---
+spring:
+  profiles: prod
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 154.92.19.9:8848
+        username: nacos
+        password: nacos
+      config:
+        server-addr: 154.92.19.9:8848
+        file-extension: yml
+        username: nacos
+        password: nacos
 

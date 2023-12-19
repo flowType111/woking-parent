@@ -33,12 +33,13 @@ public class ImageCodeServiceImpl implements ImageCodeService {
         try {
             result = specCaptcha.toBase64();
         } catch (Exception e) {
+            log.error("生成验证码失败：{}", e);
             throw new BusinessErrorException(BusinessMsgEnum.AUTH_TOKEN_ERROR);
         }
         //生成uuid做为验证码的key
         UUID key = UUID.randomUUID();
         redisUtil.setString(RedisKeyConstant.VERIFY_CODE_PREFIX + key, specCaptcha.text(), 5 * 60L);
-        return ResponseVo.success(new ImageCodeVo(key.toString() ,result));
+        return ResponseVo.success(new ImageCodeVo(key.toString(), result));
     }
 
     @Override
@@ -47,7 +48,7 @@ public class ImageCodeServiceImpl implements ImageCodeService {
         if (StringUtils.isEmpty(checkCode)) {
             throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_CHECK_CODE_INVALID);
         }
-        if (!checkCode.equalsIgnoreCase(checkImageDTO.getImageCode())){
+        if (!checkCode.equalsIgnoreCase(checkImageDTO.getImageCode())) {
             throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_CHECK_CODE_ERROR);
         }
         redisUtil.delete(RedisKeyConstant.VERIFY_CODE_PREFIX + checkImageDTO.getRandomCode());
