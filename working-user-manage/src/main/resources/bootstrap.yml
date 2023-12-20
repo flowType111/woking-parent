@@ -5,18 +5,18 @@ spring:
     name: working-user-manage
   main:
     allow-bean-definition-overriding: true
-    # 配置数据源信息
-    datasource:
-      # 配置连接数据库信息
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/working-user?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&rewriteBatchedStatements=true
-      username: root
-      password: 123456
-    redis:
-      host: 127.0.0.1
-      port: 6379
-      database: 0
-      password: 88888888
+  # 配置数据源信息
+  datasource:
+    # 配置连接数据库信息
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/working-user?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&rewriteBatchedStatements=true
+    username: root
+    password: 123456
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    password: 88888888
 #数据库名称
 project:
   database: mysql

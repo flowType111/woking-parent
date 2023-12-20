@@ -82,7 +82,9 @@ public enum BusinessMsgEnum {
 
     WORKING_COMMON_OPEN_INTERFACE_API_EXIST(40007,"对外接口code已存在"),
 
-    WORKING_COMMON_OPEN_INTERFACE_API_NOT_EXIST(40008,"对外接口code不存在");;
+    WORKING_COMMON_OPEN_INTERFACE_API_NOT_EXIST(40008,"对外接口code不存在"),
+
+    WORKING_COMMON_QR_CODE_ID_EXIST(40009,"二维吗id已存在");
 
     /**
      * 消息码

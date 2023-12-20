@@ -1,0 +1,18 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woke.working.common.service.dao.QrCodeDao">
+
+    <select id="selectQrCodePage" resultType="com.woke.working.common.service.entity.QrCode">
+        SELECT
+            *
+        FROM
+            tb_qr_code t
+        <where>
+            <if test="qrCodePageDTO.qrCodeStatus!=null">
+                and t.qr_code_status = #{qrCodePageDTO.qrCodeStatus}
+            </if>
+            <if test="qrCodePageDTO.qrCodeId!=null and qrCodePageDTO.qrCodeId!=''">
+                and t.qr_code_id = #{qrCodePageDTO.qrCodeId}
+            </if>
+        </where>
+    </select>
+</mapper>
