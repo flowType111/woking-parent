@@ -23,6 +23,6 @@ public class QrCode extends BaseEntity {
     @TableField("callback_url")
     private String callbackUrl;
 
-    @TableField("qr_code_status'")
-    private String qrCodeStatus;
+    @TableField("qr_code_status")
+    private Integer qrCodeStatus;
 }
