@@ -1,6 +1,5 @@
 // config.js
 var apiUrl;
-
 if (window.location.hostname === 'production.example.com') {
     apiUrl = 'https://api.production.example.com';
 } else if (window.location.hostname === 'staging.example.com') {

@@ -12,6 +12,12 @@ spring:
     allow-bean-definition-overriding: true
   thymeleaf:
     prefix: classpath:/templates/
+    cache: false
+    suffix: .html
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/static/
   devtools:
     restart:
       enabled: true

@@ -12,6 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/unified/payment")
 public interface UnifiedPaymentApi {
 
-    @GetMapping("/unifiedPayment.do")
-    ModelAndView unifiedPayment();
+    @GetMapping("/index")
+    String unifiedPayment();
 }

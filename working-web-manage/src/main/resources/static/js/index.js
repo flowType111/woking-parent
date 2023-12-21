@@ -65,7 +65,7 @@ function submitPayment() {
 }
 
 // 使用fetch获取接口数据
-fetch(apiUrl + '/user-api/pay/config/selectAll')
+fetch(apiUrl + '/common-api/pay/config/selectAll')
     .then(response => response.json())
     .then(data => {
         // 初始化页面时添加默认的支付方式
