@@ -15,6 +15,13 @@ server:
   max-http-header-size: 4048576
   tomcat:
     max-http-post-size: -1  #请求参数长度
+
+upload:
+  accessKey: _VJrPI3hNcy5mTO146ybRc13qwhMrp9byPdCR01w
+  secretKey: AsidWTm0d2e9Hubk2Vh2dGzPXU5wNhNucLPbZuhV
+  bucket: working-obs
+  prefix: s60f6obrq.sabkt.gdipper.com
+
 ---
 spring:
   profiles: dev

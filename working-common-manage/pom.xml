@@ -58,6 +58,8 @@
             <artifactId>nimbus-jose-jwt</artifactId>
             <version>8.19</version>
         </dependency>
+
+
     </dependencies>
 
     <dependencyManagement>
