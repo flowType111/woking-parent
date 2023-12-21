@@ -20,7 +20,7 @@ upload:
   accessKey: _VJrPI3hNcy5mTO146ybRc13qwhMrp9byPdCR01w
   secretKey: AsidWTm0d2e9Hubk2Vh2dGzPXU5wNhNucLPbZuhV
   bucket: working-obs
-  prefix: s60f6obrq.sabkt.gdipper.com
+  prefix: http://s60f6obrq.sabkt.gdipper.com
 
 ---
 spring:
