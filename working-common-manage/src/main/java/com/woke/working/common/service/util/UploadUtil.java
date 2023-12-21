@@ -25,6 +25,9 @@ public class UploadUtil {
     @Value("${upload.bucket}")
     public String bucket;
 
+    @Value("${upload.prefix}")
+    public String prefix;
+
     /**
      * 上传文件
      *
@@ -61,11 +64,11 @@ public class UploadUtil {
         String key = fileName;
         Auth auth = Auth.create(accessKey, secretKey);
         String upToken = auth.uploadToken(bucket);
-        StringBuffer prefix = null;
+        StringBuffer prefix = new StringBuffer();
         try {
             Response response = uploadManager.put(bytes, key, upToken);
             DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
-            prefix.append("/").append(putRet.hash);
+            prefix.append(prefix).append("/").append(putRet.key);
             log.info("参数：{}", putRet);
         } catch (Exception ex) {
             log.error("上传文件失败：{}", ex);
