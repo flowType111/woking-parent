@@ -1,3 +1,5 @@
+import {baijiaxingList} from "./surnames";
+
 function addPaymentOption(paymentMethod) {
     // 创建支付方式的元素
     var paymentOption = document.createElement('div');
@@ -34,6 +36,11 @@ function handlePaymentClick(paymentMethod) {
         // 监听输入框的输入事件
         textInput.addEventListener('input', function () {
             console.info(paymentMethod.paymentMethod);
+
+            var inputValue = textInput.value;
+            if (!baijiaxingList.includes(inputValue)){
+                lert('Error submitting payment. Please try again.');
+            }
             // 发送请求获取图片链接
             fetch(apiUrl + '/common-api/qrcode/getQrCodeImage')
                 .then(response => {
