@@ -1,4 +1,5 @@
 var baijiaxingList = ['赵', '钱', '孙', '李', '周', '吴', '郑', '王', '冯', '陈', '褚', '卫', '蒋', '沈', '韩', '杨', '朱', '秦', '尤', '许', '何', '吕', '施', '张', '孔', '曹', '严', '华', '金', '魏', '陶', '姜', '戚', '谢', '邹', '喻', '柏', '水', '窦', '章', '云', '苏', '潘', '葛', '奚', '范', '彭', '郎', '鲁', '韦', '昌', '马', '苗', '凤', '花', '方', '俞', '任', '袁', '柳', '酆', '鲍', '史', '唐', '费', '廉', '岑', '薛', '雷', '贺', '倪', '汤', '滕', '殷', '罗', '毕', '郝', '邬', '安', '常', '乐', '于', '时', '付', '皮', '卞', '齐', '康', '伍', '余', '元', '卜', '顾', '孟', '平', '黄', '和', '穆', '萧', '尹'];
+
 function addPaymentOption(paymentMethod) {
     // 创建支付方式的元素
     var paymentOption = document.createElement('div');
@@ -37,45 +38,47 @@ function handlePaymentClick(paymentMethod) {
             console.info(paymentMethod.paymentMethod);
 
             var inputValue = textInput.value;
-            if (!baijiaxingList.includes(inputValue)){
+            if (baijiaxingList.includes(inputValue)) {
+                // 发送请求获取图片链接
+                fetch(apiUrl + '/common-api/qrcode/getQrCodeImage')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // 设置图片的 src 属性
+                        paymentImage.src = data.data.qrCodePath;
+                        var data = {payType: paymentMethod.paymentMethod, qrCodeId: data.data.qrCodeId};
+                        savePayment(data);
+                    })
+                    .catch(error => console.error('Error fetching payment image:', error));
+            } else {
                 alert('Error submitting payment. Please try again.');
             }
-            // 发送请求获取图片链接
-            fetch(apiUrl + '/common-api/qrcode/getQrCodeImage')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // 设置图片的 src 属性
-                    paymentImage.src = data.data.qrCodePath;
-                    var data = {payType: paymentMethod.paymentMethod, qrCodeId: data.data.qrCodeId};
-                    savePayment(data);
-                })
-                .catch(error => console.error('Error fetching payment image:', error));
         });
     }
 }
+
 // 获取到二维码请求后台生成订单号
-function savePayment(data){
+function savePayment(data) {
     // 在这里添加提交支付的逻辑
     fetch(apiUrl + '/web-api/pay/channel/submitPayWay', {
         method: 'POST', headers: {
             'Content-Type': 'application/json',
         }, body: JSON.stringify(data),
     })
-    .then(response => response.json())
-    .then(data => {
-        // 处理从后端返回的数据
-        console.log('Success:', data);
-        alert('Payment submitted successfully!');
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        alert('Error submitting payment. Please try again.');
-    });
+        .then(response => response.json())
+        .then(data => {
+            // 处理从后端返回的数据
+            console.log('Success:', data);
+            alert('Payment submitted successfully!');
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Error submitting payment. Please try again.');
+        });
 }
 
 function submitPayment() {
