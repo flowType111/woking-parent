@@ -58,7 +58,7 @@ public class QrCodeService extends PayChannelAbstractExecutor {
             updateCode.setId(qrCode.getId());
             qrCodeDao.updateById(updateCode);
         }
-        redisUtil.setObject(redisKey, JSON.toJSONString(qrCode));
+        redisUtil.setObject(redisKey, JSON.toJSONString(qrCode), 360L);
         //发送mq信息生成订单号
         MessageDTO messageDTO = new MessageDTO();
         messageDTO.setMessageType(JSON.toJSONString(qrCode));

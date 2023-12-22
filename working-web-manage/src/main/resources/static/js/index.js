@@ -26,9 +26,20 @@ function handlePaymentClick(paymentMethod) {
     // 根据选择的支付方式显示相应的表单
     if (paymentMethod.paymentMethod === '4') {
         document.getElementById('blockChannel').style.display = 'block';
-    } else {
-        // 显示其他支付方式的表单
+    } else if (paymentMethod.paymentMethod === '1') {
+        getQrCodeImage(paymentMethod.paymentMethod);
+        document.getElementById('qrCodeChannel').style.display = 'block';
     }
+}
+
+function getQrCodeImage(paymentMethod) {
+    // 使用fetch获取接口数据
+    fetch(apiUrl + '/common-api/pay/channel/getChannel?paymentMethod=' + paymentMethod)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('paymentImage').src = data.data.qrCodePath;
+        })
+        .catch(error => console.error('Error fetching payment methods:', error));
 }
 
 function submitPayment() {
