@@ -24,7 +24,7 @@ public class QrCodeChannelService extends PayChannelAbstractExecutor {
         QrcodeChannelDTO qrcodeChannelDTO = JSON.parseObject(JSON.toJSONString(ThreadLocalUtil.getLocalVar().get("paramsMap")), QrcodeChannelDTO.class);
         //发送mq信息生成订单号
         MessageDTO messageDTO = new MessageDTO();
-        messageDTO.setMessageType(JSON.toJSONString(qrcodeChannelDTO));
+        messageDTO.setMessage(JSON.toJSONString(qrcodeChannelDTO));
         messageDTO.setMessageType(PayChannelEnum.QR_CODE_CHANNEL.getPayType());
         mqSenderService.sendMessage(MqKeyConstant.MqExchange.exchange, true, MqKeyConstant.RoutingKey.routingKey, JSON.toJSONString(messageDTO));
     }
