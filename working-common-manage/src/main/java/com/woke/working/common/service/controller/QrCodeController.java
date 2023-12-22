@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
@@ -26,4 +27,11 @@ public class QrCodeController implements QrCodeApi {
     public ResponseVo selectQrCodePage(@RequestBody QrCodePageDTO qrCodePageDTO) {
         return qrCodeService.selectQrCodePage(qrCodePageDTO);
     }
+
+    @Override
+    public ResponseVo getQrCodeImage(HttpServletRequest request) {
+        return qrCodeService.getQrCodeImage(request);
+    }
+
+
 }

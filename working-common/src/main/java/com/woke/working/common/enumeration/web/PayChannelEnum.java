@@ -2,8 +2,7 @@ package com.woke.working.common.enumeration.web;
 
 public enum PayChannelEnum {
     BLOCK_CHANNEL("4","blockChannelService","卡密渠道"),
-    QR_CODE_CHANNEL("1","qrCodeService","二维码渠道");
-
+    QR_CODE_CHANNEL("1","qrCodeChannelService","二维码渠道");
     private final String payType;
     private final String beanName;
     private final String payDescribe;

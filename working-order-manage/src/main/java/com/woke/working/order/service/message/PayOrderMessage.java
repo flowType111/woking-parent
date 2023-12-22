@@ -20,9 +20,6 @@ import org.springframework.stereotype.Service;
 public class PayOrderMessage {
 
     @Autowired
-    private PayOrderService payOrderService;
-
-    @Autowired
     private MessageFactory messageFactory;
 
     @RabbitListener(queues = MqKeyConstant.MqTopic.orderTopic)

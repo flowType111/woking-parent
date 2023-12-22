@@ -27,19 +27,49 @@ function handlePaymentClick(paymentMethod) {
     if (paymentMethod.paymentMethod === '4') {
         document.getElementById('blockChannel').style.display = 'block';
     } else if (paymentMethod.paymentMethod === '1') {
-        getQrCodeImage(paymentMethod.paymentMethod);
         document.getElementById('qrCodeChannel').style.display = 'block';
+        // 获取图片和输入框的元素
+        var paymentImage = document.getElementById('paymentImage');
+        var textInput = document.getElementById('textInput');
+        // 监听输入框的输入事件
+        textInput.addEventListener('input', function () {
+            console.info(paymentMethod.paymentMethod);
+            // 发送请求获取图片链接
+            fetch(apiUrl + '/common-api/qrcode/getQrCodeImage')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // 设置图片的 src 属性
+                    paymentImage.src = data.data.qrCodePath;
+                    var data = {payType: paymentMethod.paymentMethod, qrCodeId: data.data.qrCodeId};
+                    savePayment(data);
+                })
+                .catch(error => console.error('Error fetching payment image:', error));
+        });
     }
 }
-
-function getQrCodeImage(paymentMethod) {
-    // 使用fetch获取接口数据
-    fetch(apiUrl + '/common-api/pay/channel/getChannel?paymentMethod=' + paymentMethod)
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('paymentImage').src = data.data.qrCodePath;
-        })
-        .catch(error => console.error('Error fetching payment methods:', error));
+// 获取到二维码请求后台生成订单号
+function savePayment(data){
+    // 在这里添加提交支付的逻辑
+    fetch(apiUrl + '/web-api/pay/channel/submitPayWay', {
+        method: 'POST', headers: {
+            'Content-Type': 'application/json',
+        }, body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+        // 处理从后端返回的数据
+        console.log('Success:', data);
+        alert('Payment submitted successfully!');
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Error submitting payment. Please try again.');
+    });
 }
 
 function submitPayment() {

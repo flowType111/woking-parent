@@ -20,11 +20,6 @@ h1 {
     overflow-x: auto; /* 允许水平滚动 */
 }
 
-#paymentImage {
-    width: 200px;
-    height: auto;
-}
-
 .paymentOption {
     margin-right: 10px;
     cursor: pointer;

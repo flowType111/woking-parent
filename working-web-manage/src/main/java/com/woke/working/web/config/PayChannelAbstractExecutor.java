@@ -9,5 +9,5 @@ import java.text.ParseException;
  */
 public abstract class PayChannelAbstractExecutor {
 
-    public abstract void execute() throws ParseException;
+    public abstract void execute();
 }

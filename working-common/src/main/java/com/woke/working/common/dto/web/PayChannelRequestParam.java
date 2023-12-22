@@ -8,7 +8,8 @@ import javax.validation.constraints.NotNull;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "payType", visible = true)
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = BlockChannelDTO.class, name = "4")
+        @JsonSubTypes.Type(value = BlockChannelDTO.class, name = "4"),
+        @JsonSubTypes.Type(value = QrcodeChannelDTO.class, name = "1")
 })
 @Data
 public class PayChannelRequestParam {

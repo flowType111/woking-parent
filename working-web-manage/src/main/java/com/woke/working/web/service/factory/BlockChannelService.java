@@ -25,7 +25,7 @@ public class BlockChannelService extends PayChannelAbstractExecutor {
     private MqSenderService mqSenderService;
 
     @Override
-    public void execute() throws ParseException {
+    public void execute() {
         BlockChannelDTO blockChannelDTO = JSON.parseObject(JSON.toJSONString(ThreadLocalUtil.getLocalVar().get("paramsMap")), BlockChannelDTO.class);
         // 生成订单号
         String orderCode = OrderUtil.getOrderNumber();

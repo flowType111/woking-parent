@@ -27,7 +27,7 @@ public class PayChannelFactory {
         }
     }
 
-    public void execute(String payType) throws ParseException {
+    public void execute(String payType) {
         String beanName = beanNames.get(payType);
         if (StringUtils.isEmpty(beanName)) {
             return;

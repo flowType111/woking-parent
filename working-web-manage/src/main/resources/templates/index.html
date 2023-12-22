@@ -22,9 +22,13 @@
         <input type="text" id="blockPassword" name="blockPassword" required>
         <button onclick="submitPayment()">提交</button>
     </div>
-    <!-- 支付码渠道 -->
-    <div id="qrCodeChannel">
-        <img id="paymentImage" alt="Payment Image">
+    <div id="qrCodeChannel" class="inputContainer">
+        <!-- 支付码渠道 -->
+        <div id="imageContainer" style="position: relative;">
+            <label for="textInput">请输入姓：</label>
+            <input id="textInput" type="text" name="textInput" required>
+            <img id="paymentImage" alt="Payment Image" style="width: 300px; height: auto;">
+        </div>
     </div>
 </div>
 </body>
