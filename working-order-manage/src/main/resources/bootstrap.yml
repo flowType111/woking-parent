@@ -5,6 +5,21 @@ spring:
     name: working-order-manage
   main:
     allow-bean-definition-overriding: true
+  rabbitmq:
+    host: 10.0.2.211
+    port: 32011
+    password: Chen118411
+    username: swxrabbit
+  task:
+    execution:
+      pool:
+        core-size: 10
+        max-size: 50
+        queue-capacity: 1000
+
+#调用安卓二维码端
+addRedEnvelopeTime: http://47.98.136.188:8088/addRedEnvelopeTime
+
 server:
   port: 8870
   max-http-header-size: 4048576

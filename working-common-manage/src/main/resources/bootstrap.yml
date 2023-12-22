@@ -9,6 +9,17 @@ spring:
     hidden-method:
       filter:
         enabled: true
+  task:
+    execution:
+      pool:
+        core-size: 10
+        max-size: 50
+        queue-capacity: 1000
+  rabbitmq:
+    host: 10.0.2.211
+    port: 32011
+    password: Chen118411
+    username: swxrabbit
 
 server:
   port: 8850
@@ -21,6 +32,7 @@ upload:
   secretKey: AsidWTm0d2e9Hubk2Vh2dGzPXU5wNhNucLPbZuhV
   bucket: working-obs
   prefix: http://s60f6obrq.sabkt.gdipper.com
+
 
 ---
 spring:

@@ -11,4 +11,6 @@ import java.util.List;
 public interface QrCodeDao extends BaseMapper<QrCode> {
 
     Page<QrCode> selectQrCodePage(@Param("page") Page<QrCode> page, @Param("qrCodePageDTO") QrCodePageDTO qrCodePageDTO);
+
+    QrCode selectRand();
 }

@@ -27,4 +27,7 @@ public class PayOrder extends BaseEntity {
 
     @TableField("order_pay_channel")
     private Integer payChannelEnum;
+
+    @TableField("qr_code_id")
+    private String qrCodeId;
 }

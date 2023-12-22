@@ -15,4 +15,8 @@
             </if>
         </where>
     </select>
+
+    <select id="selectRand" resultType="com.woke.working.common.service.entity.QrCode">
+        SELECT * FROM tb_qr_code where qr_code_status = 0 ORDER BY RAND() LIMIT 1
+    </select>
 </mapper>
