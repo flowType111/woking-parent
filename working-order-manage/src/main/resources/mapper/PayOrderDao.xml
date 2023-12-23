@@ -1,24 +1,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.woke.working.order.dao.PayOrderDao">
 
-    <select id="selectOrderCount" resultType="int">
-        SELECT
-            count(*)
-        FROM
-            tb_order t
-        <where>
-            <if test="orderPageDTO.orderNo!=null and orderPageDTO.orderNo!=''">
-                and t.order_no = #{orderPageDTO.orderNo}
-            </if>
-            <if test="orderPageDTO.payType!=null">
-                and t.order_status = #{orderPageDTO.payType}
-            </if>
-            <if test="orderPageDTO.channel!=null">
-                and t.order_pay_channel = #{orderPageDTO.channel}
-            </if>
-        </where>
-    </select>
-
     <select id="selectOrderPage" resultType="com.woke.working.order.entity.PayOrder">
         SELECT
             *
@@ -36,6 +18,5 @@
             </if>
         </where>
         ORDER BY t.create_time desc
-        LIMIT #{orderPageDTO.offSet},#{orderPageDTO.pageSize}
     </select>
 </mapper>
