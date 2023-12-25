@@ -29,7 +29,6 @@
         <module>working-user-manage</module>
         <module>working-common-manage</module>
         <module>working-order-manage</module>
-        <module>working-web-manage</module>
         <module>working-utils/working-redis-starter</module>
         <module>working-utils/working-db-starter</module>
         <module>working-utils/working-web-starter</module>

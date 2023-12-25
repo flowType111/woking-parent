@@ -1,5 +1,6 @@
 package com.woke.working.api.common;
 
+import com.woke.working.common.dto.common.AccessTokenAuthDTO;
 import com.woke.working.common.dto.common.InterFaceAuthDTO;
 import com.woke.working.common.dto.common.InterFaceAuthPage;
 import com.woke.working.common.vo.ResponseVo;
@@ -16,10 +17,8 @@ public interface InterFaceAuthApi {
     @PostMapping("/addInterFaceAuth")
     ResponseVo addInterFaceAuth(InterFaceAuthDTO interFaceAuthDTO);
 
-
     @GetMapping("/operateInterFaceAuth")
     ResponseVo operateInterFaceAuth(String id, String type);
-
 
     @PostMapping("/selectInterFaceAuth")
     ResponseVo selectInterFaceAuth(InterFaceAuthPage interFaceAuthPage);
@@ -29,4 +28,7 @@ public interface InterFaceAuthApi {
 
     @GetMapping("/selectInterFaceDetails")
     ResponseVo selectInterFaceDetails(String id);
+
+    @PostMapping("/interFaceAuth")
+    ResponseVo interFaceAuth(AccessTokenAuthDTO accessTokenAuthDTO);
 }

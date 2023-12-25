@@ -1,6 +1,5 @@
 package com.woke.working.web.annotation;
 
-import com.woke.working.web.aspect.VerifySignatureAspect;
 import com.woke.working.web.config.EnableVerifySignatureConfiguration;
 import org.springframework.context.annotation.Import;
 

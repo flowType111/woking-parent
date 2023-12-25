@@ -15,4 +15,6 @@ public interface InterFaceAuthDao extends BaseMapper<TbInterFaceAuth> {
     List<TbInterFaceAuth> selectInterFaceAuth(@Param("interFaceAuthPage") InterFaceAuthPage interFaceAuthPage);
 
     InterFaceVo selectInterFaceDetails(@Param("id") String id);
+
+
 }

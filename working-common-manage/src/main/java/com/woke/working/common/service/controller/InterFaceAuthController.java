@@ -1,6 +1,7 @@
 package com.woke.working.common.service.controller;
 
 import com.woke.working.api.common.InterFaceAuthApi;
+import com.woke.working.common.dto.common.AccessTokenAuthDTO;
 import com.woke.working.common.dto.common.InterFaceAuthDTO;
 import com.woke.working.common.dto.common.InterFaceAuthPage;
 import com.woke.working.common.service.service.InterFaceAuthService;
@@ -41,5 +42,10 @@ public class InterFaceAuthController implements InterFaceAuthApi {
     @Override
     public ResponseVo selectInterFaceDetails(@RequestParam("id") String id) {
         return interFaceAuthService.selectInterFaceDetails(id);
+    }
+
+    @Override
+    public ResponseVo interFaceAuth(@RequestBody AccessTokenAuthDTO accessTokenAuthDTO) {
+        return interFaceAuthService.interFaceAuth(accessTokenAuthDTO);
     }
 }
