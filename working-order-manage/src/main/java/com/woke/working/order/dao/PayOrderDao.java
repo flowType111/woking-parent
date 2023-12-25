@@ -11,4 +11,6 @@ import java.util.List;
 public interface PayOrderDao extends BaseMapper<PayOrder> {
 
     Page<PayOrder> selectOrderPage(@Param("page") Page<OrderPageDTO> page, @Param("orderPageDTO") OrderPageDTO orderPageDTO);
+
+	Integer checkOrder(@Param("qrCodeId")String qrCodeId);
 }

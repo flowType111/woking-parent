@@ -19,4 +19,7 @@
         </where>
         ORDER BY t.create_time desc
     </select>
+    <select id="checkOrder" resultType='java.lang.Integer'>
+        SELECT count(*) FROM `tb_order` t where t.qr_code_id = #{qrCodeId} and t.`status` = '0'
+    </select>
 </mapper>

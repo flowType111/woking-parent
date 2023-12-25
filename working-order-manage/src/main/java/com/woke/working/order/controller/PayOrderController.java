@@ -19,4 +19,9 @@ public class PayOrderController implements PayOrderApi {
     public ResponseVo selectOrderPage(@RequestBody OrderPageDTO orderPageDTO) {
         return payOrderService.selectOrderPage(orderPageDTO);
     }
+
+	@Override
+	public ResponseVo checkOrder(String qrCodeId) {
+		return payOrderService.checkOrder(qrCodeId);
+	}
 }

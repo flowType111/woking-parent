@@ -41,4 +41,9 @@ public class PayOrderServiceImpl extends ServiceImpl<PayOrderDao, PayOrder> impl
         Page<PayOrder> pageList = payOrderDao.selectOrderPage(page, orderPageDTO);
         return ResponseVo.success(pageList);
     }
+
+	@Override
+	public ResponseVo checkOrder(String qrCodeId) {
+		return ResponseVo.success(payOrderDao.checkOrder(qrCodeId));
+	}
 }

@@ -11,4 +11,7 @@ public interface PayOrderApi {
 
 	@PostMapping("/selectOrderPage")
     ResponseVo selectOrderPage(OrderPageDTO orderPageDTO);
+	
+	@PostMapping("/checkOrder")
+    ResponseVo checkOrder(String qrCodeId);
 }

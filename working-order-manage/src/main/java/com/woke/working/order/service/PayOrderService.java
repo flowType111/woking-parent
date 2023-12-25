@@ -11,4 +11,6 @@ public interface PayOrderService extends IService<PayOrder> {
     void addPayOrder(PayOrderDTO payOrderDTO);
 
     ResponseVo selectOrderPage(OrderPageDTO orderPageDTO);
+
+	ResponseVo checkOrder(String qrCodeId);
 }
