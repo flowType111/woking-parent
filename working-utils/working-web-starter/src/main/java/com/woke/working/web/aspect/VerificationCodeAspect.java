@@ -34,7 +34,7 @@ public class VerificationCodeAspect {
             if (arg instanceof CheckImageDTO) {
                 CheckImageDTO checkImageDTO = (CheckImageDTO) arg;
                 ResponseVo responseVo = imageCodeFeign.verifyCode(checkImageDTO);
-                if (!Boolean.getBoolean(String.valueOf(responseVo.getData()))) {
+                if (!Boolean.valueOf(String.valueOf(responseVo.getData()))) {
                     throw new BusinessErrorException(BusinessMsgEnum.WORKING_USER_CHECK_CODE_ERROR);
                 }
             }

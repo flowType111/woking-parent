@@ -10,7 +10,5 @@ import java.util.List;
 
 public interface PayOrderDao extends BaseMapper<PayOrder> {
 
-    int selectOrderCount(@Param("orderPageDTO") OrderPageDTO orderPageDTO);
-
     Page<PayOrder> selectOrderPage(@Param("page") Page<OrderPageDTO> page, @Param("orderPageDTO") OrderPageDTO orderPageDTO);
 }
