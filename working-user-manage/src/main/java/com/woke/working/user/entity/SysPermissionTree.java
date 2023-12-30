@@ -33,6 +33,14 @@ public class SysPermissionTree implements Serializable {
 	 * 菜单名称
 	 */
 	private String name;
+	
+
+	/**
+	 *
+	 * 权限code
+	 *
+	 */
+	private String menuCode;
 
 	/**
 	 * 菜单权限编码

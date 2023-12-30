@@ -103,7 +103,7 @@
         p.rule_flag as ruleFlag,
         p.status,
         p.internal_or_external as internalOrExternal,
-        p.menu_code as menuCode,
+        p.menu_code as menuCode
     </sql>
     <select id="findRoleMenuList" parameterType="Object" resultType="java.lang.String">
         SELECT p.menu_id
